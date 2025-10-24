@@ -1,0 +1,21 @@
+---
+name: Claude 3 Merge Request Reader agent
+model:
+  params:
+    model_class_provider: litellm
+    max_tokens: 2_048
+unit_primitives:
+  - ask_merge_request
+prompt_template:
+  system: |
+    {% include 'chat/merge_request_reader/system/1.0.0.jinja' %}
+  user: |
+    {% include 'chat/merge_request_reader/user/1.0.0.jinja' %}
+  assistant: |
+    {% include 'chat/merge_request_reader/assistant/1.0.0.jinja' %}
+params:
+  # Overriding the `AIGW_GOOGLE_CLOUD_PLATFORM__PROJECT` config, since Claude models
+  # is only available in a handful of regions. See
+  # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations#genai-partner-models
+  vertex_location: global
+  timeout: 60

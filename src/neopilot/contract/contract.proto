@@ -1,0 +1,232 @@
+syntax = "proto3";
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/neopilot-ai/neopilot/clients/gopb";
+option ruby_package = "NeoaiWorkflowService";
+
+service NeoaiWorkflow {
+    rpc ExecuteWorkflow (stream ClientEvent) returns (stream Action);
+    rpc GenerateToken (GenerateTokenRequest) returns (GenerateTokenResponse);
+    rpc ListTools (ListToolsRequest) returns (ListToolsResponse);
+    rpc ListFlows (ListFlowsRequest) returns (ListFlowsResponse);
+}
+
+message ClientEvent {
+    oneof response {
+        StartWorkflowRequest startRequest = 1;
+        ActionResponse actionResponse = 2;
+        HeartbeatRequest heartbeat = 3;
+        StopWorkflowRequest stopWorkflow = 4;
+    }
+}
+
+message StartWorkflowRequest {
+    string clientVersion = 1;
+    string workflowID = 2;
+    string workflowDefinition = 3;
+    string goal = 4;
+    string workflowMetadata = 5;
+    repeated string clientCapabilities = 6;
+    reserved 7; // Previously used for removed ContextElement field
+    repeated McpTool mcpTools = 8;
+    repeated AdditionalContext additional_context = 9;
+    optional Approval approval = 10;
+    optional google.protobuf.Struct flowConfig = 11;
+    optional string flowConfigSchemaVersion = 12;
+    repeated string preapproved_tools = 13;
+}
+
+message ActionResponse {
+    string requestID = 1;
+    optional string response = 2;
+    oneof response_type {
+        PlainTextResponse plainTextResponse = 3;
+        HttpResponse httpResponse = 4;
+    }
+}
+
+message HeartbeatRequest {
+    int64 timestamp = 1;
+}
+
+message StopWorkflowRequest {
+    string reason = 1;
+}
+
+message PlainTextResponse {
+    string response = 1;
+    string error = 2;
+}
+
+message HttpResponse {
+    map<string, string> headers = 1;
+    int32 statusCode = 2;
+    string body = 3;
+    string error = 4;
+}
+
+message Action {
+    string requestID = 1;
+    oneof action {
+        RunCommandAction runCommand = 2;
+        RunHTTPRequest runHTTPRequest = 3;
+        ReadFile runReadFile = 4;
+        WriteFile runWriteFile = 5;
+        RunGitCommand runGitCommand = 6;
+        EditFile runEditFile = 7;
+        NewCheckpoint newCheckpoint = 8;
+        ListDirectory listDirectory = 9;
+        Grep grep = 10;
+        FindFiles findFiles = 11;
+        RunMCPTool runMCPTool = 12;
+        Mkdir mkdir = 13;
+        ReadFiles runReadFiles = 14;
+    };
+}
+
+message RunCommandAction {
+    reserved 1, 2;
+    reserved "command", "withGitCredentials";
+    string program = 3;
+    repeated string arguments = 4;
+    repeated string flags = 5;
+}
+
+message ReadFile {
+    string filepath = 1;
+    optional int64 limit = 2;
+    optional int64 offset = 3;
+}
+
+message ReadFiles {
+    repeated string filepaths = 1;
+}
+
+message WriteFile {
+    string filepath = 1;
+    string contents = 2;
+}
+
+message EditFile {
+    string filepath = 1;
+    string oldString = 2;
+    string newString = 3;
+}
+
+message RunHTTPRequest {
+    string method = 1;
+    string path = 2;
+    optional string body = 3;
+}
+
+message RunGitCommand {
+    string command = 1;
+    optional string arguments = 2;
+    string repository_url = 3;
+}
+
+message GenerateTokenRequest {
+    optional string workflowDefinition = 1;
+}
+
+message GenerateTokenResponse {
+    string token = 1;
+    int64 expiresAt = 2;
+}
+
+message ListToolsRequest {
+    // Intentionally empty
+}
+
+message ListToolsResponse {
+  repeated google.protobuf.Struct tools = 1;
+  repeated google.protobuf.Struct eval_dataset = 2;
+}
+
+
+message ListFlowsRequest {
+    optional ListFlowsRequestFilter filters = 1;
+}
+
+message ListFlowsRequestFilter {
+    reserved 1;
+    reserved "name";
+    repeated string flow_identifier = 4;
+    repeated string environment = 2;
+    repeated string version = 3;
+}
+
+message ListFlowsResponse {
+  repeated google.protobuf.Struct configs = 1;
+}
+
+message NewCheckpoint {
+    string status = 1;
+    string checkpoint = 2;
+    string goal = 3;
+    repeated string errors = 4;
+}
+
+message ListDirectory {
+    string directory = 1;
+}
+
+message Grep {
+    string search_directory = 1;
+    string pattern = 2;
+    bool case_insensitive = 3;
+}
+
+message FindFiles {
+    string name_pattern = 1;
+}
+
+message McpTool {
+    string name = 1;
+    string description = 2;
+    string inputSchema = 3;
+}
+
+message RunMCPTool {
+    string name = 1;
+    string args = 2;
+}
+
+message AdditionalContext {
+    string category = 1;
+    optional string id = 2;
+    optional string content = 3;
+    optional string metadata = 4;
+}
+
+message Approval {
+    message Approved {}
+
+    message Rejected {
+        optional string message = 1;
+    }
+
+    oneof user_decision {
+        Approved approval = 1;
+        Rejected rejection = 2;
+    }
+}
+
+message Mkdir {
+    string directory_path = 1;
+}
+
+message OsInformationContext {
+    string platform = 1;
+    string architecture = 2;
+}
+
+message ShellInformationContext {
+    string shell_name = 1;
+    string shell_type = 2;
+    optional string shell_variant = 3;
+    optional string shell_environment = 4;
+    optional bool ssh_session = 5;
+    optional string cwd = 6;
+}

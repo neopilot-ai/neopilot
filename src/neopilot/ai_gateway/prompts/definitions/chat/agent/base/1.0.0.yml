@@ -1,0 +1,15 @@
+---
+name: Chat Agent
+model:
+  params:
+    model_class_provider: anthropic
+    max_tokens: 32_768
+unit_primitives:
+  - neoai_chat
+prompt_template:
+  system_static: |
+    {% include 'chat/agent/partials/system_static/claude_3/1.0.0.jinja' %}
+  system_dynamic: |
+    {% include 'chat/agent/partials/system_dynamic/1.0.0.jinja' %}
+  user: |
+    {% include 'chat/agent/partials/user/1.0.0.jinja' %}

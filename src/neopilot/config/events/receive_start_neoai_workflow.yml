@@ -1,0 +1,16 @@
+---
+description: Tracks when a start request is received by the Neoai Agent Platform
+internal_events: true
+action: receive_start_neoai_workflow
+product_group: neoai_workflow
+additional_properties:
+  label:
+    description: The type of workflow being started (flow_type)
+  property:
+    description: Hardcoded string workflow_id
+  value:
+    description: Workflow Id that can be used to connect this event to others that happen when the workflow is completed.
+milestone: '18.3'
+introduced_by_url: https://github.com/neopilot-ai/neopilot/-/merge_requests/3155
+tiers:
+  - ultimate

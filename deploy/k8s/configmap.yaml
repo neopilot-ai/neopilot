@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: neopilot-config
+  namespace: neopilot
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  AI_GATEWAY_HOST: "0.0.0.0"
+  AI_GATEWAY_PORT: "8000"
+  WORKFLOW_SERVICE_HOST: "0.0.0.0"
+  WORKFLOW_SERVICE_PORT: "50051"
+  GITLAB_URL: "https://gitlab.com"
+  PROMETHEUS_PORT: "9090"
+  ENABLE_RATE_LIMITING: "true"
+  ENABLE_CACHING: "true"
+  ENABLE_ABUSE_DETECTION: "true"
+  MAX_CONCURRENT_WORKFLOWS: "100"
+  REQUEST_TIMEOUT: "300"

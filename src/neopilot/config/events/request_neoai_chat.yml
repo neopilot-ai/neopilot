@@ -1,0 +1,10 @@
+---
+description: Tracks when neoai chat API is called from GitLab instance
+action: request_neoai_chat
+product_group: ai_framework
+milestone: '17.3'
+introduced_by_url: https://github.com/neopilot-ai/neopilot/-/merge_requests/1113
+tiers:
+  - free
+  - premium
+  - ultimate

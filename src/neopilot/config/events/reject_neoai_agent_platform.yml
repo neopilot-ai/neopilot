@@ -1,0 +1,17 @@
+---
+description: Tracks rejected Neoai Agent Platform sessions
+internal_events: true
+action: reject_neoai_agent_platform
+product_group: neoai_workflow
+additional_properties:
+  label:
+    description: Workflow event type label
+  property:
+    description: Workflow event type Property
+  value:
+    description: Workflow Id that can be used to connect this event to others that happen when the workflow is completed.
+milestone: '18.3'
+introduced_by_url: https://github.com/neopilot-ai/neopilot/-/merge_requests/3145
+tiers:
+  - premium
+  - ultimate

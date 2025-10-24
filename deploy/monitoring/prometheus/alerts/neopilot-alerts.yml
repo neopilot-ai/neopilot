@@ -1,0 +1,172 @@
+groups:
+  - name: neopilot_alerts
+    interval: 30s
+    rules:
+      # High Error Rate Alert
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{job="ai-gateway",status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{job="ai-gateway"}[5m]))
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: ai-gateway
+        annotations:
+          summary: "High error rate detected in AI Gateway"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+          
+      # High Latency Alert
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket{job="ai-gateway"}[5m])
+          ) > 5
+        for: 10m
+        labels:
+          severity: warning
+          component: ai-gateway
+        annotations:
+          summary: "High latency detected in AI Gateway"
+          description: "95th percentile latency is {{ $value }}s (threshold: 5s)"
+          
+      # Service Down Alert
+      - alert: ServiceDown
+        expr: up{job=~"ai-gateway|workflow-service"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "{{ $labels.job }} has been down for more than 2 minutes"
+          
+      # High Memory Usage Alert
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            container_memory_usage_bytes{namespace="neopilot"}
+            /
+            container_spec_memory_limit_bytes{namespace="neopilot"}
+          ) > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High memory usage in {{ $labels.pod }}"
+          description: "Memory usage is {{ $value | humanizePercentage }} (threshold: 90%)"
+          
+      # High CPU Usage Alert
+      - alert: HighCPUUsage
+        expr: |
+          (
+            rate(container_cpu_usage_seconds_total{namespace="neopilot"}[5m])
+            /
+            container_spec_cpu_quota{namespace="neopilot"}
+          ) > 0.9
+        for: 10m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "High CPU usage in {{ $labels.pod }}"
+          description: "CPU usage is {{ $value | humanizePercentage }} (threshold: 90%)"
+          
+      # Pod Restart Alert
+      - alert: PodRestarting
+        expr: rate(kube_pod_container_status_restarts_total{namespace="neopilot"}[15m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "Pod {{ $labels.pod }} is restarting"
+          description: "Pod has restarted {{ $value }} times in the last 15 minutes"
+          
+      # Rate Limit Threshold Alert
+      - alert: HighRateLimitHits
+        expr: |
+          (
+            sum(rate(http_requests_total{job="ai-gateway",status="429"}[5m]))
+            /
+            sum(rate(http_requests_total{job="ai-gateway"}[5m]))
+          ) > 0.1
+        for: 5m
+        labels:
+          severity: info
+          component: ai-gateway
+        annotations:
+          summary: "High rate of rate limit hits"
+          description: "{{ $value | humanizePercentage }} of requests are being rate limited (threshold: 10%)"
+          
+      # Workflow Failures Alert
+      - alert: HighWorkflowFailureRate
+        expr: |
+          (
+            sum(rate(workflow_executions_total{job="workflow-service",status="failed"}[10m]))
+            /
+            sum(rate(workflow_executions_total{job="workflow-service"}[10m]))
+          ) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: workflow-service
+        annotations:
+          summary: "High workflow failure rate"
+          description: "{{ $value | humanizePercentage }} of workflows are failing (threshold: 10%)"
+          
+      # Token Usage Spike Alert
+      - alert: TokenUsageSpike
+        expr: |
+          (
+            rate(llm_tokens_used_total{job="ai-gateway"}[5m])
+            /
+            rate(llm_tokens_used_total{job="ai-gateway"}[1h] offset 1h)
+          ) > 2
+        for: 10m
+        labels:
+          severity: info
+          component: ai-gateway
+        annotations:
+          summary: "Unusual spike in token usage"
+          description: "Token usage is {{ $value }}x higher than usual"
+          
+      # Disk Space Alert
+      - alert: LowDiskSpace
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/"}
+            /
+            node_filesystem_size_bytes{mountpoint="/"}
+          ) < 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+        annotations:
+          summary: "Low disk space on {{ $labels.instance }}"
+          description: "Only {{ $value | humanizePercentage }} disk space remaining (threshold: 10%)"
+          
+      # Database Connection Pool Alert
+      - alert: DatabaseConnectionPoolExhausted
+        expr: db_connection_pool_active{namespace="neopilot"} / db_connection_pool_max{namespace="neopilot"} > 0.9
+        for: 5m
+        labels:
+          severity: critical
+          component: database
+        annotations:
+          summary: "Database connection pool nearly exhausted"
+          description: "{{ $value | humanizePercentage }} of database connections are in use (threshold: 90%)"
+          
+      # Certificate Expiry Alert
+      - alert: CertificateExpiringSoon
+        expr: (certmanager_certificate_expiration_timestamp_seconds - time()) / 86400 < 30
+        for: 1h
+        labels:
+          severity: warning
+          component: security
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "Certificate {{ $labels.name }} expires in {{ $value }} days"

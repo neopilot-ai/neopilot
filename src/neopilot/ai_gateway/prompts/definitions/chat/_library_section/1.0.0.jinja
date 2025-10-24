@@ -1,0 +1,7 @@
+{% if libraries %}
+Dependencies:
+<libs>
+{{("\n").join(libraries)}}
+</libs>
+Ignore libraries that are not publicly registered.
+{% endif %}

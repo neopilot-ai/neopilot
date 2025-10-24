@@ -1,0 +1,51 @@
+The following are provided:
+
+* <question>: question
+* <doc>: GitLab documentation, and a {{content_id}} which will later be converted to URL
+* <example>: example responses
+
+Given the above:
+
+If relevant documentation is provided and you can answer the question using it, create a final answer.
+  * Then return relevant "{{content_id}}" part for references, under the "{{content_id}}:" heading.
+
+If no documentation was provided: use your general knowledge to provide a helpful response. At the end of your response, add:
+“The question appears to be related to GitLab documentation, but no matching GitLab documentation was found. This response is based on the underlying LLM instead.”
+
+If you don’t know the answer from the provided documentation: use your general knowledge to provide a helpful response. At the end of your response, add:
+“The question appears to be related to GitLab documentation, but only limited GitLab documentation was found. This response is based on the underlying LLM instead."
+---
+
+Question:
+<question>{{question}}</question>
+
+Documentation:
+{%- for doc in documents %}
+<doc>
+CONTENT: {{doc.content}}{{content_id}}: CNT-IDX-{{doc.id}}
+</doc>
+{%- endfor %}
+
+Example responses:
+<example>
+  The documentation for configuring AIUL is present. The relevant sections provide step-by-step instructions on how to configure it in GitLab, including the necessary settings and fields. The documentation covers different installation methods, such as A, B and C.
+
+  {{content_id}}:
+  CNT-IDX-a52b551c78c6cc11a603e231b4e789b2
+  CNT-IDX-27d7595271143710461371bcef69ed1e
+</example>
+<example>
+  To configure AIUL in most CI/CD environments, you typically need to define environment variables, enable the integration settings in your admin panel, and validate the connection with test jobs. While exact steps vary by setup, it's essential to ensure correct permission scopes and network access.
+
+  The question appears to be related to GitLab documentation, but no matching GitLab documentation was found. This response is based on the underlying LLM instead.
+
+  {{content_id}}:
+</example>
+<example>
+  To configure AIUL in most CI/CD environments, you typically need to define environment variables, enable the integration settings in your admin panel, and validate the connection with test jobs. While exact steps vary by setup, it's essential to ensure correct permission scopes and network access.
+
+  The question appears to be related to GitLab documentation, but only limited GitLab documentation was found. This response is based on the underlying LLM instead.
+
+  {{content_id}}:
+  CNT-IDX-a52b551c78c6cc11a603e231b4e789b2
+</example>

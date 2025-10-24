@@ -1,0 +1,16 @@
+---
+description: Tracks when Neoai Workflow is called
+internal_events: true
+action: request_neoai_workflow
+product_group: neoai_workflow
+additional_properties:
+  label:
+    description: Workflow event type label
+  property:
+    description: Hardcoded string workflow_id
+  value:
+    description: Workflow Id that can be used to connect this event to others that happen when the workflow is completed.
+milestone: '17.6'
+introduced_by_url: https://gitlab.com/gitlab-org/neoai-workflow/neoai-workflow-service/-/merge_requests/153
+tiers:
+  - ultimate

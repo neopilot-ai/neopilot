@@ -1,0 +1,11 @@
+---
+description: Tracks when code suggestions API is called
+internal_events: true
+action: request_code_suggestions
+product_group: ai_framework
+milestone: '17.3'
+introduced_by_url: https://github.com/neopilot-ai/neopilot/-/merge_requests/1113
+tiers:
+  - free
+  - premium
+  - ultimate

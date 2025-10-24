@@ -1,0 +1,16 @@
+---
+description: Tracks Neoai Workflow pauses
+internal_events: true
+action: pause_neoai_workflow
+product_group: neoai_workflow
+additional_properties:
+  label:
+    description: Hardcoded string workflow_pause_event
+  property:
+    description: pause_request_by_<actor>_<reason (optional)>
+  value:
+    description: Workflow Id that can be used to connect this event to others that happen when the workflow is completed.
+milestone: '17.10'
+introduced_by_url: https://gitlab.com/gitlab-org/neoai-workflow/neoai-workflow-service/-/merge_requests/279
+tiers:
+  - ultimate

@@ -1,0 +1,14 @@
+---
+name: Mixtral Code Generations
+model:
+  params:
+    model_class_provider: litellm
+unit_primitives:
+  - generate_code
+prompt_template:
+  system: |
+    {% include 'code_suggestions/generations/jinja_template/self_hosted/system_mistral/1.0.0.jinja' %}
+  user: |
+    {% include 'code_suggestions/generations/jinja_template/self_hosted/user/1.0.0.jinja' %}
+params:
+  timeout: 60

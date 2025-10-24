@@ -1,0 +1,12 @@
+---
+name: DeepSeekCoder Code Completions
+model:
+  params:
+    model_class_provider: litellm
+    max_tokens: 128
+unit_primitives:
+  - complete_code
+prompt_template:
+  user: <｜fim▁begin｜>{{prefix}}<｜fim▁hole｜>{{suffix}}<｜fim▁end｜>
+params:
+  timeout: 60

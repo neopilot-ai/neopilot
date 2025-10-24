@@ -1,0 +1,19 @@
+---
+name: Claude Vertex configuration for the Neoai Chat documentation question answering
+model:
+  params:
+    model_class_provider: litellm
+    temperature: 0.1
+unit_primitives:
+  - documentation_search
+prompt_template:
+  user: |
+    {% include 'chat/documentation_search/user/1.0.0.jinja' %}
+  assistant: |
+    {% include 'chat/documentation_search/assistant/1.0.0.jinja' %}
+params:
+  # Overriding the `AIGW_GOOGLE_CLOUD_PLATFORM__PROJECT` config, since Claude models
+  # is only available in a handful of regions. See
+  # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations#genai-partner-models
+  vertex_location: global
+  timeout: 60

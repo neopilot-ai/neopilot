@@ -1,0 +1,23 @@
+---
+name: Claude Vertex Code Generations Agent
+model:
+  params:
+    model_class_provider: litellm
+    temperature: 0.2
+    max_tokens: 2048
+unit_primitives:
+  - generate_code
+prompt_template:
+  system: |
+    {% include 'code_suggestions/generations/jinja_template/dotcom/system/1.0.0.jinja' %}
+  user: |
+    {{user_instruction}}
+  assistant: |
+    <new_code>
+params:
+  # Overriding the `AIGW_GOOGLE_CLOUD_PLATFORM__PROJECT` config, since Claude models
+  # is only available in a handful of regions. See
+  # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations#genai-partner-models
+  vertex_location: global
+  stop:
+    - </new_code>

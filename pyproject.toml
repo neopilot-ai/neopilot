@@ -3,23 +3,26 @@ requires = ["flit_core >=2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name =  "py-project-toml"
+name =  "neopilot"
 authors = [
     {name = "KhulnaSoft DevOps", email = "info@khulnasoft.com"},
 ]
-description = "Sample Python Project for creating a new Python Module"
+description = "AI-Powered Workflow and Code Assistance Platform"
 readme = "README.md"
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11"
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Framework :: FastAPI"
 ]
-requires-python = ">=3.8.1"
+requires-python = ">=3.9"
 dynamic = ["version"]
 
 [project.optional-dependencies]
@@ -47,18 +50,20 @@ test = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/khulnasoft/python-repo-template/tree/main#readme"
-Source = "https://github.com/khulnasoft/python-repo-template"
-Tracker = "https://github.com/khulnasoft/python-repo-template/issues"
+Documentation = "https://github.com/khulnasoft/neopilot/tree/main#readme"
+Source = "https://github.com/khulnasoft/neopilot"
+Tracker = "https://github.com/khulnasoft/neopilot/issues"
+Homepage = "https://github.com/khulnasoft/neopilot"
 
 [tool.flit.module]
-name = "python_package"
+name = "neopilot"
 
 [tool.bandit]
 exclude_dirs = ["build","dist","tests","scripts"]
 number = 4
 recursive = true
 targets = "src"
+skips = ["B006", "B008", "B010", "B036", "B039", "B903"]
 
 [tool.black]
 line-length = 120
@@ -98,12 +103,12 @@ exclude = [
     "**/node_modules",
     "**/__pycache__",
 ]
-venv = "env37"
+venv = ".venv"
 
 reportMissingImports = true
 reportMissingTypeStubs = false
 
-pythonVersion = "3.7"
+pythonVersion = "3.9"
 pythonPlatform = "Linux"
 
 executionEnvironments = [

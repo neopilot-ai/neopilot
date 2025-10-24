@@ -1,0 +1,20 @@
+---
+name: Llama3 ReAct Chat agent
+model:
+  params:
+    model_class_provider: litellm
+    temperature: 0.1
+    max_tokens: 4_096
+unit_primitives:
+  - neoai_chat
+prompt_template:
+  system: |
+    {% include 'chat/react/system/1.0.0.jinja' %}
+  user: |
+    {% include 'chat/react/user/1.0.0.jinja' %}
+  assistant: |
+    {% include 'chat/react/assistant/1.0.0.jinja' %}
+params:
+  timeout: 30
+  stop:
+    - "Observation:"

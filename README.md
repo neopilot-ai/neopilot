@@ -1,15 +1,206 @@
-# Python Repo Template
+# Neopilot
 
-This project is a template for creating Python projects that follows the Python Standards declared in PEP 621. It uses a pyproject.yaml file to configure the project and Flit to simplify the build process and publish to PyPI. Flit simplifies the build and packaging process for Python projects by eliminating the need for separate setup.py and setup.cfg files. With Flit, you can manage all relevant configurations within the pyproject.toml file, streamlining development and promoting maintainability by centralizing project metadata, dependencies, and build specifications in one place.
+**AI-Powered Workflow and Code Assistance Platform**
 
-### `pyproject.toml`
+Neopilot is a comprehensive AI platform that provides intelligent code suggestions, workflow automation, and conversational AI capabilities. Built with modern Python practices following PEP 621 standards, it integrates multiple AI services and provides a robust API gateway for AI-powered development tools.
 
-The pyproject.toml file is a centralized configuration file for modern Python projects. It streamlines the development process by managing project metadata, dependencies, and development tool configurations in a single, structured file. This approach ensures consistency and maintainability, simplifying project setup and enabling developers to focus on writing quality code. Key components include project metadata, required and optional dependencies, development tool configurations (e.g., linters, formatters, and test runners), and build system specifications.
+## Features
 
-In this particular pyproject.toml file, the [build-system] section specifies that the Flit package should be used to build the project. The [project] section provides metadata about the project, such as the name, description, authors, and classifiers. The [project.optional-dependencies] section lists optional dependencies, like pyspark, while the [project.urls] section supplies URLs for project documentation, source code, and issue tracking.
+- 🤖 **AI Gateway**: Multi-versioned REST API for AI services
+- 🔄 **Workflow Automation**: Orchestrate complex AI-powered workflows
+- 💬 **Conversational AI**: Chat interface with context-aware responses
+- 🛠️ **Code Suggestions**: Intelligent code completion and generation
+- 🔌 **Multi-Provider Support**: OpenAI, Anthropic, Vertex AI, Amazon Q
+- 🔐 **Enterprise Security**: Built-in authentication and abuse detection
+- 📊 **Monitoring**: Prometheus metrics and structured logging
+- 🧪 **Comprehensive Testing**: Unit, integration, and performance tests
 
-The file also contains various configuration sections for different tools, including bandit, black, coverage, flake8, pyright, pytest, tox, and pylint. These sections specify settings for each tool, such as the maximum line length for flake8 and the minimum code coverage percentage for coverage.
+## Architecture
 
-## Getting Started
+Neopilot consists of two main services:
 
-To get started with this template, simply 'Use This Template' to create a new repository and start building your project within the `src` directory. Try to open the project in GitHub Codespace, and to run the unit tests using the VS Code Test extension.
+1. **AI Gateway Service**: FastAPI-based REST API providing code suggestions, chat, and model integrations
+2. **Neoai Workflow Service**: gRPC service for orchestrating AI agents and complex workflows
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture documentation.
+
+## 🚀 Quick Start
+
+### One-Command Setup
+
+```bash
+# Start complete development environment
+make dev
+```
+
+This will:
+- Install all dependencies with uv
+- Start Docker services (API, Database, Redis, Prometheus, Grafana)
+- Open API at http://localhost:8000
+- Open Swagger docs at http://localhost:8000/docs
+
+### Prerequisites
+
+- Python 3.9 or higher
+- [uv](https://github.com/astral-sh/uv) package manager
+
+### Installation
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone <repository-url>
+cd neopilot-1
+
+# Install dependencies
+uv sync
+
+# Install development dependencies
+uv sync --extra test
+
+# Activate virtual environment
+source .venv/bin/activate
+```
+
+### Running Tests
+
+```bash
+# Run all unit tests
+uv run pytest
+
+# Run with coverage
+uv run pytest --cov
+
+# Run integration tests
+uv run pytest -m integration
+
+# Run specific test file
+uv run pytest tests/test_methods.py
+```
+
+### Development
+
+```bash
+# Format code
+uv run black src/
+
+# Lint code
+uv run flake8 src/
+uv run pylint src/
+
+# Run pre-commit hooks
+uv run pre-commit run --all-files
+```
+
+## Project Structure
+
+```
+neopilot/
+├── src/neopilot/              # Main source code
+│   ├── ai_gateway/            # AI Gateway Service
+│   ├── neoai_workflow_service/ # Workflow orchestration
+│   ├── clients/               # Client SDKs
+│   ├── config/                # Configuration files
+│   └── contract/              # Protocol Buffers
+├── tests/                     # Unit tests
+├── docs/                      # Documentation
+├── pyproject.toml             # Project configuration
+└── uv.lock                    # Dependency lock file
+```
+
+## Configuration
+
+Project configuration is managed through `pyproject.toml` following PEP 621 standards:
+
+- **Build System**: Flit for simple packaging
+- **Dependencies**: Managed via uv for fast resolution
+- **Code Quality**: Black, Flake8, Pylint, Bandit
+- **Testing**: Pytest with coverage reporting
+- **Type Checking**: Pyright
+
+## Documentation
+
+- [Architecture Guide](ARCHITECTURE.md) - Detailed architecture and design patterns
+- [Developer Guide](docs/developer.md) - Development workflows
+- [Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
+- [Support](SUPPORT.md) - Getting help
+
+## Contributing
+
+We welcome contributions! Please see our [Code of Conduct](CODE_OF_CONDUCT.md) and [Support](SUPPORT.md) documentation.
+
+### Development Workflow
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## 📚 Documentation
+
+- **[COMPLETE_SETUP_SUMMARY.md](COMPLETE_SETUP_SUMMARY.md)** - Complete overview of everything
+- **[FINAL_SETUP_GUIDE.md](FINAL_SETUP_GUIDE.md)** - Quick setup guide
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture
+- **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Production deployment
+- **[docs/API.md](docs/API.md)** - API documentation
+- **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** - Deployment guide
+- **[docs/LINTING.md](docs/LINTING.md)** - Code quality guide
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contributing guide
+
+## 🛠️ Common Commands
+
+```bash
+# Development
+make dev              # Start development environment
+make format           # Format code with Black
+make lint             # Run all linters
+make test             # Run tests
+make test-cov         # Run tests with coverage
+
+# Docker
+make docker-build     # Build Docker images
+make local-up         # Start local stack
+make local-down       # Stop local stack
+
+# Kubernetes
+make k8s-deploy       # Deploy to Kubernetes
+make k8s-status       # Check deployment status
+make k8s-logs         # View logs
+
+# Monitoring
+make monitor-grafana  # Open Grafana dashboard
+make monitor-prometheus  # Open Prometheus
+
+# Cleanup
+make clean            # Clean build artifacts
+make clean-all        # Clean everything
+```
+
+See `make help` for all available commands.
+
+## Technology Stack
+
+- **Framework**: FastAPI, gRPC
+- **AI/ML**: LangChain, LangGraph
+- **Package Manager**: uv
+- **Testing**: Pytest
+- **Code Quality**: Black, Flake8, Pylint, Bandit
+- **Monitoring**: Prometheus, Grafana
+- **Infrastructure**: Docker, Kubernetes
+- **CI/CD**: GitHub Actions
+- **Build**: Flit
+
+## License
+
+MIT License - See [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, please see [SUPPORT.md](SUPPORT.md).
+
+---
+
+**Built with ❤️ by KhulnaSoft DevOps**

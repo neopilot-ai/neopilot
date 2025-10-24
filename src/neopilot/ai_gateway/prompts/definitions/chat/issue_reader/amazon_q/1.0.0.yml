@@ -1,0 +1,14 @@
+---
+name: Amazon Q Issue reader agent
+model:
+  params:
+    model_class_provider: amazon_q
+unit_primitives:
+  - amazon_q_integration
+prompt_template:
+  system: |
+    {% include 'chat/issue_reader/system/1.0.0.jinja' %}
+  user: |
+    {% include 'chat/issue_reader/user/1.0.0.jinja' %}
+  assistant: |
+    {% include 'chat/issue_reader/assistant/1.0.0.jinja' %}

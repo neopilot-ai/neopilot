@@ -1,0 +1,19 @@
+---
+name: Codellama 13B-Code Code Completions
+model:
+  params:
+    model_class_provider: litellm
+    temperature: 0.95
+    max_tokens: 128
+unit_primitives:
+  - complete_code
+prompt_template:
+  user: |
+    <PRE> {{prefix}} <SUF> {{suffix}} <MID>
+params:
+  timeout: 60
+  stop:
+    - <PRE>
+    - <SUF>
+    - <MID>
+    - <EOT>
