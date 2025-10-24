@@ -1,15 +1,15 @@
+from __future__ import annotations
+
 import json
 from pathlib import Path
 from typing import Callable, ClassVar, List, Literal, Optional, Self
 
 import yaml
+from neoai_workflow_service.agent_platform.v1.components import (
+    BaseComponent, ComponentRegistry)
 from pydantic import BaseModel
 
 from neopilot.ai_gateway.prompts.config.base import InMemoryPromptConfig
-from neoai_workflow_service.agent_platform.v1.components import (
-    BaseComponent,
-    ComponentRegistry,
-)
 
 __all__ = ["FlowConfig", "load_component_class", "list_configs"]
 

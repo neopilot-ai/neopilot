@@ -1,5 +1,6 @@
-import requests
+from __future__ import annotations
 
+import requests
 from integration_tests.utils import ai_gateway_url, get_user_jwt
 
 

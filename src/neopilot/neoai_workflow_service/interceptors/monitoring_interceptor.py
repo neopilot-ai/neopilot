@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import time
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -6,25 +8,20 @@ from typing import Awaitable, Callable, Optional
 
 import grpc
 import structlog
-from gitlab_cloud_connector.auth import (
-    AUTH_TYPE_HEADER,
-    X_GITLAB_HOST_NAME_HEADER,
-    X_GITLAB_INSTANCE_ID_HEADER,
-    X_GITLAB_REALM_HEADER,
-    X_GITLAB_VERSION_HEADER,
-)
+from gitlab_cloud_connector.auth import (AUTH_TYPE_HEADER,
+                                         X_GITLAB_HOST_NAME_HEADER,
+                                         X_GITLAB_INSTANCE_ID_HEADER,
+                                         X_GITLAB_REALM_HEADER,
+                                         X_GITLAB_VERSION_HEADER)
 from grpc.aio import ServerInterceptor
-from prometheus_client import REGISTRY, Counter
-
-from neoai_workflow_service.tracking import MonitoringContext, current_monitoring_context
-from neoai_workflow_service.tracking.neoai_workflow_metrics import (
-    METADATA_LABELS,
-    build_metadata_labels,
-)
+from neoai_workflow_service.tracking import (MonitoringContext,
+                                             current_monitoring_context)
 from neoai_workflow_service.tracking.errors import log_exception
-from neoai_workflow_service.tracking.language_server_context import (
-    language_server_version,
-)
+from neoai_workflow_service.tracking.language_server_context import \
+    language_server_version
+from neoai_workflow_service.tracking.neoai_workflow_metrics import (
+    METADATA_LABELS, build_metadata_labels)
+from prometheus_client import REGISTRY, Counter
 
 log = structlog.stdlib.get_logger("grpc")
 

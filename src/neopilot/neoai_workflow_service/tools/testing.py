@@ -1,9 +1,10 @@
-from typing import Any, Type
+from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from typing import Any, Type
 
 from neoai_workflow_service.tools.command import RunCommand
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 
 class RunTestsInput(BaseModel):

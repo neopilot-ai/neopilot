@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 from typing import Any
 
 import structlog
-
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 
 logger = structlog.stdlib.get_logger(__name__)

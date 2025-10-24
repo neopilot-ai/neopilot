@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 from typing import Annotated, Any, Awaitable, Callable
 
@@ -9,21 +11,15 @@ from gitlab_cloud_connector import cloud_connector_ready
 from neopilot.ai_gateway.async_dependency_resolver import (  # get_code_suggestions_completions_vertex_legacy_provider,
     get_code_suggestions_completions_litellm_factory_provider,
     get_code_suggestions_generations_anthropic_chat_factory_provider,
-    get_config,
-)
+    get_config)
 from neopilot.ai_gateway.code_suggestions import (  # CodeCompletionsLegacy,
-    CodeCompletions,
-    CodeGenerations,
-)
-from neopilot.ai_gateway.code_suggestions.processing import MetadataPromptBuilder, Prompt
-from neopilot.ai_gateway.code_suggestions.processing.typing import MetadataCodeContent
-from neopilot.ai_gateway.models import (
-    KindAnthropicModel,
-    KindLiteLlmModel,
-    KindModelProvider,
-    Message,
-    Role,
-)
+    CodeCompletions, CodeGenerations)
+from neopilot.ai_gateway.code_suggestions.processing import (
+    MetadataPromptBuilder, Prompt)
+from neopilot.ai_gateway.code_suggestions.processing.typing import \
+    MetadataCodeContent
+from neopilot.ai_gateway.models import (KindAnthropicModel, KindLiteLlmModel,
+                                        KindModelProvider, Message, Role)
 
 __all__ = [
     "router",

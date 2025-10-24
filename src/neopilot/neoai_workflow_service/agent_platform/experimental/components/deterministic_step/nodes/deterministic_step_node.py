@@ -1,24 +1,21 @@
+from __future__ import annotations
+
 from typing import Any
 
 import structlog
 from langchain_core.tools import BaseTool
-from pydantic_core import ValidationError
-
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import (CategoryEnum, EventEnum,
+                                            EventLabelEnum)
 from neoai_workflow_service.agent_platform.experimental.components.deterministic_step.ui_log import (
-    UILogEventsDeterministicStep,
-    UILogWriterDeterministicStep,
-)
+    UILogEventsDeterministicStep, UILogWriterDeterministicStep)
 from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    IOKey,
-    get_vars_from_state,
-    merge_nested_dict,
-)
+    FlowState, IOKey, get_vars_from_state, merge_nested_dict)
 from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
 from neoai_workflow_service.monitoring import neoai_workflow_metrics
 from neoai_workflow_service.security.prompt_security import PromptSecurity
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum, EventEnum, EventLabelEnum
+from pydantic_core import ValidationError
 
 __all__ = ["DeterministicStepNode"]
 

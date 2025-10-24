@@ -1,9 +1,10 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 
 import googlecloudprofiler
-
 from neoai_workflow_service.tracking.errors import log_exception
 
 

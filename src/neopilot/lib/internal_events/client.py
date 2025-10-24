@@ -1,13 +1,13 @@
+from __future__ import annotations
+
 from typing import Optional
 
-from snowplow_tracker import AsyncEmitter, SelfDescribingJson, StructuredEvent, Tracker
-
-from lib.internal_events.context import (
-    EventContext,
-    InternalEventAdditionalProperties,
-    current_event_context,
-    tracked_internal_events,
-)
+from lib.internal_events.context import (EventContext,
+                                         InternalEventAdditionalProperties,
+                                         current_event_context,
+                                         tracked_internal_events)
+from snowplow_tracker import (AsyncEmitter, SelfDescribingJson,
+                              StructuredEvent, Tracker)
 
 __all__ = ["InternalEventsClient"]
 

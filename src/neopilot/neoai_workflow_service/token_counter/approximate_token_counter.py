@@ -1,14 +1,11 @@
+from __future__ import annotations
+
 from typing import Dict, List
 
 import structlog
 from langchain_community.adapters.openai import convert_message_to_dict
-from langchain_core.messages import (
-    AIMessage,
-    BaseMessage,
-    HumanMessage,
-    SystemMessage,
-    ToolMessage,
-)
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     SystemMessage, ToolMessage)
 
 
 class ApproximateTokenCounter:

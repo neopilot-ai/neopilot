@@ -1,27 +1,24 @@
+from __future__ import annotations
+
 from typing import Any
 
 import structlog
 from langchain_core.messages import ToolMessage
 from langchain_core.tools import BaseTool
-from pydantic_core import ValidationError
-
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import (CategoryEnum, EventEnum,
+                                            EventLabelEnum)
 from neoai_workflow_service.agent_platform.experimental.components.agent.ui_log import (
-    UILogEventsAgent,
-    UILogWriterAgentTools,
-)
+    UILogEventsAgent, UILogWriterAgentTools)
 from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    FlowStateKeys,
-)
+    FlowState, FlowStateKeys)
 from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
 from neoai_workflow_service.monitoring import neoai_workflow_metrics
-from neoai_workflow_service.security.prompt_security import (
-    PromptSecurity,
-    SecurityException,
-)
+from neoai_workflow_service.security.prompt_security import (PromptSecurity,
+                                                             SecurityException)
 from neoai_workflow_service.tools.toolset import Toolset
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum, EventEnum, EventLabelEnum
+from pydantic_core import ValidationError
 
 __all__ = ["ToolNode"]
 

@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from fastapi import Request
-from gitlab_cloud_connector import CloudConnectorUser, GitLabUnitPrimitive, UserClaims
+from gitlab_cloud_connector import (CloudConnectorUser, GitLabUnitPrimitive,
+                                    UserClaims)
 from starlette.authentication import BaseUser
 
 

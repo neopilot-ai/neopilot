@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 from typing import Literal
 
-from neoai_workflow_service.components.human_approval.component import (
-    HumanApprovalComponent,
-)
-from neoai_workflow_service.entities.state import WorkflowState, WorkflowStatusEnum
 from lib import result
+from neoai_workflow_service.components.human_approval.component import \
+    HumanApprovalComponent
+from neoai_workflow_service.entities.state import (WorkflowState,
+                                                   WorkflowStatusEnum)
 
 
 class PlanApprovalComponent(HumanApprovalComponent):

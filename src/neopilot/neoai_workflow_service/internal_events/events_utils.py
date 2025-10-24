@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 from typing import Tuple
 
 from dependency_injector.wiring import Provide, inject
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import (EventEnum, EventLabelEnum,
+                                            EventPropertyEnum)
 
 from neopilot.ai_gateway.container import ContainerApplication
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import EventEnum, EventLabelEnum, EventPropertyEnum
 
 EVENT_MAPPING = {
     "require_input": (

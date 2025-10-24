@@ -1,11 +1,12 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from enum import StrEnum, auto
 from typing import Any, Callable, NamedTuple, Protocol, Self
 
-from pydantic import BaseModel, ConfigDict, PrivateAttr, model_validator
-
 from neoai_workflow_service.agent_platform.v1.state import FlowStateKeys
 from neoai_workflow_service.entities import UiChatLog
+from pydantic import BaseModel, ConfigDict, PrivateAttr, model_validator
 
 __all__ = [
     "LogLevels",

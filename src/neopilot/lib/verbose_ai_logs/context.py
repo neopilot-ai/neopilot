@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from contextvars import ContextVar
 
 __all__ = [
@@ -22,6 +24,4 @@ def enabled_instance_verbose_ai_logs() -> bool:
     return current_verbose_ai_logs_context.get(False)
 
 
-current_verbose_ai_logs_context: ContextVar[bool] = ContextVar(
-    "current_verbose_ai_logs_context", default=False
-)
+current_verbose_ai_logs_context: ContextVar[bool] = ContextVar("current_verbose_ai_logs_context", default=False)

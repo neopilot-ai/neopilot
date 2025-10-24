@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import os
 from contextlib import asynccontextmanager
@@ -8,11 +10,8 @@ from fastapi import APIRouter, FastAPI, Request, Response
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from gitlab_cloud_connector import (
-    CompositeProvider,
-    GitLabOidcProvider,
-    LocalAuthProvider,
-)
+from gitlab_cloud_connector import (CompositeProvider, GitLabOidcProvider,
+                                    LocalAuthProvider)
 from prometheus_fastapi_instrumentator import Instrumentator, metrics
 from starlette import status
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -21,17 +20,14 @@ from starlette.responses import JSONResponse
 from starlette_context import context
 from starlette_context.middleware import RawContextMiddleware
 
-from neopilot.ai_gateway.api.middleware import (
-    AccessLogMiddleware,
-    DistributedTraceMiddleware,
-    FeatureFlagMiddleware,
-    InternalEventMiddleware,
-    MiddlewareAuthentication,
-    ModelConfigMiddleware,
-)
-from neopilot.ai_gateway.api.middleware.self_hosted_logging import (
-    EnabledInstanceVerboseAiLogsHeaderPlugin,
-)
+from neopilot.ai_gateway.api.middleware import (AccessLogMiddleware,
+                                                DistributedTraceMiddleware,
+                                                FeatureFlagMiddleware,
+                                                InternalEventMiddleware,
+                                                MiddlewareAuthentication,
+                                                ModelConfigMiddleware)
+from neopilot.ai_gateway.api.middleware.self_hosted_logging import \
+    EnabledInstanceVerboseAiLogsHeaderPlugin
 from neopilot.ai_gateway.api.monitoring import router as http_monitoring_router
 from neopilot.ai_gateway.api.server_utils import extract_retry_after_header
 from neopilot.ai_gateway.api.v1 import api_router as http_api_router_v1
@@ -44,7 +40,8 @@ from neopilot.ai_gateway.instrumentators.threads import monitor_threads
 from neopilot.ai_gateway.models import ModelAPIError
 from neopilot.ai_gateway.models.base import ModelAPICallError
 from neopilot.ai_gateway.profiling import setup_profiling
-from neopilot.ai_gateway.structured_logging import can_log_request_data, setup_app_logging
+from neopilot.ai_gateway.structured_logging import (can_log_request_data,
+                                                    setup_app_logging)
 
 __all__ = [
     "create_fast_api_server",

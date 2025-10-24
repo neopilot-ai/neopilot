@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import re
 from typing import Any, Callable, Dict, List, Union
 
 import bleach
-
 from neoai_workflow_service.security.exceptions import SecurityException
 
 

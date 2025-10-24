@@ -1,14 +1,18 @@
+from __future__ import annotations
+
 from abc import abstractmethod
 from typing import Any, List, NamedTuple, Optional, final
 
 from gitlab_cloud_connector import GitLabUnitPrimitive
 from langchain.tools import BaseTool
-from pydantic import BaseModel
-
 from neoai_workflow_service.gitlab.gitlab_api import Project
-from neoai_workflow_service.gitlab.http_client import GitlabHttpClient, GitLabHttpResponse
-from neoai_workflow_service.gitlab.url_parser import GitLabUrlParseError, GitLabUrlParser
-from neoai_workflow_service.tools.tool_output_manager import truncate_tool_response
+from neoai_workflow_service.gitlab.http_client import (GitlabHttpClient,
+                                                       GitLabHttpResponse)
+from neoai_workflow_service.gitlab.url_parser import (GitLabUrlParseError,
+                                                      GitLabUrlParser)
+from neoai_workflow_service.tools.tool_output_manager import \
+    truncate_tool_response
+from pydantic import BaseModel
 
 DESCRIPTION_CHARACTER_LIMIT = 1_048_576
 

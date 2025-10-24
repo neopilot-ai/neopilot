@@ -1,13 +1,12 @@
+from __future__ import annotations
+
 import functools
 import typing
 
 from fastapi import BackgroundTasks, HTTPException, Request, status
-from gitlab_cloud_connector import (
-    FEATURE_CATEGORIES_FOR_PROXY_ENDPOINTS,
-    UNIT_PRIMITIVE_AND_DESCRIPTION_MAPPING,
-    GitLabFeatureCategory,
-    GitLabUnitPrimitive,
-)
+from gitlab_cloud_connector import (FEATURE_CATEGORIES_FOR_PROXY_ENDPOINTS,
+                                    UNIT_PRIMITIVE_AND_DESCRIPTION_MAPPING,
+                                    GitLabFeatureCategory, GitLabUnitPrimitive)
 
 from neopilot.ai_gateway.abuse_detection import AbuseDetector
 from neopilot.ai_gateway.api.auth_utils import StarletteUser

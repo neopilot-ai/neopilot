@@ -1,13 +1,12 @@
-import structlog
+from __future__ import annotations
 
-from neoai_workflow_service.slash_commands.definition import SlashCommandDefinition
-from neoai_workflow_service.slash_commands.error_handler import (
-    SlashCommandConfigError,
-    SlashCommandError,
-    log_command_error,
-)
-from neoai_workflow_service.slash_commands.goal_parser import parse
+import structlog
 from lib.result import Error, Ok, Result
+from neoai_workflow_service.slash_commands.definition import \
+    SlashCommandDefinition
+from neoai_workflow_service.slash_commands.error_handler import (
+    SlashCommandConfigError, SlashCommandError, log_command_error)
+from neoai_workflow_service.slash_commands.goal_parser import parse
 
 log = structlog.stdlib.get_logger("slash_commands")
 

@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import json
 from functools import partialmethod
 from typing import Any
 
 import structlog
-from langchain.tools import BaseTool
-
 from contract import contract_pb2
-from neoai_workflow_service.executor.action import _execute_action
+from langchain.tools import BaseTool
 from lib.internal_events.context import current_event_context
+from neoai_workflow_service.executor.action import _execute_action
 
 
 class McpTool(BaseTool):

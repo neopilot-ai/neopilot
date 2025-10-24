@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 from typing import Optional
 
@@ -5,31 +7,24 @@ from tree_sitter import Node, Tree
 from tree_sitter_languages import get_parser
 
 from neopilot.ai_gateway.code_suggestions.processing.ops import (
-    LanguageId,
-    ProgramLanguage,
-    convert_point_to_relative_point_in_node,
-    split_on_point,
-)
+    LanguageId, ProgramLanguage, convert_point_to_relative_point_in_node,
+    split_on_point)
 from neopilot.ai_gateway.code_suggestions.prompts.parsers.base import (
-    BaseCodeParser,
-    BaseVisitor,
-    CodeContext,
-    Point,
-)
+    BaseCodeParser, BaseVisitor, CodeContext, Point)
 from neopilot.ai_gateway.code_suggestions.prompts.parsers.blocks import (
-    ErrorBlocksVisitor,
-    MinAllowedBlockVisitor,
-)
-from neopilot.ai_gateway.code_suggestions.prompts.parsers.comments import CommentVisitorFactory
-from neopilot.ai_gateway.code_suggestions.prompts.parsers.context_extractors import (
-    ContextVisitorFactory,
-)
-from neopilot.ai_gateway.code_suggestions.prompts.parsers.counters import CounterVisitorFactory
-from neopilot.ai_gateway.code_suggestions.prompts.parsers.function_signatures import (
-    FunctionSignatureVisitorFactory,
-)
-from neopilot.ai_gateway.code_suggestions.prompts.parsers.imports import ImportVisitorFactory
-from neopilot.ai_gateway.code_suggestions.prompts.parsers.treetraversal import tree_dfs
+    ErrorBlocksVisitor, MinAllowedBlockVisitor)
+from neopilot.ai_gateway.code_suggestions.prompts.parsers.comments import \
+    CommentVisitorFactory
+from neopilot.ai_gateway.code_suggestions.prompts.parsers.context_extractors import \
+    ContextVisitorFactory
+from neopilot.ai_gateway.code_suggestions.prompts.parsers.counters import \
+    CounterVisitorFactory
+from neopilot.ai_gateway.code_suggestions.prompts.parsers.function_signatures import \
+    FunctionSignatureVisitorFactory
+from neopilot.ai_gateway.code_suggestions.prompts.parsers.imports import \
+    ImportVisitorFactory
+from neopilot.ai_gateway.code_suggestions.prompts.parsers.treetraversal import \
+    tree_dfs
 
 
 class CodeParser(BaseCodeParser):

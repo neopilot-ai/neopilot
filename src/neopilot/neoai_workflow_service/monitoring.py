@@ -1,11 +1,13 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 
 import structlog
+from neoai_workflow_service.tracking.neoai_workflow_metrics import \
+    NeoaiWorkflowMetrics
 from prometheus_client import start_http_server
-
-from neoai_workflow_service.tracking.neoai_workflow_metrics import NeoaiWorkflowMetrics
 
 log = structlog.stdlib.get_logger("monitoring")
 

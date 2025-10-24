@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 from typing import Optional
 
 import grpc
-
-from neoai_workflow_service.interceptors import X_GITLAB_REALM_HEADER
 from lib.feature_flags.context import current_feature_flag_context
+from neoai_workflow_service.interceptors import X_GITLAB_REALM_HEADER
 
 
 class FeatureFlagInterceptor(grpc.aio.ServerInterceptor):

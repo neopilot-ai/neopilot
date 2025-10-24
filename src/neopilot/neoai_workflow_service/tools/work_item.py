@@ -1,18 +1,18 @@
+from __future__ import annotations
+
 import json
 from enum import Enum
 from typing import Annotated, Any, List, Optional, Type, Union
 
-from pydantic import BaseModel, Field, StringConstraints
-
-from neoai_workflow_service.security.quick_actions import validate_no_quick_actions
-from neoai_workflow_service.tools.neoai_base_tool import DESCRIPTION_CHARACTER_LIMIT
+from neoai_workflow_service.security.quick_actions import \
+    validate_no_quick_actions
+from neoai_workflow_service.tools.neoai_base_tool import \
+    DESCRIPTION_CHARACTER_LIMIT
 from neoai_workflow_service.tools.work_items.base_tool import (
-    ResolvedWorkItem,
-    WorkItemBaseTool,
-)
-from neoai_workflow_service.tools.work_items.queries.work_items import (
-    CREATE_NOTE_MUTATION,
-)
+    ResolvedWorkItem, WorkItemBaseTool)
+from neoai_workflow_service.tools.work_items.queries.work_items import \
+    CREATE_NOTE_MUTATION
+from pydantic import BaseModel, Field, StringConstraints
 
 # Supported work item types in GitLab
 GROUP_ONLY_TYPES = {"Epic", "Objective", "Key Result"}

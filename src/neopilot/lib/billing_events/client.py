@@ -1,18 +1,18 @@
+from __future__ import annotations
+
 import uuid
 from datetime import datetime
 from typing import Any, Dict, Optional
 
 import structlog
 from gitlab_cloud_connector import CloudConnectorUser
-from snowplow_tracker import AsyncEmitter, SelfDescribingJson, StructuredEvent, Tracker
-
 from lib.billing_events.context import BillingEventContext
 from lib.internal_events.client import InternalEventsClient
-from lib.internal_events.context import (
-    EventContext,
-    InternalEventAdditionalProperties,
-    current_event_context,
-)
+from lib.internal_events.context import (EventContext,
+                                         InternalEventAdditionalProperties,
+                                         current_event_context)
+from snowplow_tracker import (AsyncEmitter, SelfDescribingJson,
+                              StructuredEvent, Tracker)
 
 __all__ = ["BillingEventsClient"]
 
@@ -48,9 +48,7 @@ class BillingEventsClient:
 
         if enabled:
             self._logger.info("Creating AsyncEmitter and Tracker for billing events")
-            emitter = AsyncEmitter(
-                batch_size=batch_size, thread_count=thread_count, endpoint=endpoint
-            )
+            emitter = AsyncEmitter(batch_size=batch_size, thread_count=thread_count, endpoint=endpoint)
 
             self.snowplow_tracker = Tracker(
                 app_id=app_id,
@@ -59,9 +57,7 @@ class BillingEventsClient:
             )
             self._logger.info("Successfully initialized billing events tracker")
         else:
-            self._logger.info(
-                "Billing events disabled - skipping tracker initialization"
-            )
+            self._logger.info("Billing events disabled - skipping tracker initialization")
 
     def track_billing_event(
         self,
@@ -109,9 +105,7 @@ class BillingEventsClient:
             "SaaS": "SaaS",
             "SM": "SM",
         }
-        mapped_realm = realm_mapping.get(
-            internal_context.realm or "", internal_context.realm
-        )
+        mapped_realm = realm_mapping.get(internal_context.realm or "", internal_context.realm)
         unique_instance_id = user.claims.gitlab_instance_uid if user.claims else None
 
         billing_context = BillingEventContext(
@@ -135,11 +129,7 @@ class BillingEventsClient:
         )
 
         structured_event = StructuredEvent(
-            context=[
-                SelfDescribingJson(
-                    self.BILLING_CONTEXT_SCHEMA, billing_context.model_dump()
-                )
-            ],
+            context=[SelfDescribingJson(self.BILLING_CONTEXT_SCHEMA, billing_context.model_dump())],
             category=category,
             action=event_type,
         )

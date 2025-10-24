@@ -1,64 +1,56 @@
 # pylint: disable=direct-environment-variable-reference,unknown-option-value,too-many-instance-attributes,dangerous-default-value
+from __future__ import annotations
+
 import asyncio
 import os
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, TypedDict, Union
 
 import structlog
+from contract import contract_pb2
 from dependency_injector.wiring import Provide, inject
 from gitlab_cloud_connector import CloudConnectorUser
 from langchain.tools import BaseTool
 from langchain_core.runnables import RunnableConfig
-
 # pylint disable are going to be fixed via
 # https://gitlab.com/gitlab-org/neoai-workflow/neoai-workflow-service/-/issues/78
 from langgraph.checkpoint.base import (  # pylint: disable=no-langgraph-langchain-imports
-    BaseCheckpointSaver,
-    CheckpointTuple,
-)
+    BaseCheckpointSaver, CheckpointTuple)
 from langgraph.types import Command
 from langsmith import traceable, tracing_context
-
-from neopilot.ai_gateway.code_suggestions.language_server import LanguageServerVersion
-from neopilot.ai_gateway.container import ContainerApplication
-from neopilot.ai_gateway.models import KindAnthropicModel
-from neopilot.ai_gateway.prompts import InMemoryPromptRegistry
-from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
-from contract import contract_pb2
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import CategoryEnum, EventEnum
 from neoai_workflow_service.checkpointer.gitlab_workflow import GitLabWorkflow
 from neoai_workflow_service.checkpointer.gitlab_workflow_utils import (
-    SUCCESSFUL_WORKFLOW_EXECUTION_STATUSES,
-    WorkflowStatusEventEnum,
-)
+    SUCCESSFUL_WORKFLOW_EXECUTION_STATUSES, WorkflowStatusEventEnum)
 from neoai_workflow_service.checkpointer.notifier import UserInterface
 from neoai_workflow_service.components import ToolsRegistry
 from neoai_workflow_service.entities import NeoaiWorkflowStateType
 from neoai_workflow_service.executor.outbox import Outbox, OutboxSignal
 from neoai_workflow_service.gitlab.events import get_event
 from neoai_workflow_service.gitlab.gitlab_api import (
-    Namespace,
-    Project,
-    WorkflowConfig,
-    empty_workflow_config,
-    fetch_workflow_and_container_data,
-)
+    Namespace, Project, WorkflowConfig, empty_workflow_config,
+    fetch_workflow_and_container_data)
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 from neoai_workflow_service.gitlab.http_client_factory import get_http_client
 from neoai_workflow_service.gitlab.url_parser import SESSION_URL_PATH
 from neoai_workflow_service.llm_factory import AnthropicConfig, VertexConfig
 from neoai_workflow_service.monitoring import neoai_workflow_metrics
-from neoai_workflow_service.tools import convert_mcp_tools_to_langchain_tool_classes
+from neoai_workflow_service.tools import \
+    convert_mcp_tools_to_langchain_tool_classes
 from neoai_workflow_service.tracking import log_exception
 from neoai_workflow_service.tracking.llm_usage_context import (
-    clear_workflow_checkpointer,
-    set_workflow_checkpointer,
-)
+    clear_workflow_checkpointer, set_workflow_checkpointer)
 from neoai_workflow_service.workflows.type_definitions import (
-    AIO_CANCEL_STOP_WORKFLOW_REQUEST,
-    AdditionalContext,
-)
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum, EventEnum
+    AIO_CANCEL_STOP_WORKFLOW_REQUEST, AdditionalContext)
+
+from neopilot.ai_gateway.code_suggestions.language_server import \
+    LanguageServerVersion
+from neopilot.ai_gateway.container import ContainerApplication
+from neopilot.ai_gateway.models import KindAnthropicModel
+from neopilot.ai_gateway.prompts import InMemoryPromptRegistry
+from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
 
 # Constants
 QUEUE_MAX_SIZE = 1

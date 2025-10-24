@@ -1,12 +1,13 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Optional, Type
 
-from pydantic import BaseModel, Field
-
 from contract import contract_pb2
 from neoai_workflow_service.executor.action import _execute_action
-from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
 from neoai_workflow_service.tools.filesystem import _format_no_matches_message
+from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 
 class GrepInput(BaseModel):

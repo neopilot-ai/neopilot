@@ -1,16 +1,16 @@
+from __future__ import annotations
+
 import json
 import logging
 from typing import Any, List, NamedTuple, Optional, Type, Union
 
 from gitlab_cloud_connector import GitLabUnitPrimitive
-from pydantic import BaseModel, Field
-
-from neoai_workflow_service.gitlab.url_parser import GitLabUrlParseError, GitLabUrlParser
+from neoai_workflow_service.gitlab.url_parser import (GitLabUrlParseError,
+                                                      GitLabUrlParser)
 from neoai_workflow_service.tools.neoai_base_tool import (
-    DESCRIPTION_CHARACTER_LIMIT,
-    NeoaiBaseTool,
-)
+    DESCRIPTION_CHARACTER_LIMIT, NeoaiBaseTool)
 from neoai_workflow_service.tools.queries.epics import GET_EPIC_NOTES_QUERY
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 

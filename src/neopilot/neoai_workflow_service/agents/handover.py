@@ -1,15 +1,14 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Annotated, List, Optional
 
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
-
-from neoai_workflow_service.entities.state import (
-    NeoaiWorkflowStateType,
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     SystemMessage)
+from neoai_workflow_service.entities.state import (MessageTypeEnum,
+                                                   NeoaiWorkflowStateType,
+                                                   ToolStatus, UiChatLog,
+                                                   WorkflowStatusEnum)
 from neoai_workflow_service.tools.handover import HandoverTool
 
 __all__ = ["HandoverAgent"]

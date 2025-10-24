@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import json
 import logging
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, Optional, Union
 
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
-
+from langchain_core.messages import (AIMessage, HumanMessage, SystemMessage,
+                                     ToolMessage)
 from neoai_workflow_service.tracking.errors import log_exception
 
 # Setup logger

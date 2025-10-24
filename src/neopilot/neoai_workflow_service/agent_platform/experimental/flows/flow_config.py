@@ -1,14 +1,13 @@
+from __future__ import annotations
+
 import json
 from pathlib import Path
 from typing import Callable, ClassVar, List, Optional, Self
 
 import yaml
-from pydantic import BaseModel
-
 from neoai_workflow_service.agent_platform.experimental.components import (
-    BaseComponent,
-    ComponentRegistry,
-)
+    BaseComponent, ComponentRegistry)
+from pydantic import BaseModel
 
 __all__ = ["FlowConfig", "load_component_class", "list_configs"]
 

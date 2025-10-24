@@ -1,18 +1,16 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import contextvars
 import os
 from typing import Callable, Dict
 
 import grpc
 import structlog
-from gitlab_cloud_connector import (
-    AuthProvider,
-    CompositeProvider,
-    GitLabOidcProvider,
-    LocalAuthProvider,
-    authenticate,
-)
+from gitlab_cloud_connector import (AuthProvider, CompositeProvider,
+                                    GitLabOidcProvider, LocalAuthProvider,
+                                    authenticate)
 from gitlab_cloud_connector.auth import AUTH_HEADER, PREFIX_BEARER_HEADER
 from grpc.aio import ServicerContext
 

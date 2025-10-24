@@ -1,11 +1,13 @@
+from __future__ import annotations
+
 from pathlib import Path
 from typing import Any, Dict
 
 import structlog
 import yaml
+from neoai_workflow_service.slash_commands.error_handler import \
+    SlashCommandConfigError
 from pydantic import BaseModel, Field
-
-from neoai_workflow_service.slash_commands.error_handler import SlashCommandConfigError
 
 # Constants
 SLASH_COMMANDS_CONFIG_DIR = Path(__file__).parents[1] / "config" / "slash_commands"

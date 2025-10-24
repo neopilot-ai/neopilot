@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import time
 from typing import Any, Dict
 
 import structlog
-from langchain_core.tools import ToolException
-from prometheus_client import Histogram
-
 from contract import contract_pb2
 from contract.contract_pb2 import HttpResponse, PlainTextResponse
+from langchain_core.tools import ToolException
 from neoai_workflow_service.executor.outbox import Outbox
+from prometheus_client import Histogram
 
 ACTION_LATENCY = Histogram(
     name="executor_actions_duration_seconds",

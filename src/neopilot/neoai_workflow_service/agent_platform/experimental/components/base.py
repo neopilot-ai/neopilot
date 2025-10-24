@@ -1,17 +1,14 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Annotated, Any, ClassVar, Optional, Protocol, Self
 
 from langgraph.graph import END, StateGraph
-from pydantic import BaseModel, ConfigDict, Field, model_validator
-
-from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    FlowStateKeys,
-    IOKey,
-    IOKeyTemplate,
-)
-from neoai_workflow_service.entities.state import WorkflowStatusEnum
 from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.agent_platform.experimental.state import (
+    FlowState, FlowStateKeys, IOKey, IOKeyTemplate)
+from neoai_workflow_service.entities.state import WorkflowStatusEnum
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 __all__ = ["RouterProtocol", "BaseComponent", "EndComponent"]
 

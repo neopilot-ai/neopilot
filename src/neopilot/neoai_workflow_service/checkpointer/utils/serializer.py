@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 from typing import Any, FrozenSet, Tuple
 
 import ormsgpack
-from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer, _msgpack_enc
+from langgraph.checkpoint.serde.jsonplus import (JsonPlusSerializer,
+                                                 _msgpack_enc)
 from langgraph.types import Interrupt
 
 

@@ -1,11 +1,13 @@
-from typing import Optional, Tuple, TypedDict
+from __future__ import annotations
 
-from packaging.version import InvalidVersion, Version
+from typing import Optional, Tuple, TypedDict
 
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 from neoai_workflow_service.gitlab.url_parser import GitLabUrlParser
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import gitlab_version
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    gitlab_version
 from neoai_workflow_service.tracking.errors import log_exception
+from packaging.version import InvalidVersion, Version
 
 
 class Language(TypedDict):

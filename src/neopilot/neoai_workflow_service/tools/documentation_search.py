@@ -1,16 +1,19 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import json
 import os
 from collections import defaultdict
 from typing import Any, List, Type
 
 from google.cloud import discoveryengine
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    gitlab_version
+from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
 from pydantic import BaseModel, Field
 
 from neopilot.ai_gateway.searches import VertexAISearch
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import gitlab_version
-from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
 
 DEFAULT_PAGE_SIZE = 4
 DEFAULT_GL_VERSION = "18.0.0"

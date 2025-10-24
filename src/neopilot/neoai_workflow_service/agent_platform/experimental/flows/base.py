@@ -1,51 +1,41 @@
+from __future__ import annotations
+
 import json
 from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Any, Dict, Optional
 
 import jsonschema
+from contract import contract_pb2
 from dependency_injector.wiring import Provide, inject
 from gitlab_cloud_connector import CloudConnectorUser
 from langgraph.checkpoint.base import BaseCheckpointSaver, CheckpointTuple
 from langgraph.graph import StateGraph
 from langgraph.types import Command
+from lib.internal_events.client import InternalEventsClient
+from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.agent_platform.experimental.components.base import (
+    BaseComponent, EndComponent)
+from neoai_workflow_service.agent_platform.experimental.flows.flow_config import (
+    FlowConfig, load_component_class)
+from neoai_workflow_service.agent_platform.experimental.routers import Router
+from neoai_workflow_service.agent_platform.experimental.state import FlowState
+from neoai_workflow_service.agent_platform.experimental.state.base import (
+    FlowEvent, FlowEventType)
+from neoai_workflow_service.checkpointer.gitlab_workflow_utils import \
+    WorkflowStatusEventEnum
+from neoai_workflow_service.components.tools_registry import ToolsRegistry
+from neoai_workflow_service.entities.state import (MessageTypeEnum, ToolStatus,
+                                                   UiChatLog,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.tracking.errors import log_exception
+from neoai_workflow_service.workflows.abstract_workflow import (
+    AbstractWorkflow, InvocationMetadata)
+from neoai_workflow_service.workflows.type_definitions import AdditionalContext
 
 from neopilot.ai_gateway.container import ContainerApplication
 from neopilot.ai_gateway.prompts import InMemoryPromptRegistry
 from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
-from contract import contract_pb2
-from neoai_workflow_service.agent_platform.experimental.components.base import (
-    BaseComponent,
-    EndComponent,
-)
-from neoai_workflow_service.agent_platform.experimental.flows.flow_config import (
-    FlowConfig,
-    load_component_class,
-)
-from neoai_workflow_service.agent_platform.experimental.routers import Router
-from neoai_workflow_service.agent_platform.experimental.state import FlowState
-from neoai_workflow_service.agent_platform.experimental.state.base import (
-    FlowEvent,
-    FlowEventType,
-)
-from neoai_workflow_service.checkpointer.gitlab_workflow_utils import (
-    WorkflowStatusEventEnum,
-)
-from neoai_workflow_service.components.tools_registry import ToolsRegistry
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.tracking.errors import log_exception
-from neoai_workflow_service.workflows.abstract_workflow import (
-    AbstractWorkflow,
-    InvocationMetadata,
-)
-from neoai_workflow_service.workflows.type_definitions import AdditionalContext
-from lib.internal_events.client import InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum
 
 __all__ = ["Flow"]
 

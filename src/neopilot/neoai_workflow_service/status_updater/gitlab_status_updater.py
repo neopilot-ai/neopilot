@@ -1,12 +1,13 @@
+from __future__ import annotations
+
 import json
 from typing import Callable, NoReturn
 
 import structlog
-
-from neoai_workflow_service.checkpointer.gitlab_workflow_utils import (
-    WorkflowStatusEventEnum,
-)
-from neoai_workflow_service.gitlab.http_client import GitlabHttpClient, GitLabHttpResponse
+from neoai_workflow_service.checkpointer.gitlab_workflow_utils import \
+    WorkflowStatusEventEnum
+from neoai_workflow_service.gitlab.http_client import (GitlabHttpClient,
+                                                       GitLabHttpResponse)
 
 logger = structlog.stdlib.get_logger(__name__)
 

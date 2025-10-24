@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Any, Sequence, cast
 
@@ -8,25 +10,24 @@ from langchain_core.prompt_values import PromptValue
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts.chat import MessageLikeRepresentation
 from langchain_core.runnables import Runnable, RunnableConfig
-
-from neopilot.ai_gateway.prompts import prompt_template_to_messages
-from neopilot.ai_gateway.prompts.config.base import PromptConfig
 from neoai_workflow_service.agents.base import BaseAgent
-from neoai_workflow_service.entities.event import WorkflowEvent, WorkflowEventType
-from neoai_workflow_service.entities.state import (
-    NeoaiWorkflowStateType,
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.errors.error_handler import ERROR_TYPES, ModelErrorType
+from neoai_workflow_service.entities.event import (WorkflowEvent,
+                                                   WorkflowEventType)
+from neoai_workflow_service.entities.state import (MessageTypeEnum,
+                                                   NeoaiWorkflowStateType,
+                                                   ToolStatus, UiChatLog,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.errors.error_handler import (ERROR_TYPES,
+                                                         ModelErrorType)
 from neoai_workflow_service.gitlab.events import get_event
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 from neoai_workflow_service.llm_factory import AnthropicStopReason
 from neoai_workflow_service.monitoring import neoai_workflow_metrics
 from neoai_workflow_service.tools.handover import HandoverTool
 from neoai_workflow_service.tracking.errors import log_exception
+
+from neopilot.ai_gateway.prompts import prompt_template_to_messages
+from neopilot.ai_gateway.prompts.config.base import PromptConfig
 
 log = structlog.stdlib.get_logger("agent_v2")
 

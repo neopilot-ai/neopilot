@@ -1,13 +1,13 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Type, Union
 
 from langchain_core.tools import ToolException
-from pydantic import BaseModel, Field
-
+from neoai_workflow_service.tools.findings.queries.security_findings import \
+    GET_SECURITY_FINDING_DETAILS_QUERY
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
-from neoai_workflow_service.tools.findings.queries.security_findings import (
-    GET_SECURITY_FINDING_DETAILS_QUERY,
-)
+from pydantic import BaseModel, Field
 
 
 class GetSecurityFindingDetailsInput(BaseModel):

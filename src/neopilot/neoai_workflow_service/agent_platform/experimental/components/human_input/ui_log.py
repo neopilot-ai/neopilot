@@ -1,11 +1,11 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from enum import auto
 from typing import Optional
 
 from neoai_workflow_service.agent_platform.experimental.ui_log import (
-    BaseUILogEvents,
-    BaseUILogWriter,
-)
+    BaseUILogEvents, BaseUILogWriter)
 from neoai_workflow_service.entities import MessageTypeEnum, UiChatLog
 
 __all__ = ["UILogEventsHumanInput", "AgentLogWriter", "UserLogWriter"]

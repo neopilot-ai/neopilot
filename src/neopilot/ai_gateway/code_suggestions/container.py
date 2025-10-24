@@ -1,20 +1,20 @@
+from __future__ import annotations
+
 import anthropic
 from dependency_injector import containers, providers
 from transformers import PreTrainedTokenizerFast
 
 from neopilot.ai_gateway.code_suggestions.completions import (
-    CodeCompletions,
-    CodeCompletionsLegacy,
-)
+    CodeCompletions, CodeCompletionsLegacy)
 from neopilot.ai_gateway.code_suggestions.generations import CodeGenerations
-from neopilot.ai_gateway.code_suggestions.processing import ModelEngineCompletions
-from neopilot.ai_gateway.code_suggestions.processing.post.completions import (
-    PostProcessor as PostProcessorCompletions,
-)
-from neopilot.ai_gateway.code_suggestions.processing.post.completions import (
-    PostProcessorOperation,
-)
-from neopilot.ai_gateway.code_suggestions.processing.pre import TokenizerTokenStrategy
+from neopilot.ai_gateway.code_suggestions.processing import \
+    ModelEngineCompletions
+from neopilot.ai_gateway.code_suggestions.processing.post.completions import \
+    PostProcessor as PostProcessorCompletions
+from neopilot.ai_gateway.code_suggestions.processing.post.completions import \
+    PostProcessorOperation
+from neopilot.ai_gateway.code_suggestions.processing.pre import \
+    TokenizerTokenStrategy
 from neopilot.ai_gateway.models import KindAnthropicModel, KindVertexTextModel
 from neopilot.ai_gateway.models.base import KindModelProvider
 from neopilot.ai_gateway.models.base_chat import ChatModelBase

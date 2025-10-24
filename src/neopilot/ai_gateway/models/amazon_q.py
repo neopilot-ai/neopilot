@@ -1,17 +1,18 @@
+from __future__ import annotations
+
 from enum import StrEnum
 from typing import AsyncIterator, Optional
 
 import structlog
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser
-from neopilot.ai_gateway.integrations.amazon_q.client import AmazonQClientFactory
+from neopilot.ai_gateway.integrations.amazon_q.client import \
+    AmazonQClientFactory
 from neopilot.ai_gateway.integrations.amazon_q.errors import AWSException
 from neopilot.ai_gateway.models.base import ModelMetadata
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.safety_attributes import SafetyAttributes
 
 __all__ = [

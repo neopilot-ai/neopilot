@@ -1,21 +1,15 @@
+from __future__ import annotations
+
 from typing import Annotated, List, Literal, Optional, Union, cast
 
 from fastapi import Body
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    StringConstraints,
-    ValidationInfo,
-    field_validator,
-)
+from pydantic import (BaseModel, ConfigDict, Field, StringConstraints,
+                      ValidationInfo, field_validator)
 from starlette.responses import StreamingResponse
 
-from neopilot.ai_gateway.code_suggestions import (
-    PROVIDERS_MODELS_MAP,
-    USE_CASES_MODELS_MAP,
-    KindUseCase,
-)
+from neopilot.ai_gateway.code_suggestions import (PROVIDERS_MODELS_MAP,
+                                                  USE_CASES_MODELS_MAP,
+                                                  KindUseCase)
 from neopilot.ai_gateway.instrumentators.base import Telemetry
 from neopilot.ai_gateway.models import KindModelProvider, Message
 from neopilot.ai_gateway.models.anthropic import KindAnthropicModel

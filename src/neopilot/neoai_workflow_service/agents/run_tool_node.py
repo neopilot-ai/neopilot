@@ -1,20 +1,20 @@
 """Module containing RunToolNode class for executing tools with input and output parsing."""
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Any, Generic, Protocol, TypeVar
 
 import structlog
 from langchain.tools import BaseTool
-
-from neoai_workflow_service.entities import MessageTypeEnum, ToolStatus, UiChatLog
+from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.entities import (MessageTypeEnum, ToolStatus,
+                                             UiChatLog)
 from neoai_workflow_service.entities.state import ToolInfo, WorkflowState
 from neoai_workflow_service.monitoring import neoai_workflow_metrics
-from neoai_workflow_service.security.prompt_security import (
-    PromptSecurity,
-    SecurityException,
-)
+from neoai_workflow_service.security.prompt_security import (PromptSecurity,
+                                                             SecurityException)
 from neoai_workflow_service.tracking.errors import log_exception
-from lib.internal_events.event_enum import CategoryEnum
 
 WorkflowStateT_contra = TypeVar(
     "WorkflowStateT_contra",
@@ -26,15 +26,13 @@ WorkflowStateT_contra = TypeVar(
 class InputParserProtocol(Protocol[WorkflowStateT_contra]):
     """Protocol for input parser functions that prepare tool parameters from state."""
 
-    def __call__(self, state: WorkflowStateT_contra) -> list[dict[str, Any]]:
-        ...
+    def __call__(self, state: WorkflowStateT_contra) -> list[dict[str, Any]]: ...
 
 
 class OutputParserProtocol(Protocol[WorkflowStateT_contra]):
     """Protocol for output parser functions that process tool outputs and update state."""
 
-    def __call__(self, outputs: list[Any], state: WorkflowStateT_contra) -> dict[str, Any]:
-        ...
+    def __call__(self, outputs: list[Any], state: WorkflowStateT_contra) -> dict[str, Any]: ...
 
 
 WorkflowStateT = TypeVar("WorkflowStateT", bound=WorkflowState)

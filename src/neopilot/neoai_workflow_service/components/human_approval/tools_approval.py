@@ -1,17 +1,16 @@
+from __future__ import annotations
+
 from typing import Literal
 
-from langchain_core.messages import AIMessage, HumanMessage, ToolCall, ToolMessage
-
-from neoai_workflow_service.components.human_approval.component import (
-    HumanApprovalComponent,
-)
-from neoai_workflow_service.entities.state import WorkflowState, WorkflowStatusEnum
-from neoai_workflow_service.tools import (
-    MalformedToolCallError,
-    Toolset,
-    format_tool_display_message,
-)
+from langchain_core.messages import (AIMessage, HumanMessage, ToolCall,
+                                     ToolMessage)
 from lib import Result, result
+from neoai_workflow_service.components.human_approval.component import \
+    HumanApprovalComponent
+from neoai_workflow_service.entities.state import (WorkflowState,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.tools import (MalformedToolCallError, Toolset,
+                                          format_tool_display_message)
 
 
 class ToolsApprovalComponent(HumanApprovalComponent):

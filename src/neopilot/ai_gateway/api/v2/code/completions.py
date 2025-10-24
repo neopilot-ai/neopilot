@@ -1,32 +1,28 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from time import time
 from typing import Annotated, Any, AsyncIterator, Dict, Optional, Tuple
 
 from dependency_injector.providers import Factory
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from gitlab_cloud_connector import (
-    CloudConnectorConfig,
-    GitLabFeatureCategory,
-    GitLabUnitPrimitive,
-)
+from gitlab_cloud_connector import (CloudConnectorConfig,
+                                    GitLabFeatureCategory, GitLabUnitPrimitive)
+from lib.feature_flags.context import current_feature_flag_context
+from lib.internal_events import InternalEventsClient
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.error_utils import capture_validation_errors
 from neopilot.ai_gateway.api.feature_category import feature_category
-from neopilot.ai_gateway.api.middleware.headers import X_GITLAB_MODEL_PROMPT_CACHE_ENABLED
-from neopilot.ai_gateway.api.snowplow_context import get_snowplow_code_suggestion_context
+from neopilot.ai_gateway.api.middleware.headers import \
+    X_GITLAB_MODEL_PROMPT_CACHE_ENABLED
+from neopilot.ai_gateway.api.snowplow_context import \
+    get_snowplow_code_suggestion_context
 from neopilot.ai_gateway.api.v2.code.model_provider_handlers import (
-    AnthropicHandler,
-    FireworksHandler,
-    LiteLlmHandler,
-)
+    AnthropicHandler, FireworksHandler, LiteLlmHandler)
 from neopilot.ai_gateway.api.v2.code.typing import (
-    CompletionsRequestWithVersion,
-    GenerationsRequestWithVersion,
-    StreamSuggestionsResponse,
-    SuggestionsRequest,
-    SuggestionsResponse,
-)
+    CompletionsRequestWithVersion, GenerationsRequestWithVersion,
+    StreamSuggestionsResponse, SuggestionsRequest, SuggestionsResponse)
 from neopilot.ai_gateway.async_dependency_resolver import (
     get_code_suggestions_completions_agent_factory_provider,
     get_code_suggestions_completions_amazon_q_factory_provider,
@@ -38,24 +34,22 @@ from neopilot.ai_gateway.async_dependency_resolver import (
     get_code_suggestions_generations_agent_factory_provider,
     get_code_suggestions_generations_anthropic_chat_factory_provider,
     get_code_suggestions_generations_litellm_factory_provider,
-    get_code_suggestions_generations_vertex_provider,
-    get_config,
-    get_container_application,
-    get_internal_event_client,
-    get_snowplow_instrumentator,
-)
-from neopilot.ai_gateway.code_suggestions import (
-    CodeCompletions,
-    CodeCompletionsLegacy,
-    CodeGenerations,
-    CodeSuggestionsChunk,
-)
+    get_code_suggestions_generations_vertex_provider, get_config,
+    get_container_application, get_internal_event_client,
+    get_snowplow_instrumentator)
+from neopilot.ai_gateway.code_suggestions import (CodeCompletions,
+                                                  CodeCompletionsLegacy,
+                                                  CodeGenerations,
+                                                  CodeSuggestionsChunk)
 from neopilot.ai_gateway.code_suggestions.base import CodeSuggestionsOutput
-from neopilot.ai_gateway.code_suggestions.processing.base import ModelEngineOutput
-from neopilot.ai_gateway.code_suggestions.processing.ops import lang_from_filename
+from neopilot.ai_gateway.code_suggestions.processing.base import \
+    ModelEngineOutput
+from neopilot.ai_gateway.code_suggestions.processing.ops import \
+    lang_from_filename
 from neopilot.ai_gateway.config import Config
 from neopilot.ai_gateway.instrumentators.base import TelemetryInstrumentator
-from neopilot.ai_gateway.model_metadata import ModelMetadata, create_model_metadata
+from neopilot.ai_gateway.model_metadata import (ModelMetadata,
+                                                create_model_metadata)
 from neopilot.ai_gateway.models import KindModelProvider
 from neopilot.ai_gateway.models.base import TokensConsumptionMetadata
 from neopilot.ai_gateway.prompts import BasePromptRegistry
@@ -63,8 +57,6 @@ from neopilot.ai_gateway.structured_logging import get_request_logger
 from neopilot.ai_gateway.tracking import SnowplowEvent, SnowplowEventContext
 from neopilot.ai_gateway.tracking.errors import log_exception
 from neopilot.ai_gateway.tracking.instrumentator import SnowplowInstrumentator
-from lib.feature_flags.context import current_feature_flag_context
-from lib.internal_events import InternalEventsClient
 
 __all__ = [
     "router",

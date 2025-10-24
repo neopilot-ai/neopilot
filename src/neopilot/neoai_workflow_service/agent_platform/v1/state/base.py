@@ -1,28 +1,15 @@
+from __future__ import annotations
+
 from enum import StrEnum
-from typing import (
-    Annotated,
-    Any,
-    ClassVar,
-    Final,
-    Literal,
-    NotRequired,
-    Optional,
-    Self,
-    TypedDict,
-    get_args,
-    get_origin,
-)
+from typing import (Annotated, Any, ClassVar, Final, Literal, NotRequired,
+                    Optional, Self, TypedDict, get_args, get_origin)
 
 from langchain_core.messages import BaseMessage
-from pydantic import BaseModel, ConfigDict, Field, model_validator
-
 # TODO: Remove dependency on legacy neoai workflow packages
 from neoai_workflow_service.entities.state import (
-    UiChatLog,
-    WorkflowStatusEnum,
-    _conversation_history_reducer,
-    _ui_chat_log_reducer,
-)
+    UiChatLog, WorkflowStatusEnum, _conversation_history_reducer,
+    _ui_chat_log_reducer)
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 __all__ = [
     "FlowEvent",

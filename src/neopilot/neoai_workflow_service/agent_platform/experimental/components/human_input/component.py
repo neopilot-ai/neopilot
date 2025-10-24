@@ -1,34 +1,25 @@
+from __future__ import annotations
+
 from typing import Annotated, ClassVar, Optional
 
 from dependency_injector.wiring import Provide, inject
 from langgraph.graph import StateGraph
+from neoai_workflow_service.agent_platform.experimental.components.base import (
+    BaseComponent, RouterProtocol)
+from neoai_workflow_service.agent_platform.experimental.components.human_input.nodes import (
+    FetchNode, RequestNode)
+from neoai_workflow_service.agent_platform.experimental.components.human_input.ui_log import (
+    AgentLogWriter, UILogEventsHumanInput, UserLogWriter)
+from neoai_workflow_service.agent_platform.experimental.components.registry import \
+    register_component
+from neoai_workflow_service.agent_platform.experimental.state import (
+    FlowState, IOKey, IOKeyTemplate)
+from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
 from pydantic import Field
 
 from neopilot.ai_gateway.container import ContainerApplication
 from neopilot.ai_gateway.model_metadata import current_model_metadata_context
 from neopilot.ai_gateway.prompts import LocalPromptRegistry
-from neoai_workflow_service.agent_platform.experimental.components.base import (
-    BaseComponent,
-    RouterProtocol,
-)
-from neoai_workflow_service.agent_platform.experimental.components.human_input.nodes import (
-    FetchNode,
-    RequestNode,
-)
-from neoai_workflow_service.agent_platform.experimental.components.human_input.ui_log import (
-    AgentLogWriter,
-    UILogEventsHumanInput,
-    UserLogWriter,
-)
-from neoai_workflow_service.agent_platform.experimental.components.registry import (
-    register_component,
-)
-from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    IOKey,
-    IOKeyTemplate,
-)
-from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
 
 __all__ = ["HumanInputComponent"]
 

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from contextvars import ContextVar
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Set
@@ -76,10 +78,6 @@ class InternalEventAdditionalProperties:
         self.extra = kwargs
 
 
-current_event_context: ContextVar[EventContext] = ContextVar(
-    "current_event_context", default=EventContext()
-)
+current_event_context: ContextVar[EventContext] = ContextVar("current_event_context", default=EventContext())
 
-tracked_internal_events: ContextVar[Set[str]] = ContextVar(
-    "tracked_internal_events", default=set()
-)
+tracked_internal_events: ContextVar[Set[str]] = ContextVar("tracked_internal_events", default=set())

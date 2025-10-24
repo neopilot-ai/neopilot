@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import asyncio
 from enum import Enum
 
 import structlog
-
 from neoai_workflow_service.tracking.errors import log_exception
 
 logger = structlog.stdlib.get_logger("error_handler")

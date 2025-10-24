@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, List, Mapping, Optional, Self
 
 from anthropic import AsyncAnthropic
@@ -5,9 +7,8 @@ from langchain_anthropic import ChatAnthropic as _LChatAnthropic
 from langchain_core.callbacks import CallbackManagerForLLMRun
 from langchain_core.messages import BaseMessage
 from langchain_core.outputs import ChatResult
-from pydantic import model_validator
-
 from lib.feature_flags import FeatureFlag, is_feature_enabled
+from pydantic import model_validator
 
 __all__ = ["ChatAnthropic"]
 

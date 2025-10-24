@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import re
 from typing import Any, AsyncIterator, Callable, List, Optional, TypeVar
@@ -12,11 +14,9 @@ from langchain_core.messages import BaseMessage
 from neopilot.ai_gateway.models.agentic_mock import AgenticFakeModel
 from neopilot.ai_gateway.models.base import ModelMetadata
 from neopilot.ai_gateway.models.base_chat import ChatModelBase, Message
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.safety_attributes import SafetyAttributes
 
 __all__ = [

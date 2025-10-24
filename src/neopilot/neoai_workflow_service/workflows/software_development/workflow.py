@@ -1,4 +1,6 @@
 # pylint: disable=unknown-option-value,direct-environment-variable-reference
+from __future__ import annotations
+
 import os
 from datetime import datetime, timezone
 from enum import StrEnum
@@ -7,48 +9,33 @@ from typing import Annotated
 
 # pylint disables are going to be fixed via
 # https://gitlab.com/gitlab-org/neoai-workflow/neoai-workflow-service/-/issues/78
-from langchain_core.messages import (  # pylint: disable=no-langgraph-langchain-imports
-    AIMessage,
-)
-from langgraph.checkpoint.memory import (  # pylint: disable=no-langgraph-langchain-imports
-    BaseCheckpointSaver,
-)
+from langchain_core.messages import \
+    AIMessage  # pylint: disable=no-langgraph-langchain-imports
+from langgraph.checkpoint.memory import \
+    BaseCheckpointSaver  # pylint: disable=no-langgraph-langchain-imports
 from langgraph.graph import (  # pylint: disable=no-langgraph-langchain-imports
-    END,
-    StateGraph,
-)
-
-from neopilot.ai_gateway.model_metadata import current_model_metadata_context
-from neoai_workflow_service.agents import (
-    HandoverAgent,
-    PlanSupervisorAgent,
-    PlanTerminatorAgent,
-    ToolsExecutor,
-)
-from neoai_workflow_service.components import (
-    PlanApprovalComponent,
-    ToolsApprovalComponent,
-    ToolsRegistry,
-)
-from neoai_workflow_service.components.executor.component import ExecutorComponent
-from neoai_workflow_service.components.goal_disambiguation import (
-    GoalDisambiguationComponent,
-)
-from neoai_workflow_service.components.planner.component import PlannerComponent
-from neoai_workflow_service.entities import (
-    MessageTypeEnum,
-    Plan,
-    ToolStatus,
-    UiChatLog,
-    WorkflowState,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.entities.agent_user_environment import (
-    process_agent_user_environment,
-)
+    END, StateGraph)
+from neoai_workflow_service.agents import (HandoverAgent, PlanSupervisorAgent,
+                                           PlanTerminatorAgent, ToolsExecutor)
+from neoai_workflow_service.components import (PlanApprovalComponent,
+                                               ToolsApprovalComponent,
+                                               ToolsRegistry)
+from neoai_workflow_service.components.executor.component import \
+    ExecutorComponent
+from neoai_workflow_service.components.goal_disambiguation import \
+    GoalDisambiguationComponent
+from neoai_workflow_service.components.planner.component import \
+    PlannerComponent
+from neoai_workflow_service.entities import (MessageTypeEnum, Plan, ToolStatus,
+                                             UiChatLog, WorkflowState,
+                                             WorkflowStatusEnum)
+from neoai_workflow_service.entities.agent_user_environment import \
+    process_agent_user_environment
 from neoai_workflow_service.tools.handover import HandoverTool
 from neoai_workflow_service.tracking.errors import log_exception
 from neoai_workflow_service.workflows.abstract_workflow import AbstractWorkflow
+
+from neopilot.ai_gateway.model_metadata import current_model_metadata_context
 
 # Constants
 QUEUE_MAX_SIZE = 1

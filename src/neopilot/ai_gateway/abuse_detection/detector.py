@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import random
 import textwrap
 
@@ -7,10 +9,8 @@ from prometheus_client import Histogram
 from pydantic import BaseModel
 
 from neopilot.ai_gateway.api.feature_category import X_GITLAB_UNIT_PRIMITIVE
-from neopilot.ai_gateway.api.middleware import (
-    X_GITLAB_GLOBAL_USER_ID_HEADER,
-    X_GITLAB_INSTANCE_ID_HEADER,
-)
+from neopilot.ai_gateway.api.middleware import (X_GITLAB_GLOBAL_USER_ID_HEADER,
+                                                X_GITLAB_INSTANCE_ID_HEADER)
 from neopilot.ai_gateway.models.anthropic import AnthropicChatModel
 from neopilot.ai_gateway.models.base_chat import Message, Role
 from neopilot.ai_gateway.models.base_text import TextGenModelOutput

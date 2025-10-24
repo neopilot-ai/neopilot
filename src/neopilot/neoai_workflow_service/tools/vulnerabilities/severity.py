@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import json
 from typing import Any, ClassVar, List, Type
 
 from gitlab_cloud_connector import GitLabUnitPrimitive
-from pydantic import BaseModel, Field
-
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 PROJECT_IDENTIFICATION_DESCRIPTION = (
     """The project must be specified using its full path (e.g., 'namespace/project' or 'group/subgroup/project')."""

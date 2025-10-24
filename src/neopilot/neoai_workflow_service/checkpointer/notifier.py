@@ -1,20 +1,17 @@
+from __future__ import annotations
+
 from copy import deepcopy
 from datetime import datetime, timezone
 from json import dumps
 from typing import Union
 
 import structlog
-from langchain_core.messages import BaseMessage
-
 from contract import contract_pb2
-from neoai_workflow_service.checkpointer.gitlab_workflow import (
-    WORKFLOW_STATUS_TO_CHECKPOINT_STATUS,
-)
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
+from langchain_core.messages import BaseMessage
+from neoai_workflow_service.checkpointer.gitlab_workflow import \
+    WORKFLOW_STATUS_TO_CHECKPOINT_STATUS
+from neoai_workflow_service.entities.state import (MessageTypeEnum, UiChatLog,
+                                                   WorkflowStatusEnum)
 from neoai_workflow_service.executor.outbox import Outbox
 from neoai_workflow_service.json_encoder.encoder import CustomEncoder
 

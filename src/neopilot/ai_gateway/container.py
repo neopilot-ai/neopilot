@@ -1,19 +1,25 @@
-from dependency_injector import containers, providers
-from py_grpc_prometheus.prometheus_client_interceptor import PromClientInterceptor
+from __future__ import annotations
 
-from neopilot.ai_gateway.abuse_detection.container import ContainerAbuseDetection
+from dependency_injector import containers, providers
+from lib.billing_events import ContainerBillingEvent
+from lib.internal_events import ContainerInternalEvent
+from py_grpc_prometheus.prometheus_client_interceptor import \
+    PromClientInterceptor
+
+from neopilot.ai_gateway.abuse_detection.container import \
+    ContainerAbuseDetection
 from neopilot.ai_gateway.auth.container import ContainerSelfSignedJwt
 from neopilot.ai_gateway.chat.container import ContainerChat
-from neopilot.ai_gateway.code_suggestions.container import ContainerCodeSuggestions
+from neopilot.ai_gateway.code_suggestions.container import \
+    ContainerCodeSuggestions
 from neopilot.ai_gateway.integrations.container import ContainerIntegrations
 from neopilot.ai_gateway.models.container import ContainerModels
-from neopilot.ai_gateway.models.v2.container import ContainerModels as ContainerModelsV2
+from neopilot.ai_gateway.models.v2.container import \
+    ContainerModels as ContainerModelsV2
 from neopilot.ai_gateway.prompts.container import ContainerPrompts
 from neopilot.ai_gateway.searches.container import ContainerSearches
 from neopilot.ai_gateway.tracking.container import ContainerTracking
 from neopilot.ai_gateway.x_ray.container import ContainerXRay
-from lib.billing_events import ContainerBillingEvent
-from lib.internal_events import ContainerInternalEvent
 
 __all__ = [
     "ContainerApplication",

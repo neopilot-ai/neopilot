@@ -1,41 +1,38 @@
+from __future__ import annotations
+
 from typing import Any, AsyncIterator, Optional, Union
 
 import structlog
 from dependency_injector.providers import Factory
 
-from neopilot.ai_gateway.code_suggestions.base import (
-    CodeSuggestionsChunk,
-    CodeSuggestionsOutput,
-    LanguageId,
-    increment_lang_counter,
-    resolve_lang_id,
-    resolve_lang_name,
-)
+from neopilot.ai_gateway.code_suggestions.base import (CodeSuggestionsChunk,
+                                                       CodeSuggestionsOutput,
+                                                       LanguageId,
+                                                       increment_lang_counter,
+                                                       resolve_lang_id,
+                                                       resolve_lang_name)
 from neopilot.ai_gateway.code_suggestions.processing import (
-    ModelEngineCompletions,
-    ModelEngineOutput,
-    Prompt,
-    TokenStrategyBase,
-)
-from neopilot.ai_gateway.code_suggestions.processing.post.completions import PostProcessor
-from neopilot.ai_gateway.code_suggestions.processing.pre import PromptBuilderPrefixBased
-from neopilot.ai_gateway.code_suggestions.processing.typing import MetadataExtraInfo
-from neopilot.ai_gateway.instrumentators import (
-    KnownMetrics,
-    TextGenModelInstrumentator,
-    benchmark,
-)
-from neopilot.ai_gateway.models import ChatModelBase, Message, ModelAPICallError, ModelAPIError
+    ModelEngineCompletions, ModelEngineOutput, Prompt, TokenStrategyBase)
+from neopilot.ai_gateway.code_suggestions.processing.post.completions import \
+    PostProcessor
+from neopilot.ai_gateway.code_suggestions.processing.pre import \
+    PromptBuilderPrefixBased
+from neopilot.ai_gateway.code_suggestions.processing.typing import \
+    MetadataExtraInfo
+from neopilot.ai_gateway.instrumentators import (KnownMetrics,
+                                                 TextGenModelInstrumentator,
+                                                 benchmark)
+from neopilot.ai_gateway.models import (ChatModelBase, Message,
+                                        ModelAPICallError, ModelAPIError)
 from neopilot.ai_gateway.models.agent_model import AgentModel
 from neopilot.ai_gateway.models.amazon_q import AmazonQModel
 from neopilot.ai_gateway.models.base import TokensConsumptionMetadata
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.tracking.instrumentator import SnowplowInstrumentator
-from neopilot.ai_gateway.tracking.snowplow import SnowplowEvent, SnowplowEventContext
+from neopilot.ai_gateway.tracking.snowplow import (SnowplowEvent,
+                                                   SnowplowEventContext)
 
 __all__ = ["CodeCompletionsLegacy", "CodeCompletions"]
 

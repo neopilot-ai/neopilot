@@ -1,26 +1,18 @@
+from __future__ import annotations
+
 from enum import StrEnum
-from typing import (
-    Annotated,
-    Any,
-    AsyncIterator,
-    List,
-    Literal,
-    Optional,
-    Protocol,
-    Union,
-)
+from typing import (Annotated, Any, AsyncIterator, List, Literal, Optional,
+                    Protocol, Union)
 
 from fastapi import Body
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 from sse_starlette.sse import EventSourceResponse
 from starlette.responses import StreamingResponse
 
-from neopilot.ai_gateway.code_suggestions import (
-    CodeCompletions,
-    CodeGenerations,
-    CodeSuggestionsChunk,
-    ModelProvider,
-)
+from neopilot.ai_gateway.code_suggestions import (CodeCompletions,
+                                                  CodeGenerations,
+                                                  CodeSuggestionsChunk,
+                                                  ModelProvider)
 from neopilot.ai_gateway.models import KindVertexTextModel, Message
 from neopilot.ai_gateway.models.base import KindModelProvider
 

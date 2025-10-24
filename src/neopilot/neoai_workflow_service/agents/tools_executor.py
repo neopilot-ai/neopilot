@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 import re
 from datetime import datetime, timezone
@@ -10,28 +12,25 @@ from langchain_core.messages.tool import ToolCall
 from langchain_core.output_parsers.string import StrOutputParser
 from langchain_core.tools import ToolException
 from langgraph.types import Command
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import (CategoryEnum, EventEnum,
+                                            EventLabelEnum)
+from neoai_workflow_service.entities import WorkflowStatusEnum
+from neoai_workflow_service.entities.state import (MessageTypeEnum,
+                                                   NeoaiWorkflowStateType,
+                                                   Plan, ToolInfo, ToolStatus,
+                                                   UiChatLog)
+from neoai_workflow_service.monitoring import neoai_workflow_metrics
+from neoai_workflow_service.security.prompt_security import (PromptSecurity,
+                                                             SecurityException)
+from neoai_workflow_service.tools import (RunCommand, Toolset,
+                                          format_tool_display_message)
+from neoai_workflow_service.tools.planner import PlannerTool
+from neoai_workflow_service.tracking.errors import log_exception
 from pydantic import ValidationError
 
 from neopilot.ai_gateway.container import ContainerApplication
-from neoai_workflow_service.entities import WorkflowStatusEnum
-from neoai_workflow_service.entities.state import (
-    NeoaiWorkflowStateType,
-    MessageTypeEnum,
-    Plan,
-    ToolInfo,
-    ToolStatus,
-    UiChatLog,
-)
-from neoai_workflow_service.monitoring import neoai_workflow_metrics
-from neoai_workflow_service.security.prompt_security import (
-    PromptSecurity,
-    SecurityException,
-)
-from neoai_workflow_service.tools import RunCommand, Toolset, format_tool_display_message
-from neoai_workflow_service.tools.planner import PlannerTool
-from neoai_workflow_service.tracking.errors import log_exception
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum, EventEnum, EventLabelEnum
 
 _HIDDEN_TOOLS = ["get_plan"]
 

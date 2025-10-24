@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request, status
@@ -6,9 +8,11 @@ from pydantic import BaseModel, Field
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.feature_category import feature_category
-from neopilot.ai_gateway.api.v1.prompts.invoke import PromptChunk, PromptRequest, _invoke
+from neopilot.ai_gateway.api.v1.prompts.invoke import (PromptChunk,
+                                                       PromptRequest, _invoke)
 from neopilot.ai_gateway.async_dependency_resolver import get_prompt_registry
-from neopilot.ai_gateway.instrumentators.model_requests import TokenUsage, get_token_usage
+from neopilot.ai_gateway.instrumentators.model_requests import (
+    TokenUsage, get_token_usage)
 from neopilot.ai_gateway.prompts.base import BasePromptRegistry
 
 

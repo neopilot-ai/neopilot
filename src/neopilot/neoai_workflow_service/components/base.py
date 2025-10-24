@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 from dependency_injector.wiring import Provide, inject
 from gitlab_cloud_connector import CloudConnectorUser
-
-from neopilot.ai_gateway.container import ContainerApplication
-from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
+from lib.internal_events.event_enum import CategoryEnum
 from neoai_workflow_service.components.tools_registry import ToolsRegistry
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 from neoai_workflow_service.llm_factory import AnthropicConfig, VertexConfig
 from neoai_workflow_service.workflows.type_definitions import AdditionalContext
-from lib.internal_events.event_enum import CategoryEnum
+
+from neopilot.ai_gateway.container import ContainerApplication
+from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
 
 
 class BaseComponent:

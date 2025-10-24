@@ -1,30 +1,25 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 from datetime import datetime, timezone
 from typing import List, Optional
 
 import grpc
-
+from lib.internal_events import EventContext, current_event_context
 from neoai_workflow_service.interceptors import (
     X_GITLAB_FEATURE_ENABLED_BY_NAMESPACE_IDS,
-    X_GITLAB_FEATURE_ENABLEMENT_TYPE,
-    X_GITLAB_GLOBAL_USER_ID_HEADER,
-    X_GITLAB_HOST_NAME,
-    X_GITLAB_INSTANCE_ID_HEADER,
-    X_GITLAB_IS_A_GITLAB_MEMBER,
-    X_GITLAB_NAMESPACE_ID,
-    X_GITLAB_PROJECT_ID,
-    X_GITLAB_REALM_HEADER,
-    X_GITLAB_ROOT_NAMESPACE_ID,
-    X_GITLAB_USER_ID_HEADER,
-)
-from neoai_workflow_service.interceptors.correlation_id_interceptor import correlation_id
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import gitlab_version
-from neoai_workflow_service.interceptors.language_server_version_interceptor import (
-    language_server_version,
-)
-from lib.internal_events import EventContext, current_event_context
+    X_GITLAB_FEATURE_ENABLEMENT_TYPE, X_GITLAB_GLOBAL_USER_ID_HEADER,
+    X_GITLAB_HOST_NAME, X_GITLAB_INSTANCE_ID_HEADER,
+    X_GITLAB_IS_A_GITLAB_MEMBER, X_GITLAB_NAMESPACE_ID, X_GITLAB_PROJECT_ID,
+    X_GITLAB_REALM_HEADER, X_GITLAB_ROOT_NAMESPACE_ID, X_GITLAB_USER_ID_HEADER)
+from neoai_workflow_service.interceptors.correlation_id_interceptor import \
+    correlation_id
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    gitlab_version
+from neoai_workflow_service.interceptors.language_server_version_interceptor import \
+    language_server_version
 
 
 def convert_feature_enabled_string_to_list(

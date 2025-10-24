@@ -1,14 +1,16 @@
+from __future__ import annotations
+
 import json
 from collections import Counter
 from enum import StrEnum
 from typing import Any, Optional, Type
 
-from packaging.version import InvalidVersion, Version
-from pydantic import BaseModel, Field, field_validator
-
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import gitlab_version
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    gitlab_version
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
 from neoai_workflow_service.tracking.errors import log_exception
+from packaging.version import InvalidVersion, Version
+from pydantic import BaseModel, Field, field_validator
 
 PROJECT_IDENTIFICATION_DESCRIPTION = """
 The project must be specified using its full path (e.g., 'namespace/project' or 'group/subgroup/project').

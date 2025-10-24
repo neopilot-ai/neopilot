@@ -1,41 +1,31 @@
+from __future__ import annotations
+
 from typing import Annotated, ClassVar, Literal, Optional
 
 from dependency_injector.wiring import Provide, inject
 from langchain_core.messages import AIMessage, BaseMessage
 from langgraph.graph import StateGraph
+from lib.internal_events import InternalEventsClient
+from neoai_workflow_service.agent_platform.v1.components.agent.nodes import (
+    AgentFinalOutput, AgentNode, FinalResponseNode, ToolNode)
+from neoai_workflow_service.agent_platform.v1.components.agent.ui_log import (
+    UILogEventsAgent, UILogWriterAgentTools)
+from neoai_workflow_service.agent_platform.v1.components.base import (
+    BaseComponent, RouterProtocol)
+from neoai_workflow_service.agent_platform.v1.components.registry import \
+    register_component
+from neoai_workflow_service.agent_platform.v1.state import (FlowState,
+                                                            FlowStateKeys,
+                                                            IOKeyTemplate)
+from neoai_workflow_service.agent_platform.v1.ui_log import (
+    UIHistory, default_ui_log_writer_class)
+from neoai_workflow_service.tools.toolset import Toolset
 from pydantic import Field
 
 from neopilot.ai_gateway.container import ContainerApplication
 from neopilot.ai_gateway.model_metadata import current_model_metadata_context
-from neopilot.ai_gateway.prompts import InMemoryPromptRegistry, LocalPromptRegistry
-from neoai_workflow_service.agent_platform.v1.components.agent.nodes import (
-    AgentFinalOutput,
-    AgentNode,
-    FinalResponseNode,
-    ToolNode,
-)
-from neoai_workflow_service.agent_platform.v1.components.agent.ui_log import (
-    UILogEventsAgent,
-    UILogWriterAgentTools,
-)
-from neoai_workflow_service.agent_platform.v1.components.base import (
-    BaseComponent,
-    RouterProtocol,
-)
-from neoai_workflow_service.agent_platform.v1.components.registry import (
-    register_component,
-)
-from neoai_workflow_service.agent_platform.v1.state import (
-    FlowState,
-    FlowStateKeys,
-    IOKeyTemplate,
-)
-from neoai_workflow_service.agent_platform.v1.ui_log import (
-    UIHistory,
-    default_ui_log_writer_class,
-)
-from neoai_workflow_service.tools.toolset import Toolset
-from lib.internal_events import InternalEventsClient
+from neopilot.ai_gateway.prompts import (InMemoryPromptRegistry,
+                                         LocalPromptRegistry)
 
 __all__ = ["AgentComponent", "RoutingError"]
 

@@ -1,28 +1,25 @@
+from __future__ import annotations
+
 import time
 from typing import Annotated
 
 from dependency_injector.providers import Factory
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from gitlab_cloud_connector import GitLabFeatureCategory, GitLabUnitPrimitive
+from lib.internal_events import InternalEventsClient
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.feature_category import feature_category
-from neopilot.ai_gateway.api.v1.search.typing import (
-    SearchRequest,
-    SearchResponse,
-    SearchResponseDetails,
-    SearchResponseMetadata,
-    SearchResult,
-)
+from neopilot.ai_gateway.api.v1.search.typing import (SearchRequest,
+                                                      SearchResponse,
+                                                      SearchResponseDetails,
+                                                      SearchResponseMetadata,
+                                                      SearchResult)
 from neopilot.ai_gateway.async_dependency_resolver import (
-    get_config,
-    get_internal_event_client,
-    get_search_factory_provider,
-)
+    get_config, get_internal_event_client, get_search_factory_provider)
 from neopilot.ai_gateway.config import Config
 from neopilot.ai_gateway.searches import Searcher
 from neopilot.ai_gateway.structured_logging import get_request_logger
-from lib.internal_events import InternalEventsClient
 
 __all__ = [
     "router",

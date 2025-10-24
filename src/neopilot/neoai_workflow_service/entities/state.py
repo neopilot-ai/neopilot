@@ -1,34 +1,19 @@
+from __future__ import annotations
+
 from enum import StrEnum
-from typing import (
-    Annotated,
-    Any,
-    Dict,
-    List,
-    NotRequired,
-    Optional,
-    Tuple,
-    TypedDict,
-    Union,
-)
+from typing import (Annotated, Any, Dict, List, NotRequired, Optional, Tuple,
+                    TypedDict, Union)
 
 import structlog
-from langchain_core.messages import (
-    AIMessage,
-    BaseMessage,
-    HumanMessage,
-    SystemMessage,
-    ToolMessage,
-    trim_messages,
-)
-from pydantic import BaseModel
-
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     SystemMessage, ToolMessage, trim_messages)
 from neoai_workflow_service.entities.event import WorkflowEvent
 from neoai_workflow_service.gitlab.gitlab_api import Namespace, Project
-from neoai_workflow_service.token_counter.approximate_token_counter import (
-    ApproximateTokenCounter,
-)
+from neoai_workflow_service.token_counter.approximate_token_counter import \
+    ApproximateTokenCounter
 from neoai_workflow_service.tracking.errors import log_exception
 from neoai_workflow_service.workflows.type_definitions import AdditionalContext
+from pydantic import BaseModel
 
 # max content tokens is 400K but adding a buffer of 10% just in case
 MAX_CONTEXT_TOKENS = int(400_000 * 0.90)

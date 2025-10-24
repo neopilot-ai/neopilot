@@ -1,5 +1,7 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import asyncio
 import functools
 import json
@@ -10,88 +12,69 @@ from typing import AsyncIterable, AsyncIterator, Optional
 
 import aiohttp
 import grpc
+import neoai_workflow_service.workflows.registry as flow_registry
 import structlog
+from contract import contract_pb2, contract_pb2_grpc
 from dependency_injector.wiring import Provide, inject
-from gitlab_cloud_connector import (
-    CloudConnectorConfig,
-    CloudConnectorUser,
-    GitLabUnitPrimitive,
-    TokenAuthority,
-    data_model,
-)
+from gitlab_cloud_connector import (CloudConnectorConfig, CloudConnectorUser,
+                                    GitLabUnitPrimitive, TokenAuthority,
+                                    data_model)
 from google.protobuf.struct_pb2 import Struct
 from grpc_reflection.v1alpha import reflection
 from langchain.globals import set_llm_cache
 from langchain_community.cache import SQLiteCache
 from langchain_core.utils.function_calling import convert_to_openai_tool
-
-import neoai_workflow_service.workflows.registry as flow_registry
-from neopilot.ai_gateway.app import get_config
-from neopilot.ai_gateway.config import Config, setup_litellm
-from neopilot.ai_gateway.container import ContainerApplication
-from contract import contract_pb2, contract_pb2_grpc
+from lib.internal_events import InternalEventsClient
+from lib.internal_events.context import (InternalEventAdditionalProperties,
+                                         current_event_context)
+from lib.internal_events.event_enum import (CategoryEnum, EventEnum,
+                                            EventLabelEnum, EventPropertyEnum)
 from neoai_workflow_service.components import tools_registry
 from neoai_workflow_service.executor.outbox import OutboxSignal
 from neoai_workflow_service.gitlab.connection_pool import connection_pool
-from neoai_workflow_service.interceptors.authentication_interceptor import (
-    AuthenticationInterceptor,
-)
-from neoai_workflow_service.interceptors.authentication_interceptor import (
-    current_user as current_user_context_var,
-)
-from neoai_workflow_service.interceptors.client_type_interceptor import (
-    ClientTypeInterceptor,
-)
-from neoai_workflow_service.interceptors.correlation_id_interceptor import (
-    CorrelationIdInterceptor,
-)
-from neoai_workflow_service.interceptors.enabled_instance_verbose_ai_logs_interceptor import (
-    EnabledInstanceVerboseAiLogsInterceptor,
-)
-from neoai_workflow_service.interceptors.feature_flag_interceptor import (
-    FeatureFlagInterceptor,
-)
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import (
-    GitLabVersionInterceptor,
-)
-from neoai_workflow_service.interceptors.internal_events_interceptor import (
-    InternalEventsInterceptor,
-)
+from neoai_workflow_service.interceptors.authentication_interceptor import \
+    AuthenticationInterceptor
+from neoai_workflow_service.interceptors.authentication_interceptor import \
+    current_user as current_user_context_var
+from neoai_workflow_service.interceptors.client_type_interceptor import \
+    ClientTypeInterceptor
+from neoai_workflow_service.interceptors.correlation_id_interceptor import \
+    CorrelationIdInterceptor
+from neoai_workflow_service.interceptors.enabled_instance_verbose_ai_logs_interceptor import \
+    EnabledInstanceVerboseAiLogsInterceptor
+from neoai_workflow_service.interceptors.feature_flag_interceptor import \
+    FeatureFlagInterceptor
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    GitLabVersionInterceptor
+from neoai_workflow_service.interceptors.internal_events_interceptor import \
+    InternalEventsInterceptor
 from neoai_workflow_service.interceptors.language_server_version_interceptor import (
-    LanguageServerVersionInterceptor,
-    language_server_version,
-)
-from neoai_workflow_service.interceptors.model_metadata_interceptor import (
-    ModelMetadataInterceptor,
-)
-from neoai_workflow_service.interceptors.monitoring_interceptor import (
-    MonitoringInterceptor,
-)
+    LanguageServerVersionInterceptor, language_server_version)
+from neoai_workflow_service.interceptors.model_metadata_interceptor import \
+    ModelMetadataInterceptor
+from neoai_workflow_service.interceptors.monitoring_interceptor import \
+    MonitoringInterceptor
 from neoai_workflow_service.llm_factory import validate_llm_access
-from neoai_workflow_service.monitoring import neoai_workflow_metrics, setup_monitoring
+from neoai_workflow_service.monitoring import (neoai_workflow_metrics,
+                                               setup_monitoring)
 from neoai_workflow_service.profiling import setup_profiling
-from neoai_workflow_service.structured_logging import set_workflow_id, setup_logging
+from neoai_workflow_service.structured_logging import (set_workflow_id,
+                                                       setup_logging)
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
-from neoai_workflow_service.tracking import MonitoringContext, current_monitoring_context
+from neoai_workflow_service.tracking import (MonitoringContext,
+                                             current_monitoring_context)
 from neoai_workflow_service.tracking.errors import log_exception
-from neoai_workflow_service.tracking.sentry_error_tracking import setup_error_tracking
+from neoai_workflow_service.tracking.sentry_error_tracking import \
+    setup_error_tracking
 from neoai_workflow_service.workflows.abstract_workflow import AbstractWorkflow
-from neoai_workflow_service.workflows.registry import FlowFactory, resolve_workflow_class
+from neoai_workflow_service.workflows.registry import (FlowFactory,
+                                                       resolve_workflow_class)
 from neoai_workflow_service.workflows.type_definitions import (
-    AIO_CANCEL_STOP_WORKFLOW_REQUEST,
-    AdditionalContext,
-)
-from lib.internal_events import InternalEventsClient
-from lib.internal_events.context import (
-    InternalEventAdditionalProperties,
-    current_event_context,
-)
-from lib.internal_events.event_enum import (
-    CategoryEnum,
-    EventEnum,
-    EventLabelEnum,
-    EventPropertyEnum,
-)
+    AIO_CANCEL_STOP_WORKFLOW_REQUEST, AdditionalContext)
+
+from neopilot.ai_gateway.app import get_config
+from neopilot.ai_gateway.config import Config, setup_litellm
+from neopilot.ai_gateway.container import ContainerApplication
 
 CONTAINER_APPLICATION_PACKAGES = ["neoai_workflow_service"]
 

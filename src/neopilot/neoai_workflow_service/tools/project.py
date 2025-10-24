@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 from typing import Any, Type
 
 import structlog
-from pydantic import BaseModel, Field
-
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 log = structlog.stdlib.get_logger(__name__)
 

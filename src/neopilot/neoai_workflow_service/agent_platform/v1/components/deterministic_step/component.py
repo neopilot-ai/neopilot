@@ -1,26 +1,24 @@
+from __future__ import annotations
+
 from typing import Any, ClassVar, Literal
 
 from dependency_injector.wiring import Provide, inject
 from langchain_core.tools import BaseTool
 from langgraph.graph import StateGraph
-from pydantic import Field, model_validator
-
-from neopilot.ai_gateway.container import ContainerApplication
-from neoai_workflow_service.agent_platform.v1.components import register_component
+from neoai_workflow_service.agent_platform.v1.components import \
+    register_component
 from neoai_workflow_service.agent_platform.v1.components.base import (
-    BaseComponent,
-    RouterProtocol,
-)
-from neoai_workflow_service.agent_platform.v1.components.deterministic_step.nodes import (
-    DeterministicStepNode,
-)
+    BaseComponent, RouterProtocol)
+from neoai_workflow_service.agent_platform.v1.components.deterministic_step.nodes import \
+    DeterministicStepNode
 from neoai_workflow_service.agent_platform.v1.components.deterministic_step.ui_log import (
-    UILogEventsDeterministicStep,
-    UILogWriterDeterministicStep,
-)
+    UILogEventsDeterministicStep, UILogWriterDeterministicStep)
 from neoai_workflow_service.agent_platform.v1.state import IOKey, IOKeyTemplate
 from neoai_workflow_service.agent_platform.v1.ui_log import UIHistory
 from neoai_workflow_service.tools.toolset import Toolset
+from pydantic import Field, model_validator
+
+from neopilot.ai_gateway.container import ContainerApplication
 
 __all__ = ["DeterministicStepComponent"]
 

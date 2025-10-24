@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from fastapi import Request
@@ -5,11 +7,8 @@ from gitlab_cloud_connector import CloudConnectorConfig
 from starlette.datastructures import CommaSeparatedStrings
 
 from neopilot.ai_gateway.api.middleware import (
-    X_GITLAB_HOST_NAME_HEADER,
-    X_GITLAB_INSTANCE_ID_HEADER,
-    X_GITLAB_REALM_HEADER,
-    X_GITLAB_SAAS_NEOAI_PRO_NAMESPACE_IDS_HEADER,
-)
+    X_GITLAB_HOST_NAME_HEADER, X_GITLAB_INSTANCE_ID_HEADER,
+    X_GITLAB_REALM_HEADER, X_GITLAB_SAAS_NEOAI_PRO_NAMESPACE_IDS_HEADER)
 from neopilot.ai_gateway.tracking import SnowplowEventContext
 
 

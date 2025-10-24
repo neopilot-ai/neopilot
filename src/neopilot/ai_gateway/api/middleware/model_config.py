@@ -1,11 +1,11 @@
+from __future__ import annotations
+
 import json
 
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from neopilot.ai_gateway.model_metadata import (
-    create_model_metadata,
-    current_model_metadata_context,
-)
+from neopilot.ai_gateway.model_metadata import (create_model_metadata,
+                                                current_model_metadata_context)
 
 
 class ModelConfigMiddleware:

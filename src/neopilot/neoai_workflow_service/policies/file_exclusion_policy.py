@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 from pathlib import Path
 from typing import List
 
 import gitmatch
-
-from neoai_workflow_service.gitlab.gitlab_api import Project
 from lib.feature_flags.context import FeatureFlag, is_feature_enabled
+from neoai_workflow_service.gitlab.gitlab_api import Project
 
 CONTEXT_EXCLUSION_MESSAGE = "excluded due to policy"
 

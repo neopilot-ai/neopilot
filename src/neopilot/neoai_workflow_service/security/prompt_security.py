@@ -1,4 +1,6 @@
 # flake8: noqa: W605
+from __future__ import annotations
+
 import re
 import sys
 from pathlib import Path
@@ -7,9 +9,7 @@ from typing import Any, Callable, Dict, List, Union
 from neoai_workflow_service.security.emoji_security import strip_emojis
 from neoai_workflow_service.security.exceptions import SecurityException
 from neoai_workflow_service.security.markdown_content_security import (
-    strip_hidden_html_comments,
-    strip_mermaid_comments,
-)
+    strip_hidden_html_comments, strip_mermaid_comments)
 
 # Type alias for security functions
 SecurityFunctionType = Callable[
@@ -99,9 +99,8 @@ def strip_hidden_unicode_tags(
     Returns:
         Response with hidden Unicode tag characters removed
     """
-    from neoai_workflow_service.security.markdown_content_security import (
-        _apply_recursively,
-    )
+    from neoai_workflow_service.security.markdown_content_security import \
+        _apply_recursively
 
     def _strip_unicode_tags(text: str) -> str:
         if not text or not isinstance(text, str):

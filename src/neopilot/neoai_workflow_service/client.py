@@ -1,17 +1,14 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 
 import grpc
-from dotenv import load_dotenv
-from gitlab_cloud_connector import (
-    CloudConnectorUser,
-    GitLabUnitPrimitive,
-    TokenAuthority,
-    UserClaims,
-)
-
 from contract import contract_pb2, contract_pb2_grpc
+from dotenv import load_dotenv
+from gitlab_cloud_connector import (CloudConnectorUser, GitLabUnitPrimitive,
+                                    TokenAuthority, UserClaims)
 
 
 def generate_client_events():

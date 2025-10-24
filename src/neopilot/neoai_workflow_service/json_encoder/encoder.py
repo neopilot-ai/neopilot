@@ -1,12 +1,12 @@
+from __future__ import annotations
+
 import json
 from typing import Any
 
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
-
-from neoai_workflow_service.entities.state import (
-    AdditionalContext,
-    ApprovalStateRejection,
-)
+from langchain_core.messages import (AIMessage, HumanMessage, SystemMessage,
+                                     ToolMessage)
+from neoai_workflow_service.entities.state import (AdditionalContext,
+                                                   ApprovalStateRejection)
 
 
 class CustomEncoder(json.JSONEncoder):

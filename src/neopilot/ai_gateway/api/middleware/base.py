@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 import time
 import traceback
@@ -14,19 +16,15 @@ from uvicorn.protocols.utils import get_path_with_query_string
 
 from neopilot.ai_gateway.tracking.errors import log_exception
 
-from .headers import (
-    X_GITLAB_FEATURE_ENABLED_BY_NAMESPACE_IDS_HEADER,
-    X_GITLAB_FEATURE_ENABLEMENT_TYPE_HEADER,
-    X_GITLAB_GLOBAL_USER_ID_HEADER,
-    X_GITLAB_HOST_NAME_HEADER,
-    X_GITLAB_INSTANCE_ID_HEADER,
-    X_GITLAB_LANGUAGE_SERVER_VERSION,
-    X_GITLAB_MODEL_GATEWAY_REQUEST_SENT_AT,
-    X_GITLAB_REALM_HEADER,
-    X_GITLAB_SAAS_NEOAI_PRO_NAMESPACE_IDS_HEADER,
-    X_GITLAB_TEAM_MEMBER_HEADER,
-    X_GITLAB_VERSION_HEADER,
-)
+from .headers import (X_GITLAB_FEATURE_ENABLED_BY_NAMESPACE_IDS_HEADER,
+                      X_GITLAB_FEATURE_ENABLEMENT_TYPE_HEADER,
+                      X_GITLAB_GLOBAL_USER_ID_HEADER,
+                      X_GITLAB_HOST_NAME_HEADER, X_GITLAB_INSTANCE_ID_HEADER,
+                      X_GITLAB_LANGUAGE_SERVER_VERSION,
+                      X_GITLAB_MODEL_GATEWAY_REQUEST_SENT_AT,
+                      X_GITLAB_REALM_HEADER,
+                      X_GITLAB_SAAS_NEOAI_PRO_NAMESPACE_IDS_HEADER,
+                      X_GITLAB_TEAM_MEMBER_HEADER, X_GITLAB_VERSION_HEADER)
 
 log = logging.getLogger("codesuggestions")
 access_logger = structlog.stdlib.get_logger("api.access")

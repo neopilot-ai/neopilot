@@ -1,24 +1,22 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from enum import StrEnum
 from typing import Any, AsyncIterator, Optional, Sequence, Union
 
 import structlog
 from google.api_core.exceptions import GoogleAPICallError, GoogleAPIError
-from google.cloud.aiplatform.gapic import PredictionServiceAsyncClient, PredictResponse
+from google.cloud.aiplatform.gapic import (PredictionServiceAsyncClient,
+                                           PredictResponse)
 from google.protobuf import json_format, struct_pb2
 
-from neopilot.ai_gateway.models.base import (
-    KindModelProvider,
-    ModelAPICallError,
-    ModelAPIError,
-    ModelMetadata,
-    TokensConsumptionMetadata,
-)
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base import (KindModelProvider,
+                                             ModelAPICallError, ModelAPIError,
+                                             ModelMetadata,
+                                             TokensConsumptionMetadata)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.safety_attributes import SafetyAttributes
 from neopilot.ai_gateway.tracking import SnowplowEventContext
 

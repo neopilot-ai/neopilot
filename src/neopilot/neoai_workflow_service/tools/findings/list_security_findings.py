@@ -1,15 +1,15 @@
+from __future__ import annotations
+
 import json
 from collections import Counter
 from enum import StrEnum
 from typing import Any, Optional, Type
 
 from langchain_core.tools import ToolException
-from pydantic import BaseModel, Field
-
+from neoai_workflow_service.tools.findings.queries.security_findings import \
+    LIST_SECURITY_FINDINGS_QUERY
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
-from neoai_workflow_service.tools.findings.queries.security_findings import (
-    LIST_SECURITY_FINDINGS_QUERY,
-)
+from pydantic import BaseModel, Field
 
 
 class SecurityFindingState(StrEnum):

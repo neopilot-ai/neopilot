@@ -1,11 +1,11 @@
+from __future__ import annotations
+
 from dependency_injector import containers, providers
 
 from neopilot.ai_gateway.tracking.instrumentator import SnowplowInstrumentator
-from neopilot.ai_gateway.tracking.snowplow import (
-    SnowplowClient,
-    SnowplowClientConfiguration,
-    SnowplowClientStub,
-)
+from neopilot.ai_gateway.tracking.snowplow import (SnowplowClient,
+                                                   SnowplowClientConfiguration,
+                                                   SnowplowClientStub)
 
 __all__ = [
     "ContainerTracking",

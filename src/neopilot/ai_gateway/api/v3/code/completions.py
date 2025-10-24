@@ -1,50 +1,42 @@
+from __future__ import annotations
+
 from time import time
 from typing import Annotated, AsyncIterator, Optional
 
 from dependency_injector.providers import Factory
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from gitlab_cloud_connector import (
-    CloudConnectorConfig,
-    GitLabFeatureCategory,
-    GitLabUnitPrimitive,
-)
+from gitlab_cloud_connector import (CloudConnectorConfig,
+                                    GitLabFeatureCategory, GitLabUnitPrimitive)
+from lib.feature_flags.context import current_feature_flag_context
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.feature_category import feature_category
 from neopilot.ai_gateway.api.middleware import X_GITLAB_LANGUAGE_SERVER_VERSION
-from neopilot.ai_gateway.api.snowplow_context import get_snowplow_code_suggestion_context
+from neopilot.ai_gateway.api.snowplow_context import \
+    get_snowplow_code_suggestion_context
 from neopilot.ai_gateway.api.v3.code.typing import (
-    CodeContextPayload,
-    CodeEditorComponents,
-    CompletionRequest,
-    CompletionResponse,
-    EditorContentCompletionPayload,
-    EditorContentGenerationPayload,
-    ModelMetadata,
-    ResponseMetadataBase,
-    StreamHandler,
-    StreamModelEngine,
-    StreamSuggestionsResponse,
-)
-from neopilot.ai_gateway.async_dependency_resolver import get_config, get_container_application
-from neopilot.ai_gateway.code_suggestions import (
-    CodeCompletions,
-    CodeCompletionsLegacy,
-    CodeGenerations,
-    CodeSuggestionsChunk,
-    LanguageServerVersion,
-    ModelProvider,
-)
+    CodeContextPayload, CodeEditorComponents, CompletionRequest,
+    CompletionResponse, EditorContentCompletionPayload,
+    EditorContentGenerationPayload, ModelMetadata, ResponseMetadataBase,
+    StreamHandler, StreamModelEngine, StreamSuggestionsResponse)
+from neopilot.ai_gateway.async_dependency_resolver import (
+    get_config, get_container_application)
+from neopilot.ai_gateway.code_suggestions import (CodeCompletions,
+                                                  CodeCompletionsLegacy,
+                                                  CodeGenerations,
+                                                  CodeSuggestionsChunk,
+                                                  LanguageServerVersion,
+                                                  ModelProvider)
 from neopilot.ai_gateway.code_suggestions.base import SAAS_PROMPT_MODEL_MAP
 from neopilot.ai_gateway.config import Config
 from neopilot.ai_gateway.container import ContainerApplication
-from neopilot.ai_gateway.model_metadata import TypeModelMetadata, current_model_metadata_context
+from neopilot.ai_gateway.model_metadata import (TypeModelMetadata,
+                                                current_model_metadata_context)
 from neopilot.ai_gateway.models import KindModelProvider
 from neopilot.ai_gateway.prompts import BasePromptRegistry
 from neopilot.ai_gateway.structured_logging import get_request_logger
 from neopilot.ai_gateway.tracking import SnowplowEventContext
-from lib.feature_flags.context import current_feature_flag_context
 
 __all__ = [
     "router",

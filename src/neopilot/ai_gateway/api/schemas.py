@@ -1,8 +1,11 @@
 """Pydantic schemas for OpenAPI documentation."""
 
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
+
 from enum import Enum
-from pydantic import BaseModel, Field, ConfigDict
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ErrorCode(str, Enum):

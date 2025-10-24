@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import asyncio
 from enum import StrEnum
 from uuid import uuid4
 
 import structlog
-
 from contract import contract_pb2
 from neoai_workflow_service.tracking import log_exception
 
@@ -77,7 +78,7 @@ class Outbox:
         https://gitlab.com/gitlab-org/editor-extensions/gitlab-lsp/-/merge_requests/2332.
         """
         if not self._legacy_action_response:
-            log.warn("No legacy action responses are registered")
+            log.warning("No legacy action responses are registered")
             return
 
         response_type = event.actionResponse.WhichOneof("response_type")

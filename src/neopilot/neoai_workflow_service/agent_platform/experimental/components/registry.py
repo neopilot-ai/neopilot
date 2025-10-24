@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import Callable, Optional, Self, Sequence, TypeAlias
 
-from neoai_workflow_service.agent_platform.experimental.components.base import (
-    BaseComponent,
-)
+from neoai_workflow_service.agent_platform.experimental.components.base import \
+    BaseComponent
 
 __all__ = ["ComponentRegistry", "register_component"]
 

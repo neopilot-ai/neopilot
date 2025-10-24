@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 import json
 from abc import abstractmethod
 from typing import Any, Literal, Optional, Type
 
 import structlog
 from gitlab_cloud_connector import GitLabUnitPrimitive
-from pydantic import BaseModel, Field
-
-from neoai_workflow_service.policies.file_exclusion_policy import FileExclusionPolicy
+from neoai_workflow_service.policies.file_exclusion_policy import \
+    FileExclusionPolicy
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 log = structlog.stdlib.get_logger("search")
 

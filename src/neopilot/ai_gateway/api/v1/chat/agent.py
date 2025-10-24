@@ -1,35 +1,31 @@
+from __future__ import annotations
+
 from time import time
 from typing import Annotated, AsyncIterator, Optional, Union
 
 from dependency_injector.providers import Factory, FactoryAggregate
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from gitlab_cloud_connector import GitLabUnitPrimitive
+from lib.internal_events import InternalEventsClient
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.feature_category import track_metadata
-from neopilot.ai_gateway.api.v1.chat.auth import ChatInvokable, authorize_with_unit_primitive
-from neopilot.ai_gateway.api.v1.chat.typing import (
-    ChatRequest,
-    ChatResponse,
-    ChatResponseMetadata,
-    PromptPayload,
-    StreamChatResponse,
-)
+from neopilot.ai_gateway.api.v1.chat.auth import (
+    ChatInvokable, authorize_with_unit_primitive)
+from neopilot.ai_gateway.api.v1.chat.typing import (ChatRequest, ChatResponse,
+                                                    ChatResponseMetadata,
+                                                    PromptPayload,
+                                                    StreamChatResponse)
 from neopilot.ai_gateway.async_dependency_resolver import (
     get_chat_anthropic_claude_factory_provider,
-    get_chat_litellm_factory_provider,
-    get_internal_event_client,
-)
-from neopilot.ai_gateway.models import (
-    AnthropicAPIConnectionError,
-    AnthropicAPIStatusError,
-    AnthropicAPITimeoutError,
-    KindAnthropicModel,
-    KindModelProvider,
-)
-from neopilot.ai_gateway.models.base_text import TextGenModelChunk, TextGenModelOutput
+    get_chat_litellm_factory_provider, get_internal_event_client)
+from neopilot.ai_gateway.models import (AnthropicAPIConnectionError,
+                                        AnthropicAPIStatusError,
+                                        AnthropicAPITimeoutError,
+                                        KindAnthropicModel, KindModelProvider)
+from neopilot.ai_gateway.models.base_text import (TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.tracking import log_exception
-from lib.internal_events import InternalEventsClient
 
 __all__ = [
     "router",

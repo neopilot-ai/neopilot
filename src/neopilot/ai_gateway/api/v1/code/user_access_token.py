@@ -1,22 +1,19 @@
+from __future__ import annotations
+
 from typing import Annotated, Optional
 
 import structlog
 from fastapi import APIRouter, Depends, Header, HTTPException, Request, status
-from gitlab_cloud_connector import (
-    CloudConnectorConfig,
-    GitLabFeatureCategory,
-    GitLabUnitPrimitive,
-    TokenAuthority,
-)
+from gitlab_cloud_connector import (CloudConnectorConfig,
+                                    GitLabFeatureCategory, GitLabUnitPrimitive,
+                                    TokenAuthority)
+from lib.internal_events import InternalEventsClient
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.feature_category import feature_category
 from neopilot.ai_gateway.api.v1.code.typing import Token
 from neopilot.ai_gateway.async_dependency_resolver import (
-    get_internal_event_client,
-    get_token_authority,
-)
-from lib.internal_events import InternalEventsClient
+    get_internal_event_client, get_token_authority)
 
 __all__ = [
     "router",

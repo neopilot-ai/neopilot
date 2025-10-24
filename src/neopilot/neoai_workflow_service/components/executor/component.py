@@ -1,24 +1,23 @@
+from __future__ import annotations
+
 from enum import StrEnum
 from functools import partial
 from typing import Any, Optional
 
 from langchain_core.messages import AIMessage
 from langgraph.graph import StateGraph
-
-from neopilot.ai_gateway.model_metadata import current_model_metadata_context
-from neoai_workflow_service.agents import (
-    HandoverAgent,
-    PlanSupervisorAgent,
-    ToolsExecutor,
-)
-from neoai_workflow_service.components import ToolsApprovalComponent, ToolsRegistry
+from neoai_workflow_service.agents import (HandoverAgent, PlanSupervisorAgent,
+                                           ToolsExecutor)
+from neoai_workflow_service.components import (ToolsApprovalComponent,
+                                               ToolsRegistry)
 from neoai_workflow_service.components.base import BaseComponent
 from neoai_workflow_service.entities import WorkflowState, WorkflowStatusEnum
-from neoai_workflow_service.entities.agent_user_environment import (
-    process_agent_user_environment,
-)
+from neoai_workflow_service.entities.agent_user_environment import \
+    process_agent_user_environment
 from neoai_workflow_service.gitlab.gitlab_api import Project
 from neoai_workflow_service.tools.handover import HandoverTool
+
+from neopilot.ai_gateway.model_metadata import current_model_metadata_context
 
 
 class Routes(StrEnum):

@@ -1,21 +1,20 @@
+from __future__ import annotations
+
 from typing import Annotated
 
 import structlog
 from fastapi import APIRouter, BackgroundTasks, Depends, Request
+from lib.internal_events import InternalEventsClient
 
 from neopilot.ai_gateway.abuse_detection import AbuseDetector
-from neopilot.ai_gateway.api.feature_category import X_GITLAB_UNIT_PRIMITIVE, feature_categories
+from neopilot.ai_gateway.api.feature_category import (X_GITLAB_UNIT_PRIMITIVE,
+                                                      feature_categories)
 from neopilot.ai_gateway.api.v1.proxy.request import (
     EXTENDED_FEATURE_CATEGORIES_FOR_PROXY_ENDPOINTS,
-    authorize_with_unit_primitive_header,
-)
+    authorize_with_unit_primitive_header)
 from neopilot.ai_gateway.async_dependency_resolver import (
-    get_abuse_detector,
-    get_internal_event_client,
-    get_openai_proxy_client,
-)
+    get_abuse_detector, get_internal_event_client, get_openai_proxy_client)
 from neopilot.ai_gateway.proxy.clients import OpenAIProxyClient
-from lib.internal_events import InternalEventsClient
 
 __all__ = [
     "router",

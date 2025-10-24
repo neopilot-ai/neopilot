@@ -1,11 +1,12 @@
+from __future__ import annotations
+
 from typing import Annotated, ClassVar, Self
 
 from langgraph.graph import StateGraph
-from pydantic import model_validator
-
 from neoai_workflow_service.agent_platform.v1.components import BaseComponent
 from neoai_workflow_service.agent_platform.v1.routers.base import BaseRouter
 from neoai_workflow_service.agent_platform.v1.state import FlowState
+from pydantic import model_validator
 
 __all__ = ["Router"]
 

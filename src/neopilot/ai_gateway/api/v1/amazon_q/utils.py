@@ -1,12 +1,15 @@
+from __future__ import annotations
+
 from contextlib import contextmanager
 
 from fastapi import HTTPException, status
 from gitlab_cloud_connector import GitLabUnitPrimitive
+from lib.internal_events.client import InternalEventsClient
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser
-from neopilot.ai_gateway.integrations.amazon_q.client import AmazonQClientFactory
+from neopilot.ai_gateway.integrations.amazon_q.client import \
+    AmazonQClientFactory
 from neopilot.ai_gateway.integrations.amazon_q.errors import AWSException
-from lib.internal_events.client import InternalEventsClient
 
 
 @contextmanager

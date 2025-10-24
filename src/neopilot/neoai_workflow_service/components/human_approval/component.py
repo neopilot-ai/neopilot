@@ -1,5 +1,7 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
@@ -8,17 +10,12 @@ from typing import Annotated, Literal
 
 import structlog
 from langgraph.graph import END, StateGraph
-
+from lib import Result, result
 from neoai_workflow_service.agents import HumanApprovalCheckExecutor
 from neoai_workflow_service.entities.event import WorkflowEventType
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowState,
-    WorkflowStatusEnum,
-)
-from lib import Result, result
+from neoai_workflow_service.entities.state import (MessageTypeEnum, ToolStatus,
+                                                   UiChatLog, WorkflowState,
+                                                   WorkflowStatusEnum)
 
 log = structlog.get_logger("human_approval_component")
 

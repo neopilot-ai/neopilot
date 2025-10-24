@@ -1,19 +1,17 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Optional, Type
 
 import structlog
 from gitlab_cloud_connector import GitLabUnitPrimitive
-from pydantic import BaseModel, Field
-
+from neoai_workflow_service.tools.gitlab_resource_input import \
+    ProjectResourceInput
+from neoai_workflow_service.tools.merge_request import \
+    MERGE_REQUEST_IDENTIFICATION_DESCRIPTION
 from neoai_workflow_service.tools.neoai_base_tool import (
-    NeoaiBaseTool,
-    MergeRequestValidationResult,
-    PipelineValidationResult,
-)
-from neoai_workflow_service.tools.gitlab_resource_input import ProjectResourceInput
-from neoai_workflow_service.tools.merge_request import (
-    MERGE_REQUEST_IDENTIFICATION_DESCRIPTION,
-)
+    MergeRequestValidationResult, NeoaiBaseTool, PipelineValidationResult)
+from pydantic import BaseModel, Field
 
 log = structlog.stdlib.get_logger("workflow")
 

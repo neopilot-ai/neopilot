@@ -1,43 +1,29 @@
+from __future__ import annotations
+
 import inspect
 from functools import partial
 from pathlib import Path
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Optional,
-    Tuple,
-    Type,
-    TypeAlias,
-    Union,
-    overload,
-)
+from typing import (Any, Callable, Dict, Optional, Tuple, Type, TypeAlias,
+                    Union, overload)
 
 from google.protobuf import struct_pb2
 from google.protobuf.json_format import MessageToDict
-
-from neoai_workflow_service.agent_platform.experimental.flows import (
-    Flow as ExperimentalFlow,
-)
-from neoai_workflow_service.agent_platform.experimental.flows import (
-    FlowConfig as ExperimentalFlowConfig,
-)
-from neoai_workflow_service.agent_platform.experimental.flows.flow_config import (
-    list_configs as experimental_list_configs,
-)
-from neoai_workflow_service.agent_platform.v1 import list_configs as v1_list_configs
+from neoai_workflow_service.agent_platform.experimental.flows import \
+    Flow as ExperimentalFlow
+from neoai_workflow_service.agent_platform.experimental.flows import \
+    FlowConfig as ExperimentalFlowConfig
+from neoai_workflow_service.agent_platform.experimental.flows.flow_config import \
+    list_configs as experimental_list_configs
+from neoai_workflow_service.agent_platform.v1 import \
+    list_configs as v1_list_configs
 from neoai_workflow_service.agent_platform.v1.flows import Flow as V1Flow
-from neoai_workflow_service.agent_platform.v1.flows import FlowConfig as V1FlowConfig
-from neoai_workflow_service.workflows import (
-    chat,
-    convert_to_gitlab_ci,
-    issue_to_merge_request,
-    software_development,
-)
+from neoai_workflow_service.agent_platform.v1.flows import \
+    FlowConfig as V1FlowConfig
+from neoai_workflow_service.workflows import (chat, convert_to_gitlab_ci,
+                                              issue_to_merge_request,
+                                              software_development)
 from neoai_workflow_service.workflows.abstract_workflow import (
-    AbstractWorkflow,
-    TypeWorkflow,
-)
+    AbstractWorkflow, TypeWorkflow)
 
 current_directory = Path(__file__).parent
 _WORKFLOWS: list[TypeWorkflow] = [
@@ -77,8 +63,7 @@ def _convert_struct_to_flow_config(
     struct: struct_pb2.Struct,
     flow_config_schema_version: str,
     flow_config_cls: Type[ExperimentalFlowConfig],
-) -> ExperimentalFlowConfig:
-    ...
+) -> ExperimentalFlowConfig: ...
 
 
 @overload
@@ -86,8 +71,7 @@ def _convert_struct_to_flow_config(
     struct: struct_pb2.Struct,
     flow_config_schema_version: str,
     flow_config_cls: Type[V1FlowConfig],
-) -> V1FlowConfig:
-    ...
+) -> V1FlowConfig: ...
 
 
 def _convert_struct_to_flow_config(

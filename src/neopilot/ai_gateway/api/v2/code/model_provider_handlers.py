@@ -1,8 +1,12 @@
+from __future__ import annotations
+
 from fastapi import Request
 
 from neopilot.ai_gateway.api.middleware import X_GITLAB_LANGUAGE_SERVER_VERSION
-from neopilot.ai_gateway.api.v2.code.typing import CompletionsRequestWithVersion
-from neopilot.ai_gateway.code_suggestions.language_server import LanguageServerVersion
+from neopilot.ai_gateway.api.v2.code.typing import \
+    CompletionsRequestWithVersion
+from neopilot.ai_gateway.code_suggestions.language_server import \
+    LanguageServerVersion
 from neopilot.ai_gateway.models.base import KindModelProvider
 from neopilot.ai_gateway.models.litellm import KindLiteLlmModel
 

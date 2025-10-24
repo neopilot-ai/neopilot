@@ -1,23 +1,21 @@
+from __future__ import annotations
+
 from typing import AsyncIterator, Generic, Optional, cast
 
 import starlette_context
 from gitlab_cloud_connector import GitLabUnitPrimitive
+from lib.internal_events import InternalEventsClient
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser
-from neopilot.ai_gateway.chat.agents import (
-    AgentError,
-    AgentToolAction,
-    ReActAgent,
-    TypeAgentEvent,
-    TypeAgentInputs,
-)
+from neopilot.ai_gateway.chat.agents import (AgentError, AgentToolAction,
+                                             ReActAgent, TypeAgentEvent,
+                                             TypeAgentInputs)
 from neopilot.ai_gateway.chat.agents.react import ReActAgentInputs
 from neopilot.ai_gateway.chat.base import BaseToolsRegistry
 from neopilot.ai_gateway.chat.tools import BaseTool
 from neopilot.ai_gateway.model_metadata import TypeModelMetadata
 from neopilot.ai_gateway.prompts.config.models import ModelClassProvider
 from neopilot.ai_gateway.structured_logging import get_request_logger
-from lib.internal_events import InternalEventsClient
 
 __all__ = [
     "GLAgentRemoteExecutor",

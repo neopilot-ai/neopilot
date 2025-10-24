@@ -1,11 +1,11 @@
+from __future__ import annotations
+
 from contextvars import ContextVar, Token
 from typing import Optional
 
 from neoai_workflow_service.gitlab.gitlab_api import Namespace, Project
 from neoai_workflow_service.gitlab.gitlab_instance_info_service import (
-    GitLabInstanceInfo,
-    GitLabInstanceInfoService,
-)
+    GitLabInstanceInfo, GitLabInstanceInfoService)
 
 # Context variable for storing GitLab instance info per async task
 _gitlab_context: ContextVar[Optional[GitLabInstanceInfo]] = ContextVar("gitlab_context", default=None)

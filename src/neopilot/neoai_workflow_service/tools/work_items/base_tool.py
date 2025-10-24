@@ -1,36 +1,25 @@
+from __future__ import annotations
+
 import json
 import urllib
 from enum import Enum
-from typing import (
-    Annotated,
-    Any,
-    Dict,
-    List,
-    Literal,
-    NamedTuple,
-    Optional,
-    Tuple,
-    Union,
-)
+from typing import (Annotated, Any, Dict, List, Literal, NamedTuple, Optional,
+                    Tuple, Union)
 
 import structlog
 from gitlab_cloud_connector import GitLabUnitPrimitive
-from pydantic import StringConstraints
-
-from neoai_workflow_service.gitlab.url_parser import GitLabUrlParseError, GitLabUrlParser
-from neoai_workflow_service.security.quick_actions import validate_no_quick_actions
+from neoai_workflow_service.gitlab.url_parser import (GitLabUrlParseError,
+                                                      GitLabUrlParser)
+from neoai_workflow_service.security.quick_actions import \
+    validate_no_quick_actions
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
 from neoai_workflow_service.tools.work_items.queries.work_items import (
-    CREATE_WORK_ITEM_MUTATION,
-    GET_GROUP_WORK_ITEM_NOTES_QUERY,
-    GET_GROUP_WORK_ITEM_QUERY,
-    GET_PROJECT_WORK_ITEM_NOTES_QUERY,
-    GET_PROJECT_WORK_ITEM_QUERY,
-    GET_WORK_ITEM_TYPE_BY_NAME_QUERY,
-    LIST_GROUP_WORK_ITEMS_QUERY,
-    LIST_PROJECT_WORK_ITEMS_QUERY,
-    UPDATE_WORK_ITEM_MUTATION,
-)
+    CREATE_WORK_ITEM_MUTATION, GET_GROUP_WORK_ITEM_NOTES_QUERY,
+    GET_GROUP_WORK_ITEM_QUERY, GET_PROJECT_WORK_ITEM_NOTES_QUERY,
+    GET_PROJECT_WORK_ITEM_QUERY, GET_WORK_ITEM_TYPE_BY_NAME_QUERY,
+    LIST_GROUP_WORK_ITEMS_QUERY, LIST_PROJECT_WORK_ITEMS_QUERY,
+    UPDATE_WORK_ITEM_MUTATION)
+from pydantic import StringConstraints
 
 log = structlog.stdlib.get_logger(__name__)
 

@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Annotated, Any, ClassVar, Optional, Self
 
 from langgraph.graph import StateGraph
+from neoai_workflow_service.agent_platform.experimental.state import (
+    FlowState, IOKey)
 from pydantic import BaseModel, model_validator
-
-from neoai_workflow_service.agent_platform.experimental.state import FlowState, IOKey
 
 __all__ = ["BaseRouter"]
 

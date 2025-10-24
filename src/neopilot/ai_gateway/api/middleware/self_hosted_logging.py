@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 from typing import Union
 
+from lib.verbose_ai_logs import (VERBOSE_AI_LOGS_HEADER,
+                                 current_verbose_ai_logs_context)
 from starlette.requests import HTTPConnection, Request
 from starlette_context.plugins import Plugin
-
-from lib.verbose_ai_logs import VERBOSE_AI_LOGS_HEADER, current_verbose_ai_logs_context
 
 
 class EnabledInstanceVerboseAiLogsHeaderPlugin(Plugin):

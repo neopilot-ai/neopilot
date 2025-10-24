@@ -1,8 +1,11 @@
 # pylint: disable=attribute-defined-outside-init
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Any, Dict, List, Optional, Type, Union, override
 
+from contract import contract_pb2
 from dependency_injector.wiring import Provide, inject
 from gitlab_cloud_connector import CloudConnectorUser
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
@@ -10,41 +13,32 @@ from langgraph.checkpoint.base import CheckpointTuple
 from langgraph.checkpoint.memory import BaseCheckpointSaver
 from langgraph.graph import END, StateGraph
 from langgraph.types import Command
+from lib.internal_events.client import InternalEventsClient
+from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.agents.chat_agent import ChatAgent
+from neoai_workflow_service.agents.chat_agent_factory import create_agent
+from neoai_workflow_service.agents.prompt_adapter import (BasePromptAdapter,
+                                                          CustomPromptAdapter,
+                                                          DefaultPromptAdapter)
+from neoai_workflow_service.agents.tools_executor import ToolsExecutor
+from neoai_workflow_service.checkpointer.gitlab_workflow_utils import \
+    WorkflowStatusEventEnum
+from neoai_workflow_service.components.tools_registry import ToolsRegistry
+from neoai_workflow_service.entities.state import (ApprovalStateRejection,
+                                                   ChatWorkflowState,
+                                                   MessageTypeEnum, ToolStatus,
+                                                   UiChatLog,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.tracking.errors import log_exception
+from neoai_workflow_service.workflows.abstract_workflow import (
+    AbstractWorkflow, InvocationMetadata)
+from neoai_workflow_service.workflows.type_definitions import AdditionalContext
 
 from neopilot.ai_gateway.container import ContainerApplication
 from neopilot.ai_gateway.model_metadata import current_model_metadata_context
 from neopilot.ai_gateway.prompts import InMemoryPromptRegistry
 from neopilot.ai_gateway.prompts.config.base import InMemoryPromptConfig
 from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
-from contract import contract_pb2
-from neoai_workflow_service.agents.chat_agent import ChatAgent
-from neoai_workflow_service.agents.chat_agent_factory import create_agent
-from neoai_workflow_service.agents.prompt_adapter import (
-    BasePromptAdapter,
-    CustomPromptAdapter,
-    DefaultPromptAdapter,
-)
-from neoai_workflow_service.agents.tools_executor import ToolsExecutor
-from neoai_workflow_service.checkpointer.gitlab_workflow_utils import (
-    WorkflowStatusEventEnum,
-)
-from neoai_workflow_service.components.tools_registry import ToolsRegistry
-from neoai_workflow_service.entities.state import (
-    ApprovalStateRejection,
-    ChatWorkflowState,
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.tracking.errors import log_exception
-from neoai_workflow_service.workflows.abstract_workflow import (
-    AbstractWorkflow,
-    InvocationMetadata,
-)
-from neoai_workflow_service.workflows.type_definitions import AdditionalContext
-from lib.internal_events.client import InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum
 
 
 class Routes(StrEnum):

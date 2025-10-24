@@ -1,73 +1,51 @@
 # pylint: disable=super-init-not-called,direct-environment-variable-reference,no-else-return,broad-exception-raised,attribute-defined-outside-init
 
+from __future__ import annotations
+
 import asyncio
 import base64
 import functools
 import json
 import os
 from contextlib import AbstractAsyncContextManager
-from typing import (
-    Any,
-    AsyncIterator,
-    Callable,
-    Dict,
-    Iterator,
-    NoReturn,
-    Optional,
-    Sequence,
-    Tuple,
-    TypeVar,
-)
+from typing import (Any, AsyncIterator, Callable, Dict, Iterator, NoReturn,
+                    Optional, Sequence, Tuple, TypeVar)
 
 import structlog
 from dependency_injector.wiring import Provide, inject
 from gitlab_cloud_connector import CloudConnectorUser
 from langchain_core.runnables import RunnableConfig
-from langgraph.checkpoint.base import (
-    BaseCheckpointSaver,
-    ChannelVersions,
-    Checkpoint,
-    CheckpointMetadata,
-    CheckpointTuple,
-)
+from langgraph.checkpoint.base import (BaseCheckpointSaver, ChannelVersions,
+                                       Checkpoint, CheckpointMetadata,
+                                       CheckpointTuple)
 from langgraph.checkpoint.memory import MemorySaver
-
-from neopilot.ai_gateway.container import ContainerApplication
+from lib.billing_events import BillingEventsClient
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import (CategoryEnum, EventEnum,
+                                            EventLabelEnum, EventPropertyEnum)
 from neoai_workflow_service.checkpointer.gitlab_workflow_utils import (
-    STATUS_TO_EVENT_PROPERTY,
-    WorkflowStatusEventEnum,
-)
-from neoai_workflow_service.checkpointer.utils.serializer import CheckpointSerializer
+    STATUS_TO_EVENT_PROPERTY, WorkflowStatusEventEnum)
+from neoai_workflow_service.checkpointer.utils.serializer import \
+    CheckpointSerializer
 from neoai_workflow_service.entities import WorkflowStatusEnum
 from neoai_workflow_service.gitlab.gitlab_api import WorkflowConfig
-from neoai_workflow_service.gitlab.http_client import (
-    GitlabHttpClient,
-    GitLabHttpResponse,
-    checkpoint_decoder,
-)
-from neoai_workflow_service.interceptors.authentication_interceptor import current_user
+from neoai_workflow_service.gitlab.http_client import (GitlabHttpClient,
+                                                       GitLabHttpResponse,
+                                                       checkpoint_decoder)
+from neoai_workflow_service.interceptors.authentication_interceptor import \
+    current_user
 from neoai_workflow_service.json_encoder.encoder import CustomEncoder
 from neoai_workflow_service.monitoring import neoai_workflow_metrics
 from neoai_workflow_service.status_updater.gitlab_status_updater import (
-    GitLabStatusUpdater,
-    UnsupportedStatusEvent,
-)
-from neoai_workflow_service.tracking.neoai_workflow_metrics import (
-    SessionTypeEnum,
-    session_type_context,
-)
+    GitLabStatusUpdater, UnsupportedStatusEvent)
 from neoai_workflow_service.tracking.errors import log_exception
-from neoai_workflow_service.workflows.type_definitions import (
-    AIO_CANCEL_STOP_WORKFLOW_REQUEST,
-)
-from lib.billing_events import BillingEventsClient
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import (
-    CategoryEnum,
-    EventEnum,
-    EventLabelEnum,
-    EventPropertyEnum,
-)
+from neoai_workflow_service.tracking.neoai_workflow_metrics import (
+    SessionTypeEnum, session_type_context)
+from neoai_workflow_service.workflows.type_definitions import \
+    AIO_CANCEL_STOP_WORKFLOW_REQUEST
+
+from neopilot.ai_gateway.container import ContainerApplication
 
 T = TypeVar("T", bound=callable)  # type: ignore
 

@@ -1,15 +1,15 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Any
 
-from neopilot.ai_gateway.prompts import Input, Output, Prompt
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    SlashCommandStatus,
-    ToolInfo,
-    ToolStatus,
-    UiChatLog,
-)
 from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.entities.state import (MessageTypeEnum,
+                                                   SlashCommandStatus,
+                                                   ToolInfo, ToolStatus,
+                                                   UiChatLog)
+
+from neopilot.ai_gateway.prompts import Input, Output, Prompt
 
 
 class BaseAgent(Prompt[Input, Output]):

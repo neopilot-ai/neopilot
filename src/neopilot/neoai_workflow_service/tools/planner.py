@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import json
 from abc import abstractmethod
 from typing import Any, List, Optional, Type
 
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command as LangGraphCommand
-from pydantic import BaseModel, Field
-
 from neoai_workflow_service.entities.state import Plan, Task, TaskStatus
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 
 def format_task_number(task_id: str) -> str:

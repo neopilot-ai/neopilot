@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import json
 from typing import List, Union
 
 import structlog
-
 from neoai_workflow_service.entities.event import WorkflowEvent
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 

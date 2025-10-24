@@ -1,22 +1,19 @@
+from __future__ import annotations
+
 import json
 from enum import IntEnum
 from typing import Any, List, Type
 
 import gitmatch
 import structlog
-from langchain.tools.base import ToolException
-from pydantic import BaseModel, Field
-
 from contract import contract_pb2
+from langchain.tools.base import ToolException
 from neoai_workflow_service.executor.action import (
-    _execute_action,
-    _execute_action_and_get_action_response,
-)
+    _execute_action, _execute_action_and_get_action_response)
 from neoai_workflow_service.policies.file_exclusion_policy import (
-    CONTEXT_EXCLUSION_MESSAGE,
-    FileExclusionPolicy,
-)
+    CONTEXT_EXCLUSION_MESSAGE, FileExclusionPolicy)
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 # Security denylist of sensitive directories and files that should not be accessed
 DEFAULT_CONTEXT_EXCLUSIONS = gitmatch.compile(

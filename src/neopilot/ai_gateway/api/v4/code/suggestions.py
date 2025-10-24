@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Annotated, AsyncIterator
 
 from fastapi import APIRouter, Depends, Request
@@ -6,15 +8,15 @@ from sse_starlette.sse import EventSourceResponse
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
 from neopilot.ai_gateway.api.feature_category import feature_category
-from neopilot.ai_gateway.api.v3.code.completions import code_suggestions as v3_code_suggestions
-from neopilot.ai_gateway.api.v3.code.typing import CompletionRequest, ResponseMetadataBase
-from neopilot.ai_gateway.api.v4.code.typing import (
-    StreamDelta,
-    StreamEvent,
-    StreamSSEMessage,
-    StreamSuggestionChunk,
-)
-from neopilot.ai_gateway.async_dependency_resolver import get_config, get_container_application
+from neopilot.ai_gateway.api.v3.code.completions import \
+    code_suggestions as v3_code_suggestions
+from neopilot.ai_gateway.api.v3.code.typing import (CompletionRequest,
+                                                    ResponseMetadataBase)
+from neopilot.ai_gateway.api.v4.code.typing import (StreamDelta, StreamEvent,
+                                                    StreamSSEMessage,
+                                                    StreamSuggestionChunk)
+from neopilot.ai_gateway.async_dependency_resolver import (
+    get_config, get_container_application)
 from neopilot.ai_gateway.code_suggestions import CodeSuggestionsChunk
 from neopilot.ai_gateway.config import Config
 from neopilot.ai_gateway.prompts import BasePromptRegistry

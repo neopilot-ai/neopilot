@@ -1,5 +1,6 @@
-from dependency_injector import containers, providers
+from __future__ import annotations
 
+from dependency_injector import containers, providers
 from lib.internal_events.client import InternalEventsClient
 
 __all__ = [

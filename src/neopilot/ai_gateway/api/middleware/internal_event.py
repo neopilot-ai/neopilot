@@ -1,34 +1,24 @@
+from __future__ import annotations
+
 from datetime import datetime
 
 from asgi_correlation_id.context import correlation_id
+from lib.internal_events import (EventContext, current_event_context,
+                                 tracked_internal_events)
 from starlette.datastructures import CommaSeparatedStrings
 from starlette.middleware.base import Request
 from starlette_context import context as starlette_context
 
 from neopilot.ai_gateway.api.middleware.base import _PathResolver
 from neopilot.ai_gateway.api.middleware.headers import (
-    X_GITLAB_CLIENT_NAME,
-    X_GITLAB_CLIENT_TYPE,
-    X_GITLAB_CLIENT_VERSION,
+    X_GITLAB_CLIENT_NAME, X_GITLAB_CLIENT_TYPE, X_GITLAB_CLIENT_VERSION,
     X_GITLAB_FEATURE_ENABLED_BY_NAMESPACE_IDS_HEADER,
-    X_GITLAB_FEATURE_ENABLEMENT_TYPE_HEADER,
-    X_GITLAB_GLOBAL_USER_ID_HEADER,
-    X_GITLAB_HOST_NAME_HEADER,
-    X_GITLAB_INSTANCE_ID_HEADER,
-    X_GITLAB_INTERFACE,
-    X_GITLAB_REALM_HEADER,
-    X_GITLAB_ROOT_NAMESPACE_ID,
-    X_GITLAB_SAAS_NEOAI_PRO_NAMESPACE_IDS_HEADER,
-    X_GITLAB_TEAM_MEMBER_HEADER,
-    X_GITLAB_USER_ID_HEADER,
-    X_GITLAB_VERSION_HEADER,
-)
+    X_GITLAB_FEATURE_ENABLEMENT_TYPE_HEADER, X_GITLAB_GLOBAL_USER_ID_HEADER,
+    X_GITLAB_HOST_NAME_HEADER, X_GITLAB_INSTANCE_ID_HEADER, X_GITLAB_INTERFACE,
+    X_GITLAB_REALM_HEADER, X_GITLAB_ROOT_NAMESPACE_ID,
+    X_GITLAB_SAAS_NEOAI_PRO_NAMESPACE_IDS_HEADER, X_GITLAB_TEAM_MEMBER_HEADER,
+    X_GITLAB_USER_ID_HEADER, X_GITLAB_VERSION_HEADER)
 from neopilot.ai_gateway.api.middleware_utils import get_valid_namespace_ids
-from lib.internal_events import (
-    EventContext,
-    current_event_context,
-    tracked_internal_events,
-)
 
 
 class InternalEventMiddleware:

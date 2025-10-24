@@ -1,32 +1,29 @@
+from __future__ import annotations
+
 from typing import Optional, Type, TypedDict, Union
 
 from gitlab_cloud_connector import CloudConnectorUser
 from langchain.tools import BaseTool
-from pydantic import BaseModel
-
-from neopilot.ai_gateway.code_suggestions.language_server import LanguageServerVersion
 from neoai_workflow_service import tools
 from neoai_workflow_service.executor.outbox import Outbox
 from neoai_workflow_service.gitlab.gitlab_api import Project, WorkflowConfig
 from neoai_workflow_service.gitlab.http_client import GitlabHttpClient
 from neoai_workflow_service.tools import Toolset, ToolType
 from neoai_workflow_service.tools.code_review import (
-    BuildReviewMergeRequestContext,
-    PostNeoaiCodeReview,
-)
+    BuildReviewMergeRequestContext, PostNeoaiCodeReview)
+from neoai_workflow_service.tools.findings.get_security_finding_details import \
+    GetSecurityFindingDetails
+from neoai_workflow_service.tools.findings.list_security_findings import \
+    ListSecurityFindings
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
-from neoai_workflow_service.tools.findings.get_security_finding_details import (
-    GetSecurityFindingDetails,
-)
-from neoai_workflow_service.tools.findings.list_security_findings import (
-    ListSecurityFindings,
-)
-from neoai_workflow_service.tools.vulnerabilities.get_vulnerability_details import (
-    GetVulnerabilityDetails,
-)
-from neoai_workflow_service.tools.vulnerabilities.post_sast_fp_analysis_to_gitlab import (
-    PostSastFpAnalysisToGitlab,
-)
+from neoai_workflow_service.tools.vulnerabilities.get_vulnerability_details import \
+    GetVulnerabilityDetails
+from neoai_workflow_service.tools.vulnerabilities.post_sast_fp_analysis_to_gitlab import \
+    PostSastFpAnalysisToGitlab
+from pydantic import BaseModel
+
+from neopilot.ai_gateway.code_suggestions.language_server import \
+    LanguageServerVersion
 
 
 class ToolMetadata(TypedDict):

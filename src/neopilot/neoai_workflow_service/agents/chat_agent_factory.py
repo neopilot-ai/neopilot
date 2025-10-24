@@ -1,17 +1,18 @@
+from __future__ import annotations
+
 from typing import Optional, Type, Union
 
 from gitlab_cloud_connector import CloudConnectorUser
+from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.agents.chat_agent import ChatAgent
+from neoai_workflow_service.agents.prompt_adapter import (BasePromptAdapter,
+                                                          DefaultPromptAdapter)
+from neoai_workflow_service.components.tools_registry import (Toolset,
+                                                              ToolsRegistry)
 
 from neopilot.ai_gateway.model_metadata import TypeModelMetadata
 from neopilot.ai_gateway.prompts import InMemoryPromptRegistry, Prompt
 from neopilot.ai_gateway.prompts.registry import LocalPromptRegistry
-from neoai_workflow_service.agents.chat_agent import ChatAgent
-from neoai_workflow_service.agents.prompt_adapter import (
-    BasePromptAdapter,
-    DefaultPromptAdapter,
-)
-from neoai_workflow_service.components.tools_registry import Toolset, ToolsRegistry
-from lib.internal_events.event_enum import CategoryEnum
 
 
 def create_agent(

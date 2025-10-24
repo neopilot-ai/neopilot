@@ -1,14 +1,13 @@
+from __future__ import annotations
+
 import json
 
 import grpc
+from neoai_workflow_service.interceptors.authentication_interceptor import \
+    current_user as current_user_context_var
 
-from neopilot.ai_gateway.model_metadata import (
-    create_model_metadata,
-    current_model_metadata_context,
-)
-from neoai_workflow_service.interceptors.authentication_interceptor import (
-    current_user as current_user_context_var,
-)
+from neopilot.ai_gateway.model_metadata import (create_model_metadata,
+                                                current_model_metadata_context)
 
 
 class ModelMetadataInterceptor(grpc.aio.ServerInterceptor):

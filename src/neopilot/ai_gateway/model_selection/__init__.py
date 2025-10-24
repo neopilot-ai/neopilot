@@ -1,9 +1,8 @@
-from .model_selection_config import (
-    LLMDefinition,
-    ModelSelectionConfig,
-    UnitPrimitiveConfig,
-    validate_model_selection_config,
-)
+from __future__ import annotations
+
+from .model_selection_config import (LLMDefinition, ModelSelectionConfig,
+                                     UnitPrimitiveConfig,
+                                     validate_model_selection_config)
 
 __all__ = [
     "UnitPrimitiveConfig",

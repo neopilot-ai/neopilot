@@ -1,13 +1,13 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from functools import partial
 from typing import Callable, Literal
 
 from neoai_workflow_service.agent_platform.experimental.ui_log.base import (
-    BaseUILogEvents,
-    BaseUILogWriter,
-    UILogCallback,
-)
-from neoai_workflow_service.entities import MessageTypeEnum, ToolStatus, UiChatLog
+    BaseUILogEvents, BaseUILogWriter, UILogCallback)
+from neoai_workflow_service.entities import (MessageTypeEnum, ToolStatus,
+                                             UiChatLog)
 
 __all__ = ["DefaultUILogWriter", "default_ui_log_writer_class"]
 
@@ -47,9 +47,9 @@ class DefaultUILogWriter[E: BaseUILogEvents](BaseUILogWriter[E]):
         raise NotImplementedError
 
 
-def default_ui_log_writer_class[
-    E: BaseUILogEvents
-](events_class: type[E], ui_role_as: Literal["agent", "tool"]) -> Callable[[UILogCallback], DefaultUILogWriter[E]]:
+def default_ui_log_writer_class[E: BaseUILogEvents](
+    events_class: type[E], ui_role_as: Literal["agent", "tool"]
+) -> Callable[[UILogCallback], DefaultUILogWriter[E]]:
     return partial(
         DefaultUILogWriter,
         events_class=events_class,

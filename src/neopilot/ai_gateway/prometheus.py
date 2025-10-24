@@ -1,12 +1,10 @@
+from __future__ import annotations
+
 import logging
 import os
 
-from prometheus_client import (
-    REGISTRY,
-    CollectorRegistry,
-    multiprocess,
-    start_http_server,
-)
+from prometheus_client import (REGISTRY, CollectorRegistry, multiprocess,
+                               start_http_server)
 
 from neopilot.ai_gateway.config import Config
 

@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 from typing import Dict, List
 
 from langchain_core.messages import BaseMessage, HumanMessage
-
 from neoai_workflow_service.entities.state import WorkflowState
 from neoai_workflow_service.tools.handover import HandoverTool
 

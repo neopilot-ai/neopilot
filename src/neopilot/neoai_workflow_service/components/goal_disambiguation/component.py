@@ -1,28 +1,26 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 from datetime import datetime, timezone
 from enum import StrEnum
 from functools import partial
 from typing import Annotated, Any, List, Literal, Union
 
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     ToolMessage)
 from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
-
 from neoai_workflow_service.agents.handover import HandoverAgent
 from neoai_workflow_service.components.base import BaseComponent
-from neoai_workflow_service.entities.event import WorkflowEvent, WorkflowEventType
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowState,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.tools.request_user_clarification import (
-    RequestUserClarificationTool,
-)
+from neoai_workflow_service.entities.event import (WorkflowEvent,
+                                                   WorkflowEventType)
+from neoai_workflow_service.entities.state import (MessageTypeEnum, ToolStatus,
+                                                   UiChatLog, WorkflowState,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.tools.request_user_clarification import \
+    RequestUserClarificationTool
 
 from ...tools import HandoverTool
 

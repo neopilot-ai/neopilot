@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 from typing import List, Tuple
 
-from neoai_workflow_service.policies.file_exclusion_policy import FileExclusionPolicy
 from lib.feature_flags.context import FeatureFlag, is_feature_enabled
+from neoai_workflow_service.policies.file_exclusion_policy import \
+    FileExclusionPolicy
 
 
 class DiffExclusionPolicy(FileExclusionPolicy):

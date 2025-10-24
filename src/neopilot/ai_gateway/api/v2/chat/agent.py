@@ -1,13 +1,13 @@
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Annotated, AsyncIterator, Tuple
 
 from dependency_injector import providers
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from gitlab_cloud_connector import (
-    GitLabFeatureCategory,
-    GitLabUnitPrimitive,
-    WrongUnitPrimitives,
-)
+from gitlab_cloud_connector import (GitLabFeatureCategory, GitLabUnitPrimitive,
+                                    WrongUnitPrimitives)
+from lib.internal_events import InternalEventsClient
 from starlette.responses import StreamingResponse
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser, get_current_user
@@ -15,24 +15,16 @@ from neopilot.ai_gateway.api.feature_category import feature_category
 from neopilot.ai_gateway.api.middleware import X_GITLAB_VERSION_HEADER
 from neopilot.ai_gateway.api.v2.chat.typing import AgentRequest
 from neopilot.ai_gateway.async_dependency_resolver import (
-    get_container_application,
-    get_internal_event_client,
-    get_prompt_registry,
-)
-from neopilot.ai_gateway.chat.agents import (
-    AgentStep,
-    AgentToolAction,
-    Message,
-    ReActAgentInputs,
-    TypeAgentEvent,
-)
+    get_container_application, get_internal_event_client, get_prompt_registry)
+from neopilot.ai_gateway.chat.agents import (AgentStep, AgentToolAction,
+                                             Message, ReActAgentInputs,
+                                             TypeAgentEvent)
 from neopilot.ai_gateway.chat.agents.react import ReActAgent
 from neopilot.ai_gateway.chat.executor import GLAgentRemoteExecutor
 from neopilot.ai_gateway.model_metadata import current_model_metadata_context
 from neopilot.ai_gateway.models import Role
 from neopilot.ai_gateway.prompts import BasePromptRegistry
 from neopilot.ai_gateway.structured_logging import get_request_logger
-from lib.internal_events import InternalEventsClient
 
 __all__ = [
     "router",

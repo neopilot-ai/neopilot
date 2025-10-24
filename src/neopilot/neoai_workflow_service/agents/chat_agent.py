@@ -1,25 +1,23 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 import structlog
 from anthropic import APIError
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     ToolMessage)
 from langchain_core.output_parsers.string import StrOutputParser
-
 from neoai_workflow_service.components.tools_registry import ToolsRegistry
-from neoai_workflow_service.entities.state import (
-    ApprovalStateRejection,
-    ChatWorkflowState,
-    MessageTypeEnum,
-    ToolInfo,
-    ToolStatus,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.gitlab.gitlab_instance_info_service import (
-    GitLabInstanceInfoService,
-)
-from neoai_workflow_service.gitlab.gitlab_service_context import GitLabServiceContext
+from neoai_workflow_service.entities.state import (ApprovalStateRejection,
+                                                   ChatWorkflowState,
+                                                   MessageTypeEnum, ToolInfo,
+                                                   ToolStatus, UiChatLog,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.gitlab.gitlab_instance_info_service import \
+    GitLabInstanceInfoService
+from neoai_workflow_service.gitlab.gitlab_service_context import \
+    GitLabServiceContext
 from neoai_workflow_service.llm_factory import AnthropicStopReason
 from neoai_workflow_service.tracking.errors import log_exception
 

@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Optional, Type
 
-from pydantic import BaseModel, Field
-
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 
 class CiLinterInput(BaseModel):

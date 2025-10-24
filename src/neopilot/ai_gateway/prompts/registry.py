@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import importlib
 from functools import cache
 from pathlib import Path
@@ -6,19 +8,20 @@ from typing import Any, List, NamedTuple, Optional, Type, cast
 import structlog
 import yaml
 from langchain.tools import BaseTool
+from lib.internal_events.client import InternalEventsClient
+from lib.internal_events.context import current_event_context
 from poetry.core.constraints.version import Version, parse_constraint
 
 from neopilot.ai_gateway.config import ConfigModelLimits
-from neopilot.ai_gateway.model_metadata import (
-    ModelMetadata,
-    TypeModelMetadata,
-    create_model_metadata,
-)
+from neopilot.ai_gateway.model_metadata import (ModelMetadata,
+                                                TypeModelMetadata,
+                                                create_model_metadata)
 from neopilot.ai_gateway.prompts.base import BasePromptRegistry, Prompt
-from neopilot.ai_gateway.prompts.config import BaseModelConfig, ModelClassProvider, PromptConfig
-from neopilot.ai_gateway.prompts.typing import TypeModelFactory, TypePromptTemplateFactory
-from lib.internal_events.client import InternalEventsClient
-from lib.internal_events.context import current_event_context
+from neopilot.ai_gateway.prompts.config import (BaseModelConfig,
+                                                ModelClassProvider,
+                                                PromptConfig)
+from neopilot.ai_gateway.prompts.typing import (TypeModelFactory,
+                                                TypePromptTemplateFactory)
 
 __all__ = ["LocalPromptRegistry", "PromptRegistered"]
 

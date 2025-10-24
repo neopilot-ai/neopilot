@@ -1,14 +1,16 @@
 """Rate limiting middleware for API endpoints."""
 
+from __future__ import annotations
+
 import time
-from typing import Callable, Optional
 from collections import defaultdict
 from datetime import datetime, timedelta
+from typing import Callable, Optional
 
+import redis.asyncio as redis
 from fastapi import HTTPException, Request, Response, status
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
-import redis.asyncio as redis
 
 
 class RateLimitExceeded(HTTPException):

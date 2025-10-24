@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, NamedTuple, Optional, Union
@@ -5,18 +7,10 @@ from typing import Any, Dict, NamedTuple, Optional, Union
 from prometheus_client import Counter
 
 from neopilot.ai_gateway.code_suggestions.processing.ops import (
-    lang_from_editor_lang,
-    lang_from_filename,
-)
+    lang_from_editor_lang, lang_from_filename)
 from neopilot.ai_gateway.code_suggestions.processing.typing import (
-    CodeContent,
-    LanguageId,
-    MetadataCodeContent,
-    MetadataExtraInfo,
-    MetadataPromptBuilder,
-    Prompt,
-    TokenStrategyBase,
-)
+    CodeContent, LanguageId, MetadataCodeContent, MetadataExtraInfo,
+    MetadataPromptBuilder, Prompt, TokenStrategyBase)
 from neopilot.ai_gateway.instrumentators import TextGenModelInstrumentator
 from neopilot.ai_gateway.models import ModelMetadata, PalmCodeGenBaseModel
 from neopilot.ai_gateway.models.base import TokensConsumptionMetadata

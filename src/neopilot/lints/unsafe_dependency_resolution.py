@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from astroid import nodes
 from pylint.checkers import BaseChecker
 from pylint.lint import PyLinter
@@ -9,8 +11,7 @@ class UnsafeDependencyResolution(BaseChecker):
         "W5001": (
             "Unsafe dependency resolution detected.",
             "unsafe-dependency-resolution",
-            "See https://github.com/neopilot-ai/neopilot/-/merge_requests/606 "
-            "for more information.",
+            "See https://github.com/neopilot-ai/neopilot/-/merge_requests/606 " "for more information.",
         )
     }
 

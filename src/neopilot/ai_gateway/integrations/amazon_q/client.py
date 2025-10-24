@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 import boto3
@@ -6,12 +8,10 @@ from fastapi import HTTPException, status
 from q_developer_boto3 import boto3 as q_boto3
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser
-from neopilot.ai_gateway.auth.glgo import GlgoAuthority, cloud_connector_token_context_var
+from neopilot.ai_gateway.auth.glgo import (GlgoAuthority,
+                                           cloud_connector_token_context_var)
 from neopilot.ai_gateway.integrations.amazon_q.errors import (
-    AccessDeniedExceptionReason,
-    AWSException,
-    raise_aws_errors,
-)
+    AccessDeniedExceptionReason, AWSException, raise_aws_errors)
 from neopilot.ai_gateway.structured_logging import get_request_logger
 from neopilot.ai_gateway.tracking import log_exception
 
@@ -78,7 +78,7 @@ class AmazonQClientFactory:
         if current_user.claims is not None:
             session_name = f"{current_user.claims.subject}"
         else:
-            request_log.warn("No user claims found, setting session name to placeholder")
+            request_log.warning("No user claims found, setting session name to placeholder")
             session_name = "placeholder"
 
         return self.sts_client.assume_role_with_web_identity(

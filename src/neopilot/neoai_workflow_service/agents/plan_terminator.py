@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 from typing import Any, Dict, Union
 
 import structlog
 from langgraph.types import StateSnapshot
-
 from neoai_workflow_service.entities.state import TaskStatus, WorkflowState
 
 FINISHED_STATUSES = [TaskStatus.COMPLETED, TaskStatus.CANCELLED]

@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import json
 from typing import Any, Type
 
-from pydantic import BaseModel, Field
-
 from neoai_workflow_service.tools import NeoaiBaseTool
+from pydantic import BaseModel, Field
 
 
 class PostSastFpAnalysisToGitlabInput(BaseModel):

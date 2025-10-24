@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import base64
 import json
 import logging
@@ -7,12 +9,14 @@ from urllib.parse import quote
 
 from gitlab_cloud_connector import GitLabUnitPrimitive
 from langchain_core.tools import ToolException
-from pydantic import BaseModel, Field
-
-from neoai_workflow_service.gitlab.url_parser import GitLabUrlParseError, GitLabUrlParser
-from neoai_workflow_service.policies.diff_exclusion_policy import DiffExclusionPolicy
+from neoai_workflow_service.gitlab.url_parser import (GitLabUrlParseError,
+                                                      GitLabUrlParser)
+from neoai_workflow_service.policies.diff_exclusion_policy import \
+    DiffExclusionPolicy
+from neoai_workflow_service.tools.gitlab_resource_input import \
+    ProjectResourceInput
 from neoai_workflow_service.tools.neoai_base_tool import NeoaiBaseTool
-from neoai_workflow_service.tools.gitlab_resource_input import ProjectResourceInput
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 

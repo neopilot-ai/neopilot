@@ -1,43 +1,40 @@
-from abc import ABC, abstractmethod
-from typing import (
-    Any,
-    AsyncIterator,
-    List,
-    Mapping,
-    Optional,
-    Sequence,
-    TypeVar,
-    cast,
-    overload,
-)
+from __future__ import annotations
 
-from gitlab_cloud_connector import (
-    CloudConnectorUser,
-    GitLabUnitPrimitive,
-    WrongUnitPrimitives,
-)
+from abc import ABC, abstractmethod
+from typing import (Any, AsyncIterator, List, Mapping, Optional, Sequence,
+                    TypeVar, cast, overload)
+
+from gitlab_cloud_connector import (CloudConnectorUser, GitLabUnitPrimitive,
+                                    WrongUnitPrimitives)
 from jinja2 import PackageLoader, meta
 from jinja2.sandbox import SandboxedEnvironment
-from langchain_core.callbacks import BaseCallbackHandler, get_usage_metadata_callback
+from langchain_core.callbacks import (BaseCallbackHandler,
+                                      get_usage_metadata_callback)
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages.ai import UsageMetadata
 from langchain_core.prompt_values import PromptValue
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, string
+from langchain_core.prompts import (ChatPromptTemplate, MessagesPlaceholder,
+                                    string)
 from langchain_core.prompts.chat import MessageLikeRepresentation
 from langchain_core.prompts.string import DEFAULT_FORMATTER_MAPPING
 from langchain_core.runnables import Runnable, RunnableBinding, RunnableConfig
 from langchain_core.tools import BaseTool
+from lib.internal_events.client import InternalEventsClient
+from lib.internal_events.context import InternalEventAdditionalProperties
+from neoai_workflow_service.tracking.llm_usage_context import \
+    get_workflow_checkpointer
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser
 from neopilot.ai_gateway.config import ConfigModelLimits, ModelLimits
-from neopilot.ai_gateway.instrumentators.model_requests import ModelRequestInstrumentator
-from neopilot.ai_gateway.model_metadata import TypeModelMetadata, current_model_metadata_context
-from neopilot.ai_gateway.prompts.config.base import ModelConfig, PromptConfig, PromptParams
-from neopilot.ai_gateway.prompts.typing import Model, TypeModelFactory, TypePromptTemplateFactory
+from neopilot.ai_gateway.instrumentators.model_requests import \
+    ModelRequestInstrumentator
+from neopilot.ai_gateway.model_metadata import (TypeModelMetadata,
+                                                current_model_metadata_context)
+from neopilot.ai_gateway.prompts.config.base import (ModelConfig, PromptConfig,
+                                                     PromptParams)
+from neopilot.ai_gateway.prompts.typing import (Model, TypeModelFactory,
+                                                TypePromptTemplateFactory)
 from neopilot.ai_gateway.structured_logging import get_request_logger
-from neoai_workflow_service.tracking.llm_usage_context import get_workflow_checkpointer
-from lib.internal_events.client import InternalEventsClient
-from lib.internal_events.context import InternalEventAdditionalProperties
 
 __all__ = [
     "Prompt",

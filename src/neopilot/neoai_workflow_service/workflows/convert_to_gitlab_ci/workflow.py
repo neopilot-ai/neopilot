@@ -1,5 +1,7 @@
 # pylint: disable=too-many-return-statements,unused-argument
 
+from __future__ import annotations
+
 import json
 from datetime import datetime, timezone
 from enum import StrEnum
@@ -7,28 +9,20 @@ from typing import Any
 
 from langgraph.checkpoint.memory import BaseCheckpointSaver
 from langgraph.graph import END, StateGraph
-
-from neoai_workflow_service.agents import HandoverAgent, RunToolNode, ToolsExecutor
+from lib.internal_events.event_enum import CategoryEnum
+from neoai_workflow_service.agents import (HandoverAgent, RunToolNode,
+                                           ToolsExecutor)
 from neoai_workflow_service.components import ToolsRegistry
-from neoai_workflow_service.entities import (
-    MAX_SINGLE_MESSAGE_TOKENS,
-    MessageTypeEnum,
-    Plan,
-    ToolStatus,
-    UiChatLog,
-    WorkflowState,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.token_counter.approximate_token_counter import (
-    ApproximateTokenCounter,
-)
+from neoai_workflow_service.entities import (MAX_SINGLE_MESSAGE_TOKENS,
+                                             MessageTypeEnum, Plan, ToolStatus,
+                                             UiChatLog, WorkflowState,
+                                             WorkflowStatusEnum)
+from neoai_workflow_service.token_counter.approximate_token_counter import \
+    ApproximateTokenCounter
 from neoai_workflow_service.tracking import log_exception
 from neoai_workflow_service.workflows.abstract_workflow import (
-    RECURSION_LIMIT,
-    AbstractWorkflow,
-)
+    RECURSION_LIMIT, AbstractWorkflow)
 from neoai_workflow_service.workflows.type_definitions import AdditionalContext
-from lib.internal_events.event_enum import CategoryEnum
 
 AGENT_NAME = "ci_pipelines_manager_agent"
 

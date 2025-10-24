@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import StrEnum
 
 
@@ -36,21 +38,13 @@ class EventPropertyEnum(StrEnum):
 
     WORKFLOW_RESUME_BY_USER = "resume_request_by_user_duo_workflow"
     WORKFLOW_RESUME_BY_PLAN = "resume_request_by_agent_duo_workflow"
-    WORKFLOW_RESUME_BY_PLAN_AFTER_INPUT = (
-        "resume_request_by_agent_duo_workflow_after_input"
-    )
-    WORKFLOW_RESUME_BY_PLAN_AFTER_APPROVAL = (
-        "resume_request_by_agent_duo_workflow_after_approval"
-    )
+    WORKFLOW_RESUME_BY_PLAN_AFTER_INPUT = "resume_request_by_agent_duo_workflow_after_input"
+    WORKFLOW_RESUME_BY_PLAN_AFTER_APPROVAL = "resume_request_by_agent_duo_workflow_after_approval"
 
     WORKFLOW_PAUSE_BY_USER = "pause_request_by_user_duo_workflow"
     WORKFLOW_PAUSE_BY_PLAN = "pause_request_by_agent_duo_workflow"
-    WORKFLOW_PAUSE_BY_PLAN_AWAIT_INPUT = (
-        "pause_request_by_agent_duo_workflow_await_input"
-    )
-    WORKFLOW_PAUSE_BY_PLAN_AWAIT_APPROVAL = (
-        "pause_request_by_agent_duo_workflow_await_approval"
-    )
+    WORKFLOW_PAUSE_BY_PLAN_AWAIT_INPUT = "pause_request_by_agent_duo_workflow_await_input"
+    WORKFLOW_PAUSE_BY_PLAN_AWAIT_APPROVAL = "pause_request_by_agent_duo_workflow_await_approval"
 
     WORKFLOW_MESSAGE_BY_USER = "message_request_by_user_duo_workflow"
 

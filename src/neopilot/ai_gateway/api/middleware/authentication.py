@@ -1,25 +1,19 @@
+from __future__ import annotations
+
 import logging
 from typing import Optional, Tuple
 
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
-from gitlab_cloud_connector import (
-    AuthProvider,
-    CloudConnectorAuthError,
-    CloudConnectorUser,
-)
+from gitlab_cloud_connector import (AuthProvider, CloudConnectorAuthError,
+                                    CloudConnectorUser)
 from gitlab_cloud_connector import authenticate as cloud_connector_authenticate
 from gitlab_cloud_connector.auth import AUTH_HEADER
-from starlette.authentication import (
-    AuthCredentials,
-    AuthenticationError,
-    HTTPConnection,
-)
+from starlette.authentication import (AuthCredentials, AuthenticationError,
+                                      HTTPConnection)
 from starlette.middleware import Middleware
-from starlette.middleware.authentication import (
-    AuthenticationBackend,
-    AuthenticationMiddleware,
-)
+from starlette.middleware.authentication import (AuthenticationBackend,
+                                                 AuthenticationMiddleware)
 from starlette.responses import JSONResponse
 from starlette_context import context as starlette_context
 

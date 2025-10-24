@@ -1,15 +1,9 @@
+from __future__ import annotations
+
 from fastapi import APIRouter
 
-from neopilot.ai_gateway.api.v1 import (
-    amazon_q,
-    chat,
-    code,
-    models,
-    prompts,
-    proxy,
-    search,
-    x_ray,
-)
+from neopilot.ai_gateway.api.v1 import (amazon_q, chat, code, models, prompts,
+                                        proxy, search, x_ray)
 
 __all__ = ["api_router"]
 

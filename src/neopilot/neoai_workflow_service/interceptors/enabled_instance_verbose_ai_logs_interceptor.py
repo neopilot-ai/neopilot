@@ -1,6 +1,8 @@
-import grpc
+from __future__ import annotations
 
-from lib.verbose_ai_logs import VERBOSE_AI_LOGS_HEADER, current_verbose_ai_logs_context
+import grpc
+from lib.verbose_ai_logs import (VERBOSE_AI_LOGS_HEADER,
+                                 current_verbose_ai_logs_context)
 
 
 class EnabledInstanceVerboseAiLogsInterceptor(grpc.aio.ServerInterceptor):

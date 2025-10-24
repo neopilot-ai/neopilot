@@ -1,15 +1,15 @@
+from __future__ import annotations
+
 import os
 from pathlib import Path
 from typing import Annotated, Optional, cast
 
 import typer
 from cef.datasets.base import PromptConfig
-from cef.datasets.generator import DatasetGenerator, LangGraphAdapter, ModelConfig
-from cef.datasets.serializers import (
-    DatasetSerializer,
-    JsonFileSerializer,
-    LangSmithSerializer,
-)
+from cef.datasets.generator import (DatasetGenerator, LangGraphAdapter,
+                                    ModelConfig)
+from cef.datasets.serializers import (DatasetSerializer, JsonFileSerializer,
+                                      LangSmithSerializer)
 from dependency_injector.wiring import Provide, inject
 from jinja2 import PackageLoader
 from jinja2.loaders import BaseLoader

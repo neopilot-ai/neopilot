@@ -1,26 +1,26 @@
+from __future__ import annotations
+
 from typing import ClassVar, Self
 
 import structlog
 from anthropic import APIStatusError
 from langchain_core.messages import AIMessage, ToolMessage
+from lib.internal_events import (InternalEventAdditionalProperties,
+                                 InternalEventsClient)
+from lib.internal_events.event_enum import (CategoryEnum, EventEnum,
+                                            EventPropertyEnum)
+from neoai_workflow_service.agent_platform.experimental.state import (
+    FlowState, FlowStateKeys, IOKey, get_vars_from_state)
+from neoai_workflow_service.errors.error_handler import (ModelError,
+                                                         ModelErrorHandler)
+from neoai_workflow_service.llm_factory import AnthropicStopReason
+from neoai_workflow_service.monitoring import neoai_workflow_metrics
+from neoai_workflow_service.token_counter.approximate_token_counter import \
+    ApproximateTokenCounter
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic_core import ValidationError
 
 from neopilot.ai_gateway.prompts import Prompt
-from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    FlowStateKeys,
-    IOKey,
-    get_vars_from_state,
-)
-from neoai_workflow_service.errors.error_handler import ModelError, ModelErrorHandler
-from neoai_workflow_service.llm_factory import AnthropicStopReason
-from neoai_workflow_service.monitoring import neoai_workflow_metrics
-from neoai_workflow_service.token_counter.approximate_token_counter import (
-    ApproximateTokenCounter,
-)
-from lib.internal_events import InternalEventAdditionalProperties, InternalEventsClient
-from lib.internal_events.event_enum import CategoryEnum, EventEnum, EventPropertyEnum
 
 __all__ = ["AgentNode", "AgentFinalOutput"]
 

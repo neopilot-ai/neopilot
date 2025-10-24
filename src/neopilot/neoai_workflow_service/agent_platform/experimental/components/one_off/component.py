@@ -1,38 +1,30 @@
+from __future__ import annotations
+
 from functools import partial
 from typing import Any, ClassVar, Optional
 
 from dependency_injector.wiring import Provide, inject
 from langchain_core.messages import HumanMessage
 from langgraph.graph import StateGraph
+from lib.internal_events import InternalEventsClient
+from neoai_workflow_service.agent_platform.experimental.components import (
+    BaseComponent, RouterProtocol, RoutingError, register_component)
+from neoai_workflow_service.agent_platform.experimental.components.agent.nodes import \
+    AgentNode
+from neoai_workflow_service.agent_platform.experimental.components.one_off.nodes.tool_node_with_error_correction import \
+    ToolNodeWithErrorCorrection
+from neoai_workflow_service.agent_platform.experimental.components.one_off.ui_log import (
+    UILogEventsOneOff, UILogWriterOneOffTools)
+from neoai_workflow_service.agent_platform.experimental.state import (
+    FlowState, FlowStateKeys, IOKeyTemplate)
+from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
+from neoai_workflow_service.tools import Toolset
 from pydantic import Field, model_validator
 
 from neopilot.ai_gateway.container import ContainerApplication
 from neopilot.ai_gateway.model_metadata import current_model_metadata_context
-from neopilot.ai_gateway.prompts import InMemoryPromptRegistry, LocalPromptRegistry
-from neoai_workflow_service.agent_platform.experimental.components import (
-    BaseComponent,
-    RouterProtocol,
-    RoutingError,
-    register_component,
-)
-from neoai_workflow_service.agent_platform.experimental.components.agent.nodes import (
-    AgentNode,
-)
-from neoai_workflow_service.agent_platform.experimental.components.one_off.nodes.tool_node_with_error_correction import (
-    ToolNodeWithErrorCorrection,
-)
-from neoai_workflow_service.agent_platform.experimental.components.one_off.ui_log import (
-    UILogEventsOneOff,
-    UILogWriterOneOffTools,
-)
-from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    FlowStateKeys,
-    IOKeyTemplate,
-)
-from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
-from neoai_workflow_service.tools import Toolset
-from lib.internal_events import InternalEventsClient
+from neopilot.ai_gateway.prompts import (InMemoryPromptRegistry,
+                                         LocalPromptRegistry)
 
 
 @register_component(decorators=[inject])

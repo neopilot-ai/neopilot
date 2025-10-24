@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Any, Optional, Union
@@ -5,16 +7,18 @@ from typing import Any, Optional, Union
 from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage
 from langchain_core.prompt_values import ChatPromptValue, PromptValue
 from langchain_core.runnables import Runnable, RunnableConfig
+from neoai_workflow_service.agents.base import BaseAgent
+from neoai_workflow_service.entities.state import ChatWorkflowState
+from neoai_workflow_service.gitlab.gitlab_api import Namespace, Project
+from neoai_workflow_service.gitlab.gitlab_service_context import \
+    GitLabServiceContext
+from neoai_workflow_service.slash_commands.goal_parser import \
+    parse as slash_command_parse
 
 from neopilot.ai_gateway.model_metadata import current_model_metadata_context
 from neopilot.ai_gateway.prompts import Prompt, jinja2_formatter
 from neopilot.ai_gateway.prompts.config.base import PromptConfig
 from neopilot.ai_gateway.prompts.config.models import ModelClassProvider
-from neoai_workflow_service.agents.base import BaseAgent
-from neoai_workflow_service.entities.state import ChatWorkflowState
-from neoai_workflow_service.gitlab.gitlab_api import Namespace, Project
-from neoai_workflow_service.gitlab.gitlab_service_context import GitLabServiceContext
-from neoai_workflow_service.slash_commands.goal_parser import parse as slash_command_parse
 
 
 class ChatAgentPromptTemplate(Runnable[ChatWorkflowState, PromptValue]):

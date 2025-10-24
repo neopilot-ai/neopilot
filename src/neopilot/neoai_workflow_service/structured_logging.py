@@ -1,21 +1,20 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import logging
 from contextvars import ContextVar
 from pathlib import Path
 from typing import Optional
 
 import structlog
+from neoai_workflow_service.interceptors.correlation_id_interceptor import (
+    correlation_id, gitlab_global_user_id)
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from structlog.dev import ConsoleRenderer
 from structlog.processors import JSONRenderer
 from structlog.typing import Processor
-
-from neoai_workflow_service.interceptors.correlation_id_interceptor import (
-    correlation_id,
-    gitlab_global_user_id,
-)
 
 _workflow_id: ContextVar[str] = ContextVar("workflow_id", default="undefined")
 

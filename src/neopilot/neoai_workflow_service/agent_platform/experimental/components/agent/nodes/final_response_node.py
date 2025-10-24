@@ -1,23 +1,16 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from langchain_core.messages import AIMessage, ToolMessage
-
-from neoai_workflow_service.agent_platform.experimental.components.agent.nodes.agent_node import (
-    AgentFinalOutput,
-)
-from neoai_workflow_service.agent_platform.experimental.components.agent.ui_log import (
-    UILogEventsAgent,
-)
+from neoai_workflow_service.agent_platform.experimental.components.agent.nodes.agent_node import \
+    AgentFinalOutput
+from neoai_workflow_service.agent_platform.experimental.components.agent.ui_log import \
+    UILogEventsAgent
 from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    FlowStateKeys,
-    IOKey,
-    create_nested_dict,
-)
+    FlowState, FlowStateKeys, IOKey, create_nested_dict)
 from neoai_workflow_service.agent_platform.experimental.ui_log import (
-    DefaultUILogWriter,
-    UIHistory,
-)
+    DefaultUILogWriter, UIHistory)
 
 __all__ = ["FinalResponseNode"]
 

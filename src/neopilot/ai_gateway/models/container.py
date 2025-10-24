@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import httpx
 from dependency_injector import containers, providers
 from google.cloud.aiplatform.gapic import PredictionServiceAsyncClient
@@ -7,19 +9,18 @@ from neopilot.ai_gateway.config import ConfigModelLimits
 from neopilot.ai_gateway.models import mock
 from neopilot.ai_gateway.models.agent_model import AgentModel
 from neopilot.ai_gateway.models.amazon_q import AmazonQModel
-from neopilot.ai_gateway.models.anthropic import AnthropicChatModel, AnthropicModel
-from neopilot.ai_gateway.models.base import grpc_connect_vertex, init_anthropic_client
-from neopilot.ai_gateway.models.litellm import LiteLlmChatModel, LiteLlmTextGenModel
-from neopilot.ai_gateway.models.vertex_text import (
-    PalmCodeBisonModel,
-    PalmCodeGeckoModel,
-    PalmTextBisonModel,
-)
-from neopilot.ai_gateway.proxy.clients import (
-    AnthropicProxyClient,
-    OpenAIProxyClient,
-    VertexAIProxyClient,
-)
+from neopilot.ai_gateway.models.anthropic import (AnthropicChatModel,
+                                                  AnthropicModel)
+from neopilot.ai_gateway.models.base import (grpc_connect_vertex,
+                                             init_anthropic_client)
+from neopilot.ai_gateway.models.litellm import (LiteLlmChatModel,
+                                                LiteLlmTextGenModel)
+from neopilot.ai_gateway.models.vertex_text import (PalmCodeBisonModel,
+                                                    PalmCodeGeckoModel,
+                                                    PalmTextBisonModel)
+from neopilot.ai_gateway.proxy.clients import (AnthropicProxyClient,
+                                               OpenAIProxyClient,
+                                               VertexAIProxyClient)
 
 __all__ = [
     "ContainerModels",

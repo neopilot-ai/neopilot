@@ -1,12 +1,11 @@
+from __future__ import annotations
+
 import functools
 import typing
 
 from fastapi import HTTPException, Request, status
-from gitlab_cloud_connector import (
-    FEATURE_CATEGORIES_FOR_PROXY_ENDPOINTS,
-    GitLabFeatureCategory,
-    GitLabUnitPrimitive,
-)
+from gitlab_cloud_connector import (FEATURE_CATEGORIES_FOR_PROXY_ENDPOINTS,
+                                    GitLabFeatureCategory, GitLabUnitPrimitive)
 from starlette_context import context
 
 X_GITLAB_UNIT_PRIMITIVE = "x-gitlab-unit-primitive"

@@ -1,19 +1,18 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 import structlog
 from langchain_core.messages import BaseMessage, HumanMessage, ToolMessage
 from langgraph.types import interrupt
-
 from neoai_workflow_service.entities import WorkflowEventType, WorkflowState
 from neoai_workflow_service.entities.event import WorkflowEvent
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    ToolStatus,
-    UiChatLog,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.internal_events.events_utils import track_workflow_event
+from neoai_workflow_service.entities.state import (MessageTypeEnum, ToolStatus,
+                                                   UiChatLog,
+                                                   WorkflowStatusEnum)
+from neoai_workflow_service.internal_events.events_utils import \
+    track_workflow_event
 
 log = structlog.get_logger("human_approval_check_executor")
 

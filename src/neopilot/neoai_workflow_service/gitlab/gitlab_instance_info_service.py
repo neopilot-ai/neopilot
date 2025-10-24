@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 import re
 from typing import Optional
 from urllib.parse import urlparse
 
 import structlog
-from pydantic import BaseModel
-
 from neoai_workflow_service.gitlab.gitlab_api import Namespace, Project
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import gitlab_version
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    gitlab_version
 from neoai_workflow_service.tracking.errors import log_exception
+from pydantic import BaseModel
 
 log = structlog.stdlib.get_logger(__name__)
 

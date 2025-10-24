@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import StrEnum
 from typing import AsyncIterator, Callable, Optional, Sequence, Union
 
@@ -5,18 +7,13 @@ from litellm import CustomStreamWrapper, ModelResponse, acompletion
 from litellm.exceptions import APIConnectionError, InternalServerError
 from openai import AsyncOpenAI
 
-from neopilot.ai_gateway.models.base import (
-    KindModelProvider,
-    ModelAPIError,
-    ModelMetadata,
-    TokensConsumptionMetadata,
-)
+from neopilot.ai_gateway.models.base import (KindModelProvider, ModelAPIError,
+                                             ModelMetadata,
+                                             TokensConsumptionMetadata)
 from neopilot.ai_gateway.models.base_chat import ChatModelBase, Message, Role
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.models.vertex_text import KindVertexTextModel
 from neopilot.ai_gateway.safety_attributes import SafetyAttributes
 from neopilot.ai_gateway.tracking import SnowplowEventContext

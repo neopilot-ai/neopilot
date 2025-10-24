@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from textwrap import dedent
 from typing import Any
@@ -5,10 +7,8 @@ from typing import Any
 import structlog
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command
-
-from neoai_workflow_service.token_counter.approximate_token_counter import (
-    ApproximateTokenCounter,
-)
+from neoai_workflow_service.token_counter.approximate_token_counter import \
+    ApproximateTokenCounter
 
 logger = structlog.get_logger("tools_executor")
 

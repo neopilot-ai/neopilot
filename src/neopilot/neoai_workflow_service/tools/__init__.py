@@ -1,11 +1,12 @@
 # flake8: noqa
 
+from __future__ import annotations
+
 from .audit_events import *
 from .ci_linter import *
 from .command import *
 from .commit import *
 from .documentation_search import *
-from .neoai_base_tool import format_tool_display_message
 from .epic import *
 from .filesystem import *
 from .findings import *
@@ -15,6 +16,7 @@ from .issue import *
 from .job import *
 from .mcp_tools import *
 from .merge_request import *
+from .neoai_base_tool import format_tool_display_message
 from .pipeline import *
 from .planner import *
 from .previous_context import *

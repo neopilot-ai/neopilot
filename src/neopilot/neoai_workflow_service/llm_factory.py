@@ -1,5 +1,7 @@
 # pylint: disable=direct-environment-variable-reference
 
+from __future__ import annotations
+
 import os
 from enum import Enum
 from typing import Literal, Optional, Union
@@ -9,10 +11,10 @@ from langchain_anthropic import ChatAnthropic
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_google_vertexai.model_garden import ChatAnthropicVertex
 from langsmith import tracing_context
+from neoai_workflow_service.tracking.errors import log_exception
 from pydantic import BaseModel, Field, field_validator
 
 from neopilot.ai_gateway.models import KindAnthropicModel
-from neoai_workflow_service.tracking.errors import log_exception
 
 
 class AnthropicStopReason(str, Enum):

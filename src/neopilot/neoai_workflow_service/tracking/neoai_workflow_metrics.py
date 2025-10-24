@@ -1,18 +1,20 @@
+from __future__ import annotations
+
 import time
 from contextvars import ContextVar
 from enum import StrEnum
 from typing import Optional
 
 import structlog
+from neoai_workflow_service.interceptors.client_type_interceptor import \
+    client_type
+from neoai_workflow_service.interceptors.gitlab_version_interceptor import \
+    gitlab_version
+from neoai_workflow_service.interceptors.language_server_version_interceptor import \
+    language_server_version
+from neoai_workflow_service.llm_factory import AnthropicStopReason
 from packaging.version import InvalidVersion, Version
 from prometheus_client import REGISTRY, Counter, Histogram
-
-from neoai_workflow_service.interceptors.client_type_interceptor import client_type
-from neoai_workflow_service.interceptors.gitlab_version_interceptor import gitlab_version
-from neoai_workflow_service.interceptors.language_server_version_interceptor import (
-    language_server_version,
-)
-from neoai_workflow_service.llm_factory import AnthropicStopReason
 
 session_type_context: ContextVar[Optional[str]] = ContextVar("session_type", default="unknown")
 

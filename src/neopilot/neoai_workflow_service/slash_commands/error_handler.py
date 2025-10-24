@@ -4,16 +4,15 @@ This module provides error handling mechanisms for slash commands, helping to re
 service.
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Dict, Optional
 
 import structlog
-
-from neoai_workflow_service.entities.state import (
-    MessageTypeEnum,
-    SlashCommandStatus,
-    UiChatLog,
-)
+from neoai_workflow_service.entities.state import (MessageTypeEnum,
+                                                   SlashCommandStatus,
+                                                   UiChatLog)
 
 # Setup logging
 log = structlog.stdlib.get_logger("slash_commands")

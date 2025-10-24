@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import json
 import logging
@@ -6,11 +8,10 @@ from urllib.parse import urlencode
 
 from contract import contract_pb2
 from neoai_workflow_service.executor.action import (
-    _execute_action,
-    _execute_action_and_get_action_response,
-)
+    _execute_action, _execute_action_and_get_action_response)
 from neoai_workflow_service.executor.outbox import Outbox
-from neoai_workflow_service.gitlab.http_client import GitlabHttpClient, GitLabHttpResponse
+from neoai_workflow_service.gitlab.http_client import (GitlabHttpClient,
+                                                       GitLabHttpResponse)
 
 logger = logging.getLogger(__name__)
 

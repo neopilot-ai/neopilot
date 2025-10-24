@@ -1,11 +1,11 @@
+from __future__ import annotations
+
 from typing import Any, AsyncIterator, Optional
 
 from neopilot.ai_gateway.models.base import ModelMetadata
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.prompts.base import Prompt
 from neopilot.ai_gateway.safety_attributes import SafetyAttributes
 

@@ -1,19 +1,18 @@
+from __future__ import annotations
+
 from typing import Any, Dict, Iterator, List, Optional
 
 from langchain_core.callbacks.manager import CallbackManagerForLLMRun
 from langchain_core.language_models.chat_models import BaseChatModel
-from langchain_core.messages import (
-    AIMessage,
-    AIMessageChunk,
-    BaseMessage,
-    HumanMessage,
-    SystemMessage,
-)
-from langchain_core.outputs import ChatGeneration, ChatGenerationChunk, ChatResult
+from langchain_core.messages import (AIMessage, AIMessageChunk, BaseMessage,
+                                     HumanMessage, SystemMessage)
+from langchain_core.outputs import (ChatGeneration, ChatGenerationChunk,
+                                    ChatResult)
 from pydantic import BaseModel
 
 from neopilot.ai_gateway.api.auth_utils import StarletteUser
-from neopilot.ai_gateway.integrations.amazon_q.client import AmazonQClientFactory
+from neopilot.ai_gateway.integrations.amazon_q.client import \
+    AmazonQClientFactory
 
 __all__ = [
     "ChatAmazonQ",

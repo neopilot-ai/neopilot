@@ -1,13 +1,11 @@
+from __future__ import annotations
+
 import json
 from typing import Dict, Type
 
-from pydantic import BaseModel, ValidationError
-
 from neoai_workflow_service.workflows.type_definitions import (
-    AdditionalContext,
-    OsInformationContext,
-    ShellInformationContext,
-)
+    AdditionalContext, OsInformationContext, ShellInformationContext)
+from pydantic import BaseModel, ValidationError
 
 _CONTEXT_REGISTRY: Dict[Type[BaseModel], str] = {
     OsInformationContext: "os_information_context",

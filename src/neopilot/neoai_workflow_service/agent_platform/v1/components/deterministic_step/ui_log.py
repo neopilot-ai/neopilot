@@ -1,20 +1,15 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from enum import auto
 from typing import Any, Optional
 
 from langchain_core.tools import BaseTool
+from neoai_workflow_service.agent_platform.v1.ui_log import (BaseUILogEvents,
+                                                             BaseUILogWriter)
+from neoai_workflow_service.entities import (MessageTypeEnum, ToolInfo,
+                                             ToolStatus, UiChatLog)
 from pydantic import BaseModel
-
-from neoai_workflow_service.agent_platform.v1.ui_log import (
-    BaseUILogEvents,
-    BaseUILogWriter,
-)
-from neoai_workflow_service.entities import (
-    MessageTypeEnum,
-    ToolInfo,
-    ToolStatus,
-    UiChatLog,
-)
 
 __all__ = ["UILogEventsDeterministicStep", "UILogWriterDeterministicStep"]
 

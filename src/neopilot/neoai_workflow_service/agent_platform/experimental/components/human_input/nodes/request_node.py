@@ -1,21 +1,17 @@
+from __future__ import annotations
+
 from typing import Any, Optional
 
 from langchain_core.messages import HumanMessage
+from neoai_workflow_service.agent_platform.experimental.components.human_input.ui_log import (
+    AgentLogWriter, UILogEventsHumanInput)
+from neoai_workflow_service.agent_platform.experimental.state import (
+    FlowState, FlowStateKeys, IOKey, get_vars_from_state)
+from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
+from neoai_workflow_service.entities.state import WorkflowStatusEnum
 from pydantic import BaseModel, model_validator
 
 from neopilot.ai_gateway.prompts import Prompt
-from neoai_workflow_service.agent_platform.experimental.components.human_input.ui_log import (
-    AgentLogWriter,
-    UILogEventsHumanInput,
-)
-from neoai_workflow_service.agent_platform.experimental.state import (
-    FlowState,
-    FlowStateKeys,
-    IOKey,
-    get_vars_from_state,
-)
-from neoai_workflow_service.agent_platform.experimental.ui_log import UIHistory
-from neoai_workflow_service.entities.state import WorkflowStatusEnum
 
 __all__ = ["RequestNode"]
 

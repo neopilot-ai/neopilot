@@ -1,31 +1,23 @@
+from __future__ import annotations
+
 from enum import StrEnum
 from typing import Any, AsyncIterator, Callable, Optional, Union
 
 import httpx
 import structlog
-from anthropic import (
-    APIConnectionError,
-    APIStatusError,
-    APITimeoutError,
-    AsyncAnthropic,
-    AsyncStream,
-)
+from anthropic import (APIConnectionError, APIStatusError, APITimeoutError,
+                       AsyncAnthropic, AsyncStream)
 from anthropic._types import NOT_GIVEN
 from anthropic.types import Completion, ContentBlockDeltaEvent
 from anthropic.types import Message as AnthropicMessage
 
-from neopilot.ai_gateway.models.base import (
-    KindModelProvider,
-    ModelAPICallError,
-    ModelAPIError,
-    ModelMetadata,
-)
+from neopilot.ai_gateway.models.base import (KindModelProvider,
+                                             ModelAPICallError, ModelAPIError,
+                                             ModelMetadata)
 from neopilot.ai_gateway.models.base_chat import ChatModelBase, Message, Role
-from neopilot.ai_gateway.models.base_text import (
-    TextGenModelBase,
-    TextGenModelChunk,
-    TextGenModelOutput,
-)
+from neopilot.ai_gateway.models.base_text import (TextGenModelBase,
+                                                  TextGenModelChunk,
+                                                  TextGenModelOutput)
 from neopilot.ai_gateway.safety_attributes import SafetyAttributes
 
 __all__ = [

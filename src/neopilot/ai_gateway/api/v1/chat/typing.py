@@ -1,14 +1,12 @@
+from __future__ import annotations
+
 from typing import Annotated, List, Literal, Optional, Union
 
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field, StringConstraints
 
-from neopilot.ai_gateway.models import (
-    KindAnthropicModel,
-    KindLiteLlmModel,
-    KindModelProvider,
-    Message,
-)
+from neopilot.ai_gateway.models import (KindAnthropicModel, KindLiteLlmModel,
+                                        KindModelProvider, Message)
 
 __all__ = ["ChatRequest", "ChatResponseMetadata", "ChatResponse", "StreamChatResponse"]
 

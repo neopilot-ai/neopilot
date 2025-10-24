@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Annotated, Any
@@ -6,25 +8,17 @@ from langchain_core.messages import AIMessage
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.constants import END
 from langgraph.graph import StateGraph
-
-from neoai_workflow_service.agents import (
-    HandoverAgent,
-    PlanTerminatorAgent,
-    RunToolNode,
-    ToolsExecutor,
-)
-from neoai_workflow_service.components import ToolsApprovalComponent, ToolsRegistry
+from neoai_workflow_service.agents import (HandoverAgent, PlanTerminatorAgent,
+                                           RunToolNode, ToolsExecutor)
+from neoai_workflow_service.components import (ToolsApprovalComponent,
+                                               ToolsRegistry)
 from neoai_workflow_service.components.executor import ExecutorComponent
 from neoai_workflow_service.components.planner import PlannerComponent
-from neoai_workflow_service.entities import (
-    MessageTypeEnum,
-    Plan,
-    ToolStatus,
-    UiChatLog,
-    WorkflowState,
-    WorkflowStatusEnum,
-)
-from neoai_workflow_service.gitlab.url_parser import GitLabUrlParseError, GitLabUrlParser
+from neoai_workflow_service.entities import (MessageTypeEnum, Plan, ToolStatus,
+                                             UiChatLog, WorkflowState,
+                                             WorkflowStatusEnum)
+from neoai_workflow_service.gitlab.url_parser import (GitLabUrlParseError,
+                                                      GitLabUrlParser)
 from neoai_workflow_service.tools.handover import HandoverTool
 from neoai_workflow_service.tracking import log_exception
 from neoai_workflow_service.workflows.abstract_workflow import AbstractWorkflow

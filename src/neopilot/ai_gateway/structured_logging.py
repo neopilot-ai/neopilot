@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 import logging
 import sys
@@ -7,12 +9,12 @@ import litellm
 import structlog
 from asgi_correlation_id import CorrelationIdMiddleware
 from fastapi import FastAPI
+from lib.feature_flags import FeatureFlag, is_feature_enabled
+from lib.verbose_ai_logs import enabled_instance_verbose_ai_logs
 from structlog.types import EventDict, Processor
 
 from neopilot.ai_gateway.config import ConfigLogging
 from neopilot.ai_gateway.model_metadata import ModelMetadata
-from lib.feature_flags import FeatureFlag, is_feature_enabled
-from lib.verbose_ai_logs import enabled_instance_verbose_ai_logs
 
 access_logger = structlog.stdlib.get_logger("api.access")
 ENABLE_REQUEST_LOGGING = False

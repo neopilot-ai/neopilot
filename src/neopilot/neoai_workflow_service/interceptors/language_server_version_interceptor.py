@@ -1,10 +1,13 @@
-import grpc
+from __future__ import annotations
 
-from neopilot.ai_gateway.code_suggestions.language_server import LanguageServerVersion
-from neoai_workflow_service.interceptors import X_GITLAB_LANGUAGE_SERVER_VERSION
-from neoai_workflow_service.tracking.language_server_context import (
-    language_server_version,
-)
+import grpc
+from neoai_workflow_service.interceptors import \
+    X_GITLAB_LANGUAGE_SERVER_VERSION
+from neoai_workflow_service.tracking.language_server_context import \
+    language_server_version
+
+from neopilot.ai_gateway.code_suggestions.language_server import \
+    LanguageServerVersion
 
 
 class LanguageServerVersionInterceptor(grpc.aio.ServerInterceptor):
