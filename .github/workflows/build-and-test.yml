@@ -78,7 +78,7 @@ jobs:
           name: codecov-umbrella
       
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: test-results-${{ matrix.python-version }}
@@ -157,7 +157,7 @@ jobs:
         run: uv run bandit -r src/ -f json -o bandit-report.json
       
       - name: Upload security report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: security-report
